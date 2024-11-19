@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
+import 'package:tct/globals/global_variables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/constants_ui.dart';
 
 class CompressorMapQueryPage extends StatefulWidget {
   final bool metricUnit;
@@ -84,34 +83,31 @@ class _CompressorMapQueryPageState extends State<CompressorMapQueryPage> {
             children: <Widget>[
               compressorMapQueryFlag
                   ? Row(
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(height: 50.0, width: 50.0),
-                      Text(
-                        compressorMaps['brand'],
-                        style: kSecondSubjectTextStyle,
-                      ),
-                      Text(
-                        compressorMaps['turbo'],
-                        style: kSecondSubjectTextStyle,
-                      ),
-                      Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        //height: 200.0,
-                        child: Image.network(
-                          compressorMaps['imageMap'],
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              )
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(height: 50.0, width: 50.0),
+                            Text(
+                              compressorMaps['brand'],
+                              style: kSecondSubjectTextStyle,
+                            ),
+                            Text(
+                              compressorMaps['turbo'],
+                              style: kSecondSubjectTextStyle,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              //height: 200.0,
+                              child: Image.network(
+                                compressorMaps['imageMap'],
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
                   : Text('Loading ...shit shit shit'),
 
 //            Text(

@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
+import 'package:tct/globals/global_variables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/constants_ui.dart';
 
 class CompressorMapPage extends StatefulWidget {
   final bool metricUnit;
@@ -64,15 +63,12 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot myCompressor =
-                    snapshot.data.documents[index];
+                        snapshot.data.documents[index];
                     return Stack(
                       children: <Widget>[
                         Center(
                           child: Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width - 20,
+                            width: MediaQuery.of(context).size.width - 20,
                             //height: 350.0,
                             child: Padding(
                               padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
@@ -87,10 +83,7 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
                                       children: <Widget>[
                                         Container(
                                           width:
-                                          MediaQuery
-                                              .of(context)
-                                              .size
-                                              .width,
+                                              MediaQuery.of(context).size.width,
                                           //height: 200.0,
                                           child: Image.network(
                                             '${myCompressor['imageMap']}',
@@ -100,7 +93,7 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
                                         SizedBox(height: 10.0),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                              MainAxisAlignment.spaceAround,
                                           children: <Widget>[
                                             Container(
                                               child: Text(
@@ -132,16 +125,16 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
                                             child: Column(
                                               children: <Widget>[
                                                 Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     'TCT are currently pre-viewing a small collection of compressor maps. Later in 2020 when the needed Airflow/Pr-calculations are in place, we will add a lot more compressor maps, and a "search function" to help you find the right turbo and related compressor maps for your project. TurboCharger Tuning is not affiliated with any company behind those maps.',
                                                     style: TextStyle(
-                                                        fontStyle: FontStyle
-                                                            .italic,
+                                                        fontStyle:
+                                                            FontStyle.italic,
                                                         color: Colors.black),
                                                     textScaleFactor:
-                                                    textScaleFactorTc * 0.8,
+                                                        textScaleFactorTc * 0.8,
                                                   ),
                                                 ),
                                               ],

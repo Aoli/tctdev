@@ -1,17 +1,16 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../components/reusable_card.dart';
 import '../globals/constant.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Turbocharger/globals/calculator_brain.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/calculator_brain.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class TurbinePage extends StatefulWidget {
   final bool metricUnit;
@@ -68,15 +67,14 @@ class _TurbinePageState extends State<TurbinePage> {
             inducerTurbineValue * kConvertLengthInchToMillimeter;
         inducerTurbineDisplay = inducerTurbineValue.toStringAsFixed(2);
         pressureTurbineDisplay =
-            (pressureTurbineResult * kConvertPressureBarToPsi).toStringAsFixed(
-                2);
+            (pressureTurbineResult * kConvertPressureBarToPsi)
+                .toStringAsFixed(2);
         sliderDivisions = 550;
         sliderDivisionInducerExducer = 53;
       }
       resetValues(metricUnit);
     });
   }
-
 
   @override
   void setState(fn) {
@@ -116,8 +114,7 @@ class _TurbinePageState extends State<TurbinePage> {
           icon: Icon(Icons.info_outline),
           color: Colors.red.shade900,
           onPressed: () {
-            _scaffoldKey.currentState
-                .showSnackBar(snackBar);
+            _scaffoldKey.currentState.showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Turbine'};
@@ -129,8 +126,7 @@ class _TurbinePageState extends State<TurbinePage> {
     return Text('');
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-  new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final snackBar = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -214,12 +210,11 @@ class _TurbinePageState extends State<TurbinePage> {
                               Duration(milliseconds: tapTime), (t) {
                             setState(() {
                               if (Decimal.parse(
-                                  inducerTurbineValue.toStringAsFixed(2)) >
+                                      inducerTurbineValue.toStringAsFixed(2)) >
                                   Decimal.parse(
                                       vMinInducerValue.toStringAsFixed(2))) {
-                                inducerTurbineValue =
-                                    inducerTurbineValue -
-                                        stepValueCompressorTurbine;
+                                inducerTurbineValue = inducerTurbineValue -
+                                    stepValueCompressorTurbine;
 
                                 trimTurbineResult =
                                     calculateWithBrain.calculateTurbineTrim(
@@ -244,12 +239,11 @@ class _TurbinePageState extends State<TurbinePage> {
                         onStep: () {
                           setState(() {
                             if (Decimal.parse(
-                                inducerTurbineValue.toStringAsFixed(2)) >
+                                    inducerTurbineValue.toStringAsFixed(2)) >
                                 Decimal.parse(
                                     vMinInducerValue.toStringAsFixed(2))) {
-                              inducerTurbineValue =
-                                  inducerTurbineValue -
-                                      stepValueCompressorTurbine;
+                              inducerTurbineValue = inducerTurbineValue -
+                                  stepValueCompressorTurbine;
 
                               trimTurbineResult =
                                   calculateWithBrain.calculateTurbineTrim(
@@ -297,8 +291,8 @@ class _TurbinePageState extends State<TurbinePage> {
                                           exducerTurbineValue);
                                   pressureTurbineResult = calculateWithBrain
                                       .calculateTurbinePressure(
-                                      inducerTurbineValue,
-                                      exducerTurbineValue);
+                                          inducerTurbineValue,
+                                          exducerTurbineValue);
                                 });
                               }),
                         ),
@@ -311,12 +305,11 @@ class _TurbinePageState extends State<TurbinePage> {
                               Duration(milliseconds: tapTime), (t) {
                             setState(() {
                               if (Decimal.parse(
-                                  inducerTurbineValue.toStringAsFixed(2)) <
+                                      inducerTurbineValue.toStringAsFixed(2)) <
                                   Decimal.parse(
                                       vMaxInducerValue.toStringAsFixed(2))) {
-                                inducerTurbineValue =
-                                    inducerTurbineValue +
-                                        stepValueCompressorTurbine;
+                                inducerTurbineValue = inducerTurbineValue +
+                                    stepValueCompressorTurbine;
 
                                 trimTurbineResult =
                                     calculateWithBrain.calculateTurbineTrim(
@@ -341,12 +334,11 @@ class _TurbinePageState extends State<TurbinePage> {
                         onStep: () {
                           setState(() {
                             if (Decimal.parse(
-                                inducerTurbineValue.toStringAsFixed(2)) <
+                                    inducerTurbineValue.toStringAsFixed(2)) <
                                 Decimal.parse(
                                     vMaxInducerValue.toStringAsFixed(2))) {
-                              inducerTurbineValue =
-                                  inducerTurbineValue +
-                                      stepValueCompressorTurbine;
+                              inducerTurbineValue = inducerTurbineValue +
+                                  stepValueCompressorTurbine;
 
                               trimTurbineResult =
                                   calculateWithBrain.calculateTurbineTrim(
@@ -515,12 +507,11 @@ class _TurbinePageState extends State<TurbinePage> {
                               Duration(milliseconds: tapTime), (t) {
                             setState(() {
                               if ((Decimal.parse(
-                                  exducerTurbineValue.toStringAsFixed(2)) >
+                                      exducerTurbineValue.toStringAsFixed(2)) >
                                   (Decimal.parse(
                                       vMinExducerValue.toStringAsFixed(2))))) {
-                                exducerTurbineValue =
-                                    exducerTurbineValue -
-                                        stepValueCompressorTurbine;
+                                exducerTurbineValue = exducerTurbineValue -
+                                    stepValueCompressorTurbine;
 
                                 trimTurbineResult =
                                     calculateWithBrain.calculateTurbineTrim(
@@ -545,12 +536,11 @@ class _TurbinePageState extends State<TurbinePage> {
                         onStep: () {
                           setState(() {
                             if ((Decimal.parse(
-                                exducerTurbineValue.toStringAsFixed(2)) >
+                                    exducerTurbineValue.toStringAsFixed(2)) >
                                 (Decimal.parse(
                                     vMinExducerValue.toStringAsFixed(2))))) {
-                              exducerTurbineValue =
-                                  exducerTurbineValue -
-                                      stepValueCompressorTurbine;
+                              exducerTurbineValue = exducerTurbineValue -
+                                  stepValueCompressorTurbine;
 
                               trimTurbineResult =
                                   calculateWithBrain.calculateTurbineTrim(
@@ -595,8 +585,8 @@ class _TurbinePageState extends State<TurbinePage> {
                                           exducerTurbineValue);
                                   pressureTurbineResult = calculateWithBrain
                                       .calculateTurbinePressure(
-                                      inducerTurbineValue,
-                                      exducerTurbineValue);
+                                          inducerTurbineValue,
+                                          exducerTurbineValue);
                                 });
                               }),
                         ),
@@ -613,12 +603,11 @@ class _TurbinePageState extends State<TurbinePage> {
                               Duration(milliseconds: tapTime), (t) {
                             setState(() {
                               if ((Decimal.parse(
-                                  exducerTurbineValue.toStringAsFixed(2)) <
+                                      exducerTurbineValue.toStringAsFixed(2)) <
                                   (Decimal.parse(
                                       vMaxExducerValue.toStringAsFixed(2))))) {
-                                exducerTurbineValue =
-                                    exducerTurbineValue +
-                                        stepValueCompressorTurbine;
+                                exducerTurbineValue = exducerTurbineValue +
+                                    stepValueCompressorTurbine;
 
                                 trimTurbineResult =
                                     calculateWithBrain.calculateTurbineTrim(
@@ -643,12 +632,11 @@ class _TurbinePageState extends State<TurbinePage> {
                         onStep: () {
                           setState(() {
                             if ((Decimal.parse(
-                                exducerTurbineValue.toStringAsFixed(2)) <
+                                    exducerTurbineValue.toStringAsFixed(2)) <
                                 (Decimal.parse(
                                     vMaxExducerValue.toStringAsFixed(2))))) {
-                              exducerTurbineValue =
-                                  exducerTurbineValue +
-                                      stepValueCompressorTurbine;
+                              exducerTurbineValue = exducerTurbineValue +
+                                  stepValueCompressorTurbine;
 
                               trimTurbineResult =
                                   calculateWithBrain.calculateTurbineTrim(
@@ -675,110 +663,108 @@ class _TurbinePageState extends State<TurbinePage> {
           ), //Turbo-Size
           Expanded(
               child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ReusableCard(
-                      cardChild: Column(
+            children: <Widget>[
+              Expanded(
+                child: ReusableCard(
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(' ',
+                          style: kLabelTextStyle,
+                          textScaleFactor: textScaleFactorTc),
+                      Text('TRIM',
+                          style: kLabelTextStyleLarge,
+                          textScaleFactor: textScaleFactorTc),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(' ',
-                              style: kLabelTextStyle,
+                          Text(trimTurbineResult.toStringAsFixed(0),
+                              style: kResultNumberStyleWhite18_600,
                               textScaleFactor: textScaleFactorTc),
-                          Text('TRIM',
-                              style: kLabelTextStyleLarge,
-                              textScaleFactor: textScaleFactorTc),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(trimTurbineResult.toStringAsFixed(0),
-                                  style: kResultNumberStyleWhite18_600,
-                                  textScaleFactor: textScaleFactorTc),
-                            ],
+                        ],
+                      ),
+                    ],
+                  ),
+                  colour: kActiveCardColourOutput,
+                ),
+              ),
+              Expanded(
+                child: ReusableCard(
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('BACK',
+                          style: kLabelTextStyleLarge,
+                          textScaleFactor: textScaleFactorTc),
+                      Text('PRESSURE',
+                          style: kLabelTextStyleLarge,
+                          textScaleFactor: textScaleFactorTc),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.center,
+                            width: kResultNumberBigWidth,
+                            child: Text(pressureTurbineDisplay,
+                                style: kResultNumberStyleWhite18_600,
+                                textScaleFactor: textScaleFactorTc),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            width: kResultUnitWidth,
+                            child: Text(pressureUnitValue,
+                                style: kUnitTextStyleAirflow,
+                                textScaleFactor: textScaleFactorTc),
                           ),
                         ],
                       ),
-                      colour: kActiveCardColourOutput,
-                    ),
+                    ],
                   ),
-                  Expanded(
-                    child: ReusableCard(
-                      cardChild: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text('BACK',
-                              style: kLabelTextStyleLarge,
-                              textScaleFactor: textScaleFactorTc),
-                          Text('PRESSURE',
-                              style: kLabelTextStyleLarge,
-                              textScaleFactor: textScaleFactorTc),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                alignment: Alignment.center,
-                                width: kResultNumberBigWidth,
-                                child: Text(pressureTurbineDisplay,
-                                    style: kResultNumberStyleWhite18_600,
-                                    textScaleFactor: textScaleFactorTc),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                width: kResultUnitWidth,
-                                child: Text(pressureUnitValue,
-                                    style: kUnitTextStyleAirflow,
-                                    textScaleFactor: textScaleFactorTc),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      colour: kActiveCardColourOutput,
-                    ),
-                  ),
-                ],
-              )),
+                  colour: kActiveCardColourOutput,
+                ),
+              ),
+            ],
+          )),
           ReusableCard(
             colour: kActiveCardColourInput,
-            cardChild: (
-                Container(
-                  child: Row(
+            cardChild: (Container(
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      Row(
                         children: <Widget>[
-                          Row(
+                          Column(
                             children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Text(
-                                    'Inch',
-                                    style: kLabelTextStyle,
-                                    textScaleFactor: textScaleFactorTc,
-                                  ),
-                                  Text(
-                                    'psi',
-                                    style: kLabelTextStyle,
-                                    textScaleFactor: textScaleFactorTc,
-                                  ),
-                                ],
+                              Text(
+                                'Inch',
+                                style: kLabelTextStyle,
+                                textScaleFactor: textScaleFactorTc,
                               ),
-                              SizedBox(width: 6),
-                              Container(
-                                child: Switch.adaptive(
-                                  value: metricUnit,
-                                  activeColor:
-                                  vEngineSizeSwitchActiveColor,
-                                  activeTrackColor:
+                              Text(
+                                'psi',
+                                style: kLabelTextStyle,
+                                textScaleFactor: textScaleFactorTc,
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 6),
+                          Container(
+                            child: Switch.adaptive(
+                              value: metricUnit,
+                              activeColor: vEngineSizeSwitchActiveColor,
+                              activeTrackColor:
                                   vEngineSizeSwitchInActiveThumbColor,
-                                  inactiveTrackColor:
+                              inactiveTrackColor:
                                   vEngineSizeSwitchActiveTrackColor,
-                                  inactiveThumbColor:
+                              inactiveThumbColor:
                                   vEngineSizeSwitchInActiveTrackColor,
 
-                                  //secondary: Icon(Icons.linear_scale),
-                                  onChanged: _onChangedUnitSwitch,
-                                  // contentPadding: EdgeInsets.only(
-                                  // left: 17.0, top: 0.0, right: 17.0, bottom: 0.0),
+                              //secondary: Icon(Icons.linear_scale),
+                              onChanged: _onChangedUnitSwitch,
+                              // contentPadding: EdgeInsets.only(
+                              // left: 17.0, top: 0.0, right: 17.0, bottom: 0.0),
 //                  title: Column(
 //                    crossAxisAlignment: CrossAxisAlignment.start,
 //                    children: <Widget>[
@@ -796,40 +782,38 @@ class _TurbinePageState extends State<TurbinePage> {
 //                      ),
 //                    ],
 //                  ),
-                                ),
-                              ),
-                              SizedBox(width: 6),
-                              Column(
-                                children: <Widget>[
-                                  Text(
-                                    'mm',
-                                    style: kLabelTextStyle,
-                                    textScaleFactor: textScaleFactorTc,
-                                  ),
-                                  Text(
-                                    'bar',
-                                    style: kLabelTextStyle,
-                                    textScaleFactor: textScaleFactorTc,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 20,
+                            ),
+                          ),
+                          SizedBox(width: 6),
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                'mm',
+                                style: kLabelTextStyle,
+                                textScaleFactor: textScaleFactorTc,
                               ),
                               Text(
-                                '(Switch will reset the values to default)',
-                                style: kBodyItalicTextStyle,
-                                textScaleFactor:
-                                textScaleFactorTc * 0.8,
+                                'bar',
+                                style: kLabelTextStyle,
+                                textScaleFactor: textScaleFactorTc,
                               ),
                             ],
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            '(Switch will reset the values to default)',
+                            style: kBodyItalicTextStyle,
+                            textScaleFactor: textScaleFactorTc * 0.8,
                           ),
                         ],
                       ),
                     ],
                   ),
-                )
-            ),
+                ],
+              ),
+            )),
           )
 
           //Inch and Info
@@ -845,7 +829,6 @@ class _TurbinePageState extends State<TurbinePage> {
         vMaxInducerValue = kMaxTurbineInducerMetric;
         vMinExducerValue = kMinTurbineExducerMetric;
         vMaxExducerValue = kMaxTurbineExducerMetric;
-
 
         unitValue = unitLengthMillimeter;
         pressureUnitValue = unitPressureBar;
@@ -866,7 +849,6 @@ class _TurbinePageState extends State<TurbinePage> {
         vMaxInducerValue = kMaxTurbineInducerImperial;
         vMinExducerValue = kMinTurbineExducerImperial;
         vMaxExducerValue = kMaxTurbineExducerImperial;
-
 
         unitValue = unitLengthInch;
         pressureUnitValue = unitPressurePsi;

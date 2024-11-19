@@ -1,16 +1,15 @@
 import 'dart:async';
 
-import 'package:Turbocharger/components/stepbutton.dart';
+import 'package:tct/components/stepbutton.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../components/reusable_card.dart';
 import '../globals/constant.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Turbocharger/globals/calculator_brain.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/calculator_brain.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class BasicCompressorPage extends StatefulWidget {
   final bool metricUnit;
@@ -40,7 +39,6 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
       vMinInducerValue = kMinCompressorInducerMetric;
       vMaxInducerValue = kMaxCompressorInducerMetric;
       //stepValue = stepValueMillimeter;
-
 
       unitValue = unitLengthMillimeter;
       //inducerCompressorValue = inducerCompressorMetric;
@@ -88,7 +86,8 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
           ),
           Text(
             kSnackBarDevelopmentInfo,
-            style: kSnackBarTextStyle, textScaleFactor: textScaleFactorTc,
+            style: kSnackBarTextStyle,
+            textScaleFactor: textScaleFactorTc,
           ),
         ],
       ),
@@ -149,7 +148,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                       children: <Widget>[
                         Padding(
                           padding:
-                          const EdgeInsets.fromLTRB(40.0, 0.0, 40.0, 0.0),
+                              const EdgeInsets.fromLTRB(40.0, 0.0, 40.0, 0.0),
                           child: Text(
                               'Max horsepower based on compressor inducer size',
                               style: kLabelTextStyle,
@@ -172,7 +171,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                       Duration(milliseconds: tapTime), (t) {
                                     setState(() {
                                       if (Decimal.parse(inducerCompressorValue
-                                          .toStringAsFixed(2)) >
+                                              .toStringAsFixed(2)) >
                                           Decimal.parse(vMinInducerValue
                                               .toStringAsFixed(2))) {
                                         inducerCompressorValue =
@@ -202,8 +201,8 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                                 exducerCompressorValue);
                                         pressureCompressorResult = calculate
                                             .calculateCompressorPressure(
-                                            inducerCompressorValue,
-                                            exducerCompressorValue);
+                                                inducerCompressorValue,
+                                                exducerCompressorValue);
                                         print('stepDirection - $stepDirection');
                                         print(
                                             'inducerCompressorValueStepA $inducerCompressorValue');
@@ -219,7 +218,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                 onStep: () {
                                   setState(() {
                                     if (Decimal.parse(inducerCompressorValue
-                                        .toStringAsFixed(2)) >
+                                            .toStringAsFixed(2)) >
                                         Decimal.parse(vMinInducerValue
                                             .toStringAsFixed(2))) {
                                       inducerCompressorValue =
@@ -276,8 +275,8 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                     Text(inducerCompressorDisplay.toString(),
                                         style: kResultNumberStyleWhite18_600,
                                         textScaleFactor: textScaleFactorTc
-                                      //hpCalculate(inducerCompressor).toString(),
-                                    ),
+                                        //hpCalculate(inducerCompressor).toString(),
+                                        ),
                                   ],
                                 ),
                               ),
@@ -301,7 +300,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                       Duration(milliseconds: tapTime), (t) {
                                     setState(() {
                                       if (Decimal.parse(inducerCompressorValue
-                                          .toStringAsFixed(1)) <
+                                              .toStringAsFixed(1)) <
                                           Decimal.parse(vMaxInducerValue
                                               .toStringAsFixed(1))) {
                                         inducerCompressorValue =
@@ -319,8 +318,8 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                                 exducerCompressorValue);
                                         pressureCompressorResult = calculate
                                             .calculateCompressorPressure(
-                                            inducerCompressorValue,
-                                            exducerCompressorValue);
+                                                inducerCompressorValue,
+                                                exducerCompressorValue);
                                         print('stepDirection + $stepDirection');
                                         print(
                                             'inducerCompressorValueStepB $inducerCompressorValue');
@@ -336,7 +335,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                 onStep: () {
                                   setState(() {
                                     if (Decimal.parse(inducerCompressorValue
-                                        .toStringAsFixed(1)) <
+                                            .toStringAsFixed(1)) <
                                         Decimal.parse(vMaxInducerValue
                                             .toStringAsFixed(1))) {
                                       inducerCompressorValue =
@@ -524,7 +523,6 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
         vMaxInducerValue = kMaxCompressorInducerMetric;
         vMinExducerValue = kMinCompressorExducerMetric;
         vMaxExducerValue = kMaxCompressorExducerMetric;
-
 
         unitValue = unitLengthMillimeter;
         pressureUnitValue = unitPressureBar;

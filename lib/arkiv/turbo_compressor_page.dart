@@ -1,20 +1,19 @@
 import 'dart:async';
 
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/provider/settings_provider.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/provider/settings_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/reusable_card.dart';
 import '../globals/constant.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Turbocharger/globals/calculator_brain.dart';
+import 'package:tct/globals/calculator_brain.dart';
 import 'package:decimal/decimal.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class CompressorPage extends StatefulWidget {
   final bool metricUnit;
@@ -29,7 +28,9 @@ class CompressorPage extends StatefulWidget {
 class _CompressorPageState extends State<CompressorPage> {
   bool metricUnit;
 
-  _CompressorPageState(this.metricUnit);
+  _CompressorPageState(this.metricUnit) {
+    petrolTurboCalc = 0.0;
+  }
 
   //bool metricUnit = false;
   bool snackbarEnable = true;
@@ -39,7 +40,6 @@ class _CompressorPageState extends State<CompressorPage> {
 
     setState(() {
       print('Anders');
-
 
       resetValues(metricUnit);
       metricUnit = value;
@@ -108,7 +108,6 @@ class _CompressorPageState extends State<CompressorPage> {
       vMinExducerValue = kMinCompressorExducerImperial;
       vMaxExducerValue = kMaxCompressorExducerImperial;
 
-
       unitValue = unitLengthInch;
       pressureUnitValue = unitPressurePsi;
 
@@ -130,18 +129,16 @@ class _CompressorPageState extends State<CompressorPage> {
   void initState() {
     super.initState();
 
-
     resetValues(metricUnit);
   }
 
   Widget get submitRatingButton {
     if (inducerCompressorValue > exducerCompressorValue) {
       return IconButton(
-        icon: Icon(Icons.info_outline),
-        color: Colors.red.shade900,
+          icon: Icon(Icons.info_outline),
+          color: Colors.red.shade900,
           onPressed: () {
-            _scaffoldKey.currentState
-                .showSnackBar(snackBar);
+            _scaffoldKey.currentState.showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Airflow HP RPM'};
@@ -153,8 +150,7 @@ class _CompressorPageState extends State<CompressorPage> {
     return Text('');
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-  new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final snackBar = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -242,7 +238,7 @@ class _CompressorPageState extends State<CompressorPage> {
                                 Duration(milliseconds: tapTime), (t) {
                               setState(() {
                                 if (Decimal.parse(inducerCompressorValue
-                                    .toStringAsFixed(2)) >
+                                        .toStringAsFixed(2)) >
                                     Decimal.parse(
                                         vMinInducerValue.toStringAsFixed(2))) {
                                   inducerCompressorValue =
@@ -285,7 +281,7 @@ class _CompressorPageState extends State<CompressorPage> {
                           onStep: () {
                             setState(() {
                               if (Decimal.parse(inducerCompressorValue
-                                  .toStringAsFixed(2)) >
+                                      .toStringAsFixed(2)) >
                                   Decimal.parse(
                                       vMinInducerValue.toStringAsFixed(2))) {
                                 inducerCompressorValue =
@@ -343,7 +339,7 @@ class _CompressorPageState extends State<CompressorPage> {
                                 min: vMinInducerValue * 0.99,
                                 max: vMaxInducerValue * 1.02,
                                 label:
-                                inducerCompressorValue.toStringAsFixed(2),
+                                    inducerCompressorValue.toStringAsFixed(2),
                                 inactiveColor: Color(0xFF8D8E89),
                                 divisions: sliderDivisionInducerExducer,
                                 onChanged: (double newInducerCompressorValue) {
@@ -376,7 +372,7 @@ class _CompressorPageState extends State<CompressorPage> {
                                 Duration(milliseconds: tapTime), (t) {
                               setState(() {
                                 if (Decimal.parse(inducerCompressorValue
-                                    .toStringAsFixed(2)) <
+                                        .toStringAsFixed(2)) <
                                     Decimal.parse(
                                         vMaxInducerValue.toStringAsFixed(2))) {
                                   inducerCompressorValue =
@@ -409,7 +405,7 @@ class _CompressorPageState extends State<CompressorPage> {
                           onStep: () {
                             setState(() {
                               if (Decimal.parse(inducerCompressorValue
-                                  .toStringAsFixed(2)) <
+                                      .toStringAsFixed(2)) <
                                   Decimal.parse(
                                       vMaxInducerValue.toStringAsFixed(2))) {
                                 inducerCompressorValue =
@@ -590,7 +586,7 @@ class _CompressorPageState extends State<CompressorPage> {
                                 Duration(milliseconds: tapTime), (t) {
                               setState(() {
                                 if ((Decimal.parse(exducerCompressorValue
-                                    .toStringAsFixed(2)) >
+                                        .toStringAsFixed(2)) >
                                     (Decimal.parse(vMinExducerValue
                                         .toStringAsFixed(2))))) {
                                   exducerCompressorValue =
@@ -620,7 +616,7 @@ class _CompressorPageState extends State<CompressorPage> {
                           onStep: () {
                             setState(() {
                               if ((Decimal.parse(exducerCompressorValue
-                                  .toStringAsFixed(2)) >
+                                      .toStringAsFixed(2)) >
                                   (Decimal.parse(
                                       vMinExducerValue.toStringAsFixed(2))))) {
                                 exducerCompressorValue =
@@ -662,7 +658,7 @@ class _CompressorPageState extends State<CompressorPage> {
                                 min: vMinExducerValue * 0.99,
                                 max: vMaxExducerValue * 1.01,
                                 label:
-                                exducerCompressorValue.toStringAsFixed(2),
+                                    exducerCompressorValue.toStringAsFixed(2),
                                 inactiveColor: Color(0xFF8D8E89),
                                 divisions: sliderDivisionInducerExducer,
                                 onChanged: (double newValue) {
@@ -701,7 +697,7 @@ class _CompressorPageState extends State<CompressorPage> {
                                 print(
                                     'exducerCompressorValueA $exducerCompressorValue');
                                 if ((Decimal.parse(exducerCompressorValue
-                                    .toStringAsFixed(2)) <
+                                        .toStringAsFixed(2)) <
                                     (Decimal.parse(vMaxExducerValue
                                         .toStringAsFixed(2))))) {
                                   exducerCompressorValue =
@@ -731,7 +727,7 @@ class _CompressorPageState extends State<CompressorPage> {
                           onStep: () {
                             setState(() {
                               if ((Decimal.parse(exducerCompressorValue
-                                  .toStringAsFixed(2)) <
+                                      .toStringAsFixed(2)) <
                                   (Decimal.parse(
                                       vMaxExducerValue.toStringAsFixed(2))))) {
                                 exducerCompressorValue =
@@ -767,144 +763,144 @@ class _CompressorPageState extends State<CompressorPage> {
             ), //Turbo-Size
             Expanded(
                 child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: ReusableCard(
-                        colour: kActiveCardColourOutput,
-                        cardChild: Column(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(
+                    colour: kActiveCardColourOutput,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(' ',
+                            style: kLabelTextStyleLarge,
+                            textScaleFactor: textScaleFactorTc),
+                        Text('TRIM',
+                            style: kLabelTextStyleLarge,
+                            textScaleFactor: textScaleFactorTc),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text(' ',
-                                style: kLabelTextStyleLarge,
+                            Text(
+                                //(100 *
+                                //      ((pow(inducerCompressor, 2)) /
+                                //        (pow(exducerCompressor, 2))))
+                                trimCompressorResult.toStringAsFixed(0),
+                                //weight.toString(),
+                                style: kResultNumberStyleWhite18_600,
                                 textScaleFactor: textScaleFactorTc),
-                            Text('TRIM',
-                                style: kLabelTextStyleLarge,
-                                textScaleFactor: textScaleFactorTc),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  //(100 *
-                                  //      ((pow(inducerCompressor, 2)) /
-                                  //        (pow(exducerCompressor, 2))))
-                                    trimCompressorResult.toStringAsFixed(0),
-                                    //weight.toString(),
-                                    style: kResultNumberStyleWhite18_600,
-                                    textScaleFactor: textScaleFactorTc),
-                              ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ReusableCard(
+                    colour: kActiveCardColourOutput,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('BOOST',
+                            style: kLabelTextStyleLarge,
+                            textScaleFactor: textScaleFactorTc),
+                        Text('PRESSURE',
+                            style: kLabelTextStyleLarge,
+                            textScaleFactor: textScaleFactorTc),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.center,
+                              width: kResultNumberBigWidth,
+                              child: Text(pressureCompressorDisplay,
+                                  style: kResultNumberStyleWhite18_600,
+                                  textScaleFactor: textScaleFactorTc),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: kResultUnitWidth,
+                              child: Text(pressureUnitValue,
+                                  style: kUnitTextStyleAirflow,
+                                  textScaleFactor: textScaleFactorTc),
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
-                    Expanded(
-                      child: ReusableCard(
-                        colour: kActiveCardColourOutput,
-                        cardChild: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('BOOST',
-                                style: kLabelTextStyleLarge,
-                                textScaleFactor: textScaleFactorTc),
-                            Text('PRESSURE',
-                                style: kLabelTextStyleLarge,
-                                textScaleFactor: textScaleFactorTc),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: kResultNumberBigWidth,
-                                  child: Text(pressureCompressorDisplay,
-                                      style: kResultNumberStyleWhite18_600,
-                                      textScaleFactor: textScaleFactorTc),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: kResultUnitWidth,
-                                  child: Text(pressureUnitValue,
-                                      style: kUnitTextStyleAirflow,
-                                      textScaleFactor: textScaleFactorTc),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
+                  ),
+                ),
+              ],
+            )),
 
             Expanded(
                 child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: ReusableCard(
-                        colour: kActiveCardColourOutput,
-                        cardChild: Column(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(
+                    colour: kActiveCardColourOutput,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('GASOLINE',
+                            style: kLabelTextStyleLarge,
+                            textScaleFactor: textScaleFactorTc),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text('GASOLINE',
-                                style: kLabelTextStyleLarge,
-                                textScaleFactor: textScaleFactorTc),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: kResultNumberBigWidth,
-                                  child: Text(hpPetrolResult.toStringAsFixed(0),
-                                      //weight.toString(),
-                                      style: kResultNumberStyleWhite18_600,
-                                      textScaleFactor: textScaleFactorTc),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: kResultUnitWidth,
-                                  child: Text(unitHorsepower,
-                                      style: kUnitTextStyleAirflow,
-                                      textScaleFactor: textScaleFactorTc),
-                                ),
-                              ],
+                            Container(
+                              alignment: Alignment.center,
+                              width: kResultNumberBigWidth,
+                              child: Text(hpPetrolResult.toStringAsFixed(0),
+                                  //weight.toString(),
+                                  style: kResultNumberStyleWhite18_600,
+                                  textScaleFactor: textScaleFactorTc),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: kResultUnitWidth,
+                              child: Text(unitHorsepower,
+                                  style: kUnitTextStyleAirflow,
+                                  textScaleFactor: textScaleFactorTc),
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
-                    Expanded(
-                      child: ReusableCard(
-                        colour: kActiveCardColourOutput,
-                        cardChild: Column(
+                  ),
+                ),
+                Expanded(
+                  child: ReusableCard(
+                    colour: kActiveCardColourOutput,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('DIESEL',
+                            style: kLabelTextStyleLarge,
+                            textScaleFactor: textScaleFactorTc),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text('DIESEL',
-                                style: kLabelTextStyleLarge,
-                                textScaleFactor: textScaleFactorTc),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: kResultNumberBigWidth,
-                                  child: Text(hpDieselResult.toStringAsFixed(0),
-                                      style: kResultNumberStyleWhite18_600,
-                                      textScaleFactor: textScaleFactorTc),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: kResultUnitWidth,
-                                  child: Text(unitHorsepower,
-                                      style: kUnitTextStyleAirflow,
-                                      textScaleFactor: textScaleFactorTc),
-                                ),
-                              ],
+                            Container(
+                              alignment: Alignment.center,
+                              width: kResultNumberBigWidth,
+                              child: Text(hpDieselResult.toStringAsFixed(0),
+                                  style: kResultNumberStyleWhite18_600,
+                                  textScaleFactor: textScaleFactorTc),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: kResultUnitWidth,
+                              child: Text(unitHorsepower,
+                                  style: kUnitTextStyleAirflow,
+                                  textScaleFactor: textScaleFactorTc),
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                )),
+                  ),
+                ),
+              ],
+            )),
             ReusableCard(
               colour: kActiveCardColourInput,
               cardChild: (Container(
@@ -935,11 +931,11 @@ class _CompressorPageState extends State<CompressorPage> {
                                 value: metricUnit,
                                 activeColor: vEngineSizeSwitchActiveColor,
                                 activeTrackColor:
-                                vEngineSizeSwitchInActiveThumbColor,
+                                    vEngineSizeSwitchInActiveThumbColor,
                                 inactiveTrackColor:
-                                vEngineSizeSwitchActiveTrackColor,
+                                    vEngineSizeSwitchActiveTrackColor,
                                 inactiveThumbColor:
-                                vEngineSizeSwitchInActiveTrackColor,
+                                    vEngineSizeSwitchInActiveTrackColor,
 
                                 //secondary: Icon(Icons.linear_scale),
                                 onChanged: _onChangedUnitSwitch,
