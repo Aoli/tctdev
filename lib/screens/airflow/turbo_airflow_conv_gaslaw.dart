@@ -1,20 +1,19 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/components/stepbutton_close.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/components/stepbutton_close.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class AirflowGasLawConv extends StatefulWidget {
   @override
@@ -27,14 +26,14 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
   //bool metricUnit = false;
   bool snackbarEnable = true;
 
-  Widget get submitRatingButton {
+  Widget? get submitRatingButton {
     if (snackbarEnable) {
       return IconButton(
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldCompressorKey.currentState
-                .showSnackBar(snackBarCompressor);
+            _scaffoldCompressorKey.currentState!;
+            ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Airflow GasLaw'};
@@ -47,7 +46,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
-  new GlobalKey<ScaffoldState>();
+      new GlobalKey<ScaffoldState>();
   final snackBarCompressor = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -94,7 +93,12 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -134,7 +138,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
             Text(
               AppLocalizations.of(context).translate('airflow_conv_gaslaw_0000')
               // 'Airflow Conv Gas Law',
-              , style: kAppBarTextStyle,
+              ,
+              style: kAppBarTextStyle,
               textScaleFactor: textScaleFactorTc,
             ),
             Container(width: 30.0, child: submitRatingButton),
@@ -147,6 +152,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {
+                  // setState(() {
+                  //   // metricUnit = !metricUnit;
+                  // });
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   height: 260,
@@ -160,16 +170,18 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                             height: 95,
                             child: Column(
                               children: <Widget>[
-                                Text(AppLocalizations.of(context).translate(
-                                    'airflow_conv_gaslaw_0010')
+                                Text(
+                                  AppLocalizations.of(context)
+                                      .translate('airflow_conv_gaslaw_0010')
                                   //'Mass Airflow',
-                                  , style: labelTextStyleResultTitle0,
+                                  ,
+                                  style: labelTextStyleResultTitle0,
                                   textScaleFactor: textScaleFactorTc,
                                 ),
                                 SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
 //                              Container(
 //                                // color: Colors.red,
@@ -207,7 +219,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
 //                              Container(
 //                                // color: Colors.red,
@@ -226,7 +238,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
 //                                height: kHeightResultTextHeight,
                                       child: Text(
                                         (convertResultAirflowAirDensityPoundPerMinute *
-                                            kPoundPerMinuteToKilogramPerSecond)
+                                                kPoundPerMinuteToKilogramPerSecond)
                                             .toStringAsFixed(2),
                                         style: labelTextStyleResult0,
                                         textScaleFactor: textScaleFactorTc,
@@ -250,9 +262,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                           ),
                           Divider(height: 15.0, color: Colors.white),
 
-                          Text(AppLocalizations.of(context).translate(
-                              'airflow_conv_gaslaw_0020') //'Volume Airflow',
-                            , style: labelTextStyleResultTitle1,
+                          Text(
+                            AppLocalizations.of(context).translate(
+                                'airflow_conv_gaslaw_0020') //'Volume Airflow',
+                            ,
+                            style: labelTextStyleResultTitle1,
                             textScaleFactor: textScaleFactorTc,
                           ),
                           SizedBox(height: 10),
@@ -393,10 +407,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                 children: <Widget>[
                                   Container(
                                     child: Text(
-                                      AppLocalizations.of(context).translate(
-                                          'airflow_conv_gaslaw_0030')
+                                      AppLocalizations.of(context)
+                                          .translate('airflow_conv_gaslaw_0030')
                                       //'Calc. Air density:',
-                                      , style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                     ),
                                   ),
@@ -433,6 +448,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  // setState(() {
+                  //   // metricUnit = !metricUnit;
+                  // });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -504,7 +524,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                     .toStringAsFixed(0),
                                 inactiveColor: Color(0xFF8D8E89),
                                 divisions:
-                                sliderSliderConvertAirflowAirDensityAll,
+                                    sliderSliderConvertAirflowAirDensityAll,
                                 onChanged: (double sliderValue) {
                                   convertSliderResultAirflowAirDensityAll =
                                       sliderValue;
@@ -535,8 +555,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if (Decimal.parse(
-                                              convertSliderResultAirflowAirDensityAll
-                                                  .toStringAsFixed(1)) >
+                                                  convertSliderResultAirflowAirDensityAll
+                                                      .toStringAsFixed(1)) >
                                               Decimal.parse(
                                                   vMinSliderConvertAirflowAirDensityAllStepper
                                                       .toStringAsFixed(1))) {
@@ -560,8 +580,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                     onStep: () {
                                       setState(() {
                                         if (Decimal.parse(
-                                            convertSliderResultAirflowAirDensityAll
-                                                .toStringAsFixed(1)) >
+                                                convertSliderResultAirflowAirDensityAll
+                                                    .toStringAsFixed(1)) >
                                             Decimal.parse(
                                                 vMinSliderConvertAirflowAirDensityAllStepper
                                                     .toStringAsFixed(1))) {
@@ -584,7 +604,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                 child: Text(
                                     convertSliderResultAirflowAirDensityAll
                                         .toStringAsFixed(
-                                        vAirflowResultDecimals),
+                                            vAirflowResultDecimals),
                                     style: kResultNumberStyleWhite18_600,
                                     textScaleFactor: textScaleFactorTc),
                               ),
@@ -604,8 +624,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if ((Decimal.parse(
-                                              convertSliderResultAirflowAirDensityAll
-                                                  .toStringAsFixed(1)) <
+                                                  convertSliderResultAirflowAirDensityAll
+                                                      .toStringAsFixed(1)) <
                                               (Decimal.parse(
                                                   vMaxSliderConvertAirflowAirDensityAllStepper
                                                       .toStringAsFixed(1))))) {
@@ -629,8 +649,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                     onStep: () {
                                       setState(() {
                                         if ((Decimal.parse(
-                                            convertSliderResultAirflowAirDensityAll
-                                                .toStringAsFixed(1)) <
+                                                convertSliderResultAirflowAirDensityAll
+                                                    .toStringAsFixed(1)) <
                                             (Decimal.parse(
                                                 vMaxSliderConvertAirflowAirDensityAllStepper
                                                     .toStringAsFixed(1))))) {
@@ -704,10 +724,12 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
 //                                },
 //                              ),
 //                            ),
-                                    Text(AppLocalizations.of(context).translate(
-                                        'airflow_conv_gaslaw_0040')
+                                    Text(
+                                      AppLocalizations.of(context)
+                                          .translate('airflow_conv_gaslaw_0040')
                                       //'Manifold Temperature and Pressure',
-                                      , style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                     ),
                                     SizedBox(height: 5),
@@ -718,11 +740,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                       children: <Widget>[
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
                                                   // color: Colors.red,
@@ -730,18 +752,19 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                   child: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'airflow_conv_gaslaw_0050')
+                                                            'airflow_conv_gaslaw_0050')
                                                     //'ManiFold Temperature',
-                                                    , style: kLabelTextStyle,
+                                                    ,
+                                                    style: kLabelTextStyle,
                                                     textAlign: TextAlign.left,
                                                     textScaleFactor:
-                                                    textScaleFactorTc,
+                                                        textScaleFactorTc,
                                                   ),
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: <Widget>[
                                                     Container(
                                                       width: kInputNumberWidth,
@@ -750,9 +773,9 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         vAirflowManifoldTemp
                                                             .toStringAsFixed(0),
                                                         style:
-                                                        kResultNumberStyleWhite18_600,
+                                                            kResultNumberStyleWhite18_600,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                     Container(
@@ -761,11 +784,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                       child: Text(
                                                         unitFahrenheit,
                                                         textAlign:
-                                                        TextAlign.center,
+                                                            TextAlign.center,
                                                         style:
-                                                        kUnitTextStyleAirflow,
+                                                            kUnitTextStyleAirflow,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                   ],
@@ -778,41 +801,38 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                 children: <Widget>[
                                                   Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                        MainAxisAlignment.end,
                                                     children: <Widget>[
                                                       StepButtonClose(
                                                         icon: FontAwesomeIcons
                                                             .minus,
                                                         onStepPress: () {
-                                                          timer =
-                                                              Timer.periodic(
-                                                                  Duration(
-                                                                      milliseconds:
+                                                          timer = Timer.periodic(
+                                                              Duration(
+                                                                  milliseconds:
                                                                       tapTime),
-                                                                      (t) {
-                                                                    setState(() {
-                                                                      if ((Decimal
-                                                                          .parse(
-                                                                          vAirflowManifoldTemp
-                                                                              .toString()) >
-                                                                          (Decimal
-                                                                              .parse(
-                                                                              kMinAirflowManifoldTemp
-                                                                                  .toString())))) {
-                                                                        vAirflowManifoldTemp =
-                                                                            vAirflowManifoldTemp -
-                                                                                stepAirflowManifoldTemp;
+                                                              (t) {
+                                                            setState(() {
+                                                              if ((Decimal.parse(
+                                                                      vAirflowManifoldTemp
+                                                                          .toString()) >
+                                                                  (Decimal.parse(
+                                                                      kMinAirflowManifoldTemp
+                                                                          .toString())))) {
+                                                                vAirflowManifoldTemp =
+                                                                    vAirflowManifoldTemp -
+                                                                        stepAirflowManifoldTemp;
 
-                                                                        calcAirflowCfm(
-                                                                            vAirflowCfm,
-                                                                            vAirflowPoundMinute,
-                                                                            vAirflowManifoldTemp,
-                                                                            vAirflowPsiAmbient,
-                                                                            vAirflowPsiG,
-                                                                            radioValue);
-                                                                      }
-                                                                    });
-                                                                  });
+                                                                calcAirflowCfm(
+                                                                    vAirflowCfm,
+                                                                    vAirflowPoundMinute,
+                                                                    vAirflowManifoldTemp,
+                                                                    vAirflowPsiAmbient,
+                                                                    vAirflowPsiG,
+                                                                    radioValue);
+                                                              }
+                                                            });
+                                                          });
                                                         },
                                                         onPressEnd: () {
                                                           timer.cancel();
@@ -820,8 +840,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         onStep: () {
                                                           setState(() {
                                                             if ((Decimal.parse(
-                                                                vAirflowManifoldTemp
-                                                                    .toString()) >
+                                                                    vAirflowManifoldTemp
+                                                                        .toString()) >
                                                                 (Decimal.parse(
                                                                     kMinAirflowManifoldTemp
                                                                         .toString())))) {
@@ -845,35 +865,32 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         icon: FontAwesomeIcons
                                                             .plus,
                                                         onStepPress: () {
-                                                          timer =
-                                                              Timer.periodic(
-                                                                  Duration(
-                                                                      milliseconds:
+                                                          timer = Timer.periodic(
+                                                              Duration(
+                                                                  milliseconds:
                                                                       tapTime),
-                                                                      (t) {
-                                                                    setState(() {
-                                                                      if ((Decimal
-                                                                          .parse(
-                                                                          vAirflowManifoldTemp
-                                                                              .toString()) <
-                                                                          (Decimal
-                                                                              .parse(
-                                                                              kMaxAirflowManifoldTemp
-                                                                                  .toString())))) {
-                                                                        vAirflowManifoldTemp =
-                                                                            vAirflowManifoldTemp +
-                                                                                stepAirflowManifoldTemp;
+                                                              (t) {
+                                                            setState(() {
+                                                              if ((Decimal.parse(
+                                                                      vAirflowManifoldTemp
+                                                                          .toString()) <
+                                                                  (Decimal.parse(
+                                                                      kMaxAirflowManifoldTemp
+                                                                          .toString())))) {
+                                                                vAirflowManifoldTemp =
+                                                                    vAirflowManifoldTemp +
+                                                                        stepAirflowManifoldTemp;
 
-                                                                        calcAirflowCfm(
-                                                                            vAirflowCfm,
-                                                                            vAirflowPoundMinute,
-                                                                            vAirflowManifoldTemp,
-                                                                            vAirflowPsiAmbient,
-                                                                            vAirflowPsiG,
-                                                                            radioValue);
-                                                                      }
-                                                                    });
-                                                                  });
+                                                                calcAirflowCfm(
+                                                                    vAirflowCfm,
+                                                                    vAirflowPoundMinute,
+                                                                    vAirflowManifoldTemp,
+                                                                    vAirflowPsiAmbient,
+                                                                    vAirflowPsiG,
+                                                                    radioValue);
+                                                              }
+                                                            });
+                                                          });
                                                         },
                                                         onPressEnd: () {
                                                           timer.cancel();
@@ -881,8 +898,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         onStep: () {
                                                           setState(() {
                                                             if ((Decimal.parse(
-                                                                vAirflowManifoldTemp
-                                                                    .toString()) <
+                                                                    vAirflowManifoldTemp
+                                                                        .toString()) <
                                                                 (Decimal.parse(
                                                                     kMaxAirflowManifoldTemp
                                                                         .toString())))) {
@@ -921,11 +938,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                       children: <Widget>[
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
                                                   // color: Colors.red,
@@ -933,18 +950,19 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                   child: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'airflow_conv_gaslaw_0060')
+                                                            'airflow_conv_gaslaw_0060')
                                                     //'Required Absolute Manifold Pressure',
-                                                    , style: kLabelTextStyle,
+                                                    ,
+                                                    style: kLabelTextStyle,
                                                     textAlign: TextAlign.left,
                                                     textScaleFactor:
-                                                    textScaleFactorTc,
+                                                        textScaleFactorTc,
                                                   ),
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: <Widget>[
                                                     Container(
                                                       width: kInputNumberWidth,
@@ -953,9 +971,9 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         vAirflowPsiTotal
                                                             .toStringAsFixed(2),
                                                         style:
-                                                        kResultNumberStyleWhite18_600,
+                                                            kResultNumberStyleWhite18_600,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                     Container(
@@ -964,11 +982,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                       child: Text(
                                                         unitPressurePsi,
                                                         textAlign:
-                                                        TextAlign.center,
+                                                            TextAlign.center,
                                                         style:
-                                                        kUnitTextStyleAirflow,
+                                                            kUnitTextStyleAirflow,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                   ],
@@ -981,7 +999,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                 children: <Widget>[
                                                   Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                        MainAxisAlignment.end,
                                                     children: <Widget>[],
                                                   ),
                                                 ],
@@ -999,11 +1017,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                       children: <Widget>[
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
                                                   // color: Colors.red,
@@ -1011,19 +1029,20 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                   child: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'airflow_conv_gaslaw_0070')
+                                                            'airflow_conv_gaslaw_0070')
                                                     //'Req. Gauge Manifold Pressure',
-                                                    , style: kLabelTextStyle,
+                                                    ,
+                                                    style: kLabelTextStyle,
                                                     textAlign: TextAlign.left,
                                                     textScaleFactor:
-                                                    textScaleFactorTc *
-                                                        0.85,
+                                                        textScaleFactorTc *
+                                                            0.85,
                                                   ),
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: <Widget>[
                                                     Container(
                                                       width: kInputNumberWidth,
@@ -1032,9 +1051,9 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         vAirflowPsiG
                                                             .toStringAsFixed(2),
                                                         style:
-                                                        kResultNumberStyleWhite18_600,
+                                                            kResultNumberStyleWhite18_600,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                     Container(
@@ -1043,11 +1062,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                       child: Text(
                                                         unitPressurePsi,
                                                         textAlign:
-                                                        TextAlign.center,
+                                                            TextAlign.center,
                                                         style:
-                                                        kUnitTextStyleAirflow,
+                                                            kUnitTextStyleAirflow,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                   ],
@@ -1060,47 +1079,44 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                 children: <Widget>[
                                                   Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                        MainAxisAlignment.end,
                                                     children: <Widget>[
                                                       StepButtonClose(
                                                         icon: FontAwesomeIcons
                                                             .minus,
                                                         onStepPress: () {
-                                                          timer =
-                                                              Timer.periodic(
-                                                                  Duration(
-                                                                      milliseconds:
+                                                          timer = Timer.periodic(
+                                                              Duration(
+                                                                  milliseconds:
                                                                       tapTime),
-                                                                      (t) {
-                                                                    setState(() {
-                                                                      if ((Decimal
-                                                                          .parse(
-                                                                          vAirflowPsiG
-                                                                              .toString()) >
-                                                                          (Decimal
-                                                                              .parse(
-                                                                              kMinAirflowPsiG
-                                                                                  .toString())))) {
-                                                                        vAirflowPsiG =
-                                                                            vAirflowPsiG -
-                                                                                stepAirflowPsiG;
+                                                              (t) {
+                                                            setState(() {
+                                                              if ((Decimal.parse(
+                                                                      vAirflowPsiG
+                                                                          .toString()) >
+                                                                  (Decimal.parse(
+                                                                      kMinAirflowPsiG
+                                                                          .toString())))) {
+                                                                vAirflowPsiG =
+                                                                    vAirflowPsiG -
+                                                                        stepAirflowPsiG;
 
-                                                                        if (vAirflowPsiG <
-                                                                            0) {
-                                                                          vAirflowPsiG =
-                                                                          0.0;
-                                                                        }
+                                                                if (vAirflowPsiG <
+                                                                    0) {
+                                                                  vAirflowPsiG =
+                                                                      0.0;
+                                                                }
 
-                                                                        calcAirflowCfm(
-                                                                            vAirflowCfm,
-                                                                            vAirflowPoundMinute,
-                                                                            vAirflowManifoldTemp,
-                                                                            vAirflowPsiAmbient,
-                                                                            vAirflowPsiG,
-                                                                            radioValue);
-                                                                      }
-                                                                    });
-                                                                  });
+                                                                calcAirflowCfm(
+                                                                    vAirflowCfm,
+                                                                    vAirflowPoundMinute,
+                                                                    vAirflowManifoldTemp,
+                                                                    vAirflowPsiAmbient,
+                                                                    vAirflowPsiG,
+                                                                    radioValue);
+                                                              }
+                                                            });
+                                                          });
                                                         },
                                                         onPressEnd: () {
                                                           timer.cancel();
@@ -1108,8 +1124,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         onStep: () {
                                                           setState(() {
                                                             if ((Decimal.parse(
-                                                                vAirflowPsiG
-                                                                    .toString()) >
+                                                                    vAirflowPsiG
+                                                                        .toString()) >
                                                                 (Decimal.parse(
                                                                     kMinAirflowPsiG
                                                                         .toString())))) {
@@ -1120,7 +1136,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                               if (vAirflowPsiG <
                                                                   0) {
                                                                 vAirflowPsiG =
-                                                                0.0;
+                                                                    0.0;
                                                               }
 
                                                               calcAirflowCfm(
@@ -1138,41 +1154,38 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         icon: FontAwesomeIcons
                                                             .plus,
                                                         onStepPress: () {
-                                                          timer =
-                                                              Timer.periodic(
-                                                                  Duration(
-                                                                      milliseconds:
+                                                          timer = Timer.periodic(
+                                                              Duration(
+                                                                  milliseconds:
                                                                       tapTime),
-                                                                      (t) {
-                                                                    setState(() {
-                                                                      if ((Decimal
-                                                                          .parse(
-                                                                          vAirflowPsiG
-                                                                              .toString()) <
-                                                                          (Decimal
-                                                                              .parse(
-                                                                              kMaxAirflowPsiG
-                                                                                  .toString())))) {
-                                                                        vAirflowPsiG =
-                                                                            vAirflowPsiG +
-                                                                                stepAirflowPsiG;
+                                                              (t) {
+                                                            setState(() {
+                                                              if ((Decimal.parse(
+                                                                      vAirflowPsiG
+                                                                          .toString()) <
+                                                                  (Decimal.parse(
+                                                                      kMaxAirflowPsiG
+                                                                          .toString())))) {
+                                                                vAirflowPsiG =
+                                                                    vAirflowPsiG +
+                                                                        stepAirflowPsiG;
 
-                                                                        if (vAirflowPsiG <
-                                                                            0) {
-                                                                          vAirflowPsiG =
-                                                                          0.0;
-                                                                        }
+                                                                if (vAirflowPsiG <
+                                                                    0) {
+                                                                  vAirflowPsiG =
+                                                                      0.0;
+                                                                }
 
-                                                                        calcAirflowCfm(
-                                                                            vAirflowCfm,
-                                                                            vAirflowPoundMinute,
-                                                                            vAirflowManifoldTemp,
-                                                                            vAirflowPsiAmbient,
-                                                                            vAirflowPsiG,
-                                                                            radioValue);
-                                                                      }
-                                                                    });
-                                                                  });
+                                                                calcAirflowCfm(
+                                                                    vAirflowCfm,
+                                                                    vAirflowPoundMinute,
+                                                                    vAirflowManifoldTemp,
+                                                                    vAirflowPsiAmbient,
+                                                                    vAirflowPsiG,
+                                                                    radioValue);
+                                                              }
+                                                            });
+                                                          });
                                                         },
                                                         onPressEnd: () {
                                                           timer.cancel();
@@ -1180,8 +1193,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         onStep: () {
                                                           setState(() {
                                                             if ((Decimal.parse(
-                                                                vAirflowPsiG
-                                                                    .toString()) <
+                                                                    vAirflowPsiG
+                                                                        .toString()) <
                                                                 (Decimal.parse(
                                                                     kMaxAirflowPsiG
                                                                         .toString())))) {
@@ -1192,7 +1205,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                               if (vAirflowPsiG <
                                                                   0) {
                                                                 vAirflowPsiG =
-                                                                0.0;
+                                                                    0.0;
                                                               }
 
                                                               calcAirflowCfm(
@@ -1223,11 +1236,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                       children: <Widget>[
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
                                                   // color: Colors.red,
@@ -1235,19 +1248,20 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                   child: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'airflow_conv_gaslaw_0080')
+                                                            'airflow_conv_gaslaw_0080')
                                                     //'Operating Barometric Pressure',
-                                                    , style: kLabelTextStyle,
+                                                    ,
+                                                    style: kLabelTextStyle,
                                                     textAlign: TextAlign.left,
                                                     textScaleFactor:
-                                                    textScaleFactorTc *
-                                                        0.85,
+                                                        textScaleFactorTc *
+                                                            0.85,
                                                   ),
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: <Widget>[
                                                     Container(
                                                       width: kInputNumberWidth,
@@ -1256,9 +1270,9 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         vAirflowPsiAmbient
                                                             .toStringAsFixed(2),
                                                         style:
-                                                        kResultNumberStyleWhite18_600,
+                                                            kResultNumberStyleWhite18_600,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                     Container(
@@ -1267,11 +1281,11 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                       child: Text(
                                                         unitPressurePsi,
                                                         textAlign:
-                                                        TextAlign.center,
+                                                            TextAlign.center,
                                                         style:
-                                                        kUnitTextStyleAirflow,
+                                                            kUnitTextStyleAirflow,
                                                         textScaleFactor:
-                                                        textScaleFactorTc,
+                                                            textScaleFactorTc,
                                                       ),
                                                     ),
                                                   ],
@@ -1284,47 +1298,44 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                 children: <Widget>[
                                                   Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                        MainAxisAlignment.end,
                                                     children: <Widget>[
                                                       StepButtonClose(
                                                         icon: FontAwesomeIcons
                                                             .minus,
                                                         onStepPress: () {
-                                                          timer =
-                                                              Timer.periodic(
-                                                                  Duration(
-                                                                      milliseconds:
+                                                          timer = Timer.periodic(
+                                                              Duration(
+                                                                  milliseconds:
                                                                       tapTime),
-                                                                      (t) {
-                                                                    setState(() {
-                                                                      if ((Decimal
-                                                                          .parse(
-                                                                          vAirflowPsiAmbient
-                                                                              .toString()) >
-                                                                          (Decimal
-                                                                              .parse(
-                                                                              kMinAirflowPsiAmbient
-                                                                                  .toString())))) {
-                                                                        vAirflowPsiAmbient =
-                                                                            vAirflowPsiAmbient -
-                                                                                stepAirflowPsiAmbient;
+                                                              (t) {
+                                                            setState(() {
+                                                              if ((Decimal.parse(
+                                                                      vAirflowPsiAmbient
+                                                                          .toString()) >
+                                                                  (Decimal.parse(
+                                                                      kMinAirflowPsiAmbient
+                                                                          .toString())))) {
+                                                                vAirflowPsiAmbient =
+                                                                    vAirflowPsiAmbient -
+                                                                        stepAirflowPsiAmbient;
 
-                                                                        if (vAirflowPsiAmbient <
-                                                                            0.01) {
-                                                                          vAirflowPsiAmbient =
-                                                                          0.01;
-                                                                        }
+                                                                if (vAirflowPsiAmbient <
+                                                                    0.01) {
+                                                                  vAirflowPsiAmbient =
+                                                                      0.01;
+                                                                }
 
-                                                                        calcAirflowCfm(
-                                                                            vAirflowCfm,
-                                                                            vAirflowPoundMinute,
-                                                                            vAirflowManifoldTemp,
-                                                                            vAirflowPsiAmbient,
-                                                                            vAirflowPsiG,
-                                                                            radioValue);
-                                                                      }
-                                                                    });
-                                                                  });
+                                                                calcAirflowCfm(
+                                                                    vAirflowCfm,
+                                                                    vAirflowPoundMinute,
+                                                                    vAirflowManifoldTemp,
+                                                                    vAirflowPsiAmbient,
+                                                                    vAirflowPsiG,
+                                                                    radioValue);
+                                                              }
+                                                            });
+                                                          });
                                                         },
                                                         onPressEnd: () {
                                                           timer.cancel();
@@ -1332,8 +1343,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         onStep: () {
                                                           setState(() {
                                                             if ((Decimal.parse(
-                                                                vAirflowPsiAmbient
-                                                                    .toString()) >
+                                                                    vAirflowPsiAmbient
+                                                                        .toString()) >
                                                                 (Decimal.parse(
                                                                     kMinAirflowPsiAmbient
                                                                         .toString())))) {
@@ -1344,7 +1355,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                               if (vAirflowPsiAmbient <
                                                                   0.01) {
                                                                 vAirflowPsiAmbient =
-                                                                0.01;
+                                                                    0.01;
                                                               }
 
                                                               calcAirflowCfm(
@@ -1362,41 +1373,38 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         icon: FontAwesomeIcons
                                                             .plus,
                                                         onStepPress: () {
-                                                          timer =
-                                                              Timer.periodic(
-                                                                  Duration(
-                                                                      milliseconds:
+                                                          timer = Timer.periodic(
+                                                              Duration(
+                                                                  milliseconds:
                                                                       tapTime),
-                                                                      (t) {
-                                                                    setState(() {
-                                                                      if ((Decimal
-                                                                          .parse(
-                                                                          vAirflowPsiAmbient
-                                                                              .toString()) <
-                                                                          (Decimal
-                                                                              .parse(
-                                                                              kMaxAirflowPsiAmbient
-                                                                                  .toString())))) {
-                                                                        vAirflowPsiAmbient =
-                                                                            vAirflowPsiAmbient +
-                                                                                stepAirflowPsiAmbient;
+                                                              (t) {
+                                                            setState(() {
+                                                              if ((Decimal.parse(
+                                                                      vAirflowPsiAmbient
+                                                                          .toString()) <
+                                                                  (Decimal.parse(
+                                                                      kMaxAirflowPsiAmbient
+                                                                          .toString())))) {
+                                                                vAirflowPsiAmbient =
+                                                                    vAirflowPsiAmbient +
+                                                                        stepAirflowPsiAmbient;
 
-                                                                        if (vAirflowPsiAmbient <
-                                                                            0.01) {
-                                                                          vAirflowPsiAmbient =
-                                                                          0.01;
-                                                                        }
+                                                                if (vAirflowPsiAmbient <
+                                                                    0.01) {
+                                                                  vAirflowPsiAmbient =
+                                                                      0.01;
+                                                                }
 
-                                                                        calcAirflowCfm(
-                                                                            vAirflowCfm,
-                                                                            vAirflowPoundMinute,
-                                                                            vAirflowManifoldTemp,
-                                                                            vAirflowPsiAmbient,
-                                                                            vAirflowPsiG,
-                                                                            radioValue);
-                                                                      }
-                                                                    });
-                                                                  });
+                                                                calcAirflowCfm(
+                                                                    vAirflowCfm,
+                                                                    vAirflowPoundMinute,
+                                                                    vAirflowManifoldTemp,
+                                                                    vAirflowPsiAmbient,
+                                                                    vAirflowPsiG,
+                                                                    radioValue);
+                                                              }
+                                                            });
+                                                          });
                                                         },
                                                         onPressEnd: () {
                                                           timer.cancel();
@@ -1404,8 +1412,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                         onStep: () {
                                                           setState(() {
                                                             if ((Decimal.parse(
-                                                                vAirflowPsiAmbient
-                                                                    .toString()) <
+                                                                    vAirflowPsiAmbient
+                                                                        .toString()) <
                                                                 (Decimal.parse(
                                                                     kMaxAirflowPsiAmbient
                                                                         .toString())))) {
@@ -1416,7 +1424,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
                                                               if (vAirflowPsiAmbient <
                                                                   0.01) {
                                                                 vAirflowPsiAmbient =
-                                                                0.01;
+                                                                    0.01;
                                                               }
 
                                                               calcAirflowCfm(
@@ -1465,64 +1473,69 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
 //                          fontStyle: FontStyle.italic, color: Colors.white70),
 //                      textScaleFactor: textScaleFactorTc * 0.8,
 //                    ),
-                Container(
-                alignment: Alignment.centerLeft,
-                  child: Text(
-                    AppLocalizations.of(context).translate(
-                        'airflow_conv_gaslaw_0090') //'Fixed values:',
-                    , style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.white70),
-                    textScaleFactor: textScaleFactorTc * 0.9,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(AppLocalizations.of(context).translate(
-                      'airflow_conv_gaslaw_0100')
-                    //'- Gas Flow Constant = 1545/28.964 = 53.34',
-                    , style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.white70),
-                    textScaleFactor: textScaleFactorTc * 0.8,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(AppLocalizations.of(context).translate(
-                      'airflow_conv_gaslaw_0110')
-                    //'- Compressability factor = 1.0',
-                    , style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.white70),
-                    textScaleFactor: textScaleFactorTc * 0.8,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                SizedBox(height: 10.0),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(AppLocalizations.of(context).translate(
-                      'airflow_conv_gaslaw_0120')
-                      //'Let us know if you  need to change the "compressibility factor" and the "gas flow constant", via the "feedback form" on the "Info tab". These values are rarely changed',
-                    ,  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.white70),
-                  textScaleFactor: textScaleFactorTc * 0.8,
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context).translate(
+                            'airflow_conv_gaslaw_0090') //'Fixed values:',
+                        ,
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic, color: Colors.white70),
+                        textScaleFactor: textScaleFactorTc * 0.9,
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .translate('airflow_conv_gaslaw_0100')
+                        //'- Gas Flow Constant = 1545/28.964 = 53.34',
+                        ,
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic, color: Colors.white70),
+                        textScaleFactor: textScaleFactorTc * 0.8,
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .translate('airflow_conv_gaslaw_0110')
+                        //'- Compressability factor = 1.0',
+                        ,
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic, color: Colors.white70),
+                        textScaleFactor: textScaleFactorTc * 0.8,
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .translate('airflow_conv_gaslaw_0120')
+                        //'Let us know if you  need to change the "compressibility factor" and the "gas flow constant", via the "feedback form" on the "Info tab". These values are rarely changed',
+                        ,
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic, color: Colors.white70),
+                        textScaleFactor: textScaleFactorTc * 0.8,
+                      ),
+                    ),
+                  ],
                 ),
               ),
+
+              // Speed
+
+              // Kilometer
+              // Mile
+
+              //Fuel (Hp)
             ],
           ),
-        ),
-
-        // Speed
-
-        // Kilometer
-        // Mile
-
-        //Fuel (Hp)
-        ]
-        ,
-        )
-        ,
         );
       }),
     );
@@ -1530,9 +1543,9 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
 
   int radioValue = 0;
 
-  void handleRadioValueChanged(int value) {
+  void handleRadioValueChanged(int? value) {
     setState(() {
-      radioValue = value;
+      radioValue = value!;
       //resetValues();
 
       switch (radioValue) {
@@ -1548,7 +1561,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
           vAirflowResultDecimals = 2;
 
           convertSliderHeaderAirflowAirDensityTextAll =
-          'Pound per Minute - lbs/min';
+              'Pound per Minute - lbs/min';
           unitSliderConvertAirflowAirDensityAll = 'lbs/min';
 
           convertSliderResultAirflowAirDensityAll = vAirflowPoundMinute;
@@ -1590,7 +1603,7 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
           vAirflowResultDecimals = 1;
 
           convertSliderHeaderAirflowAirDensityTextAll =
-          'Cubic Feet per Inch - CFM';
+              'Cubic Feet per Inch - CFM';
           unitSliderConvertAirflowAirDensityAll = 'cfm';
 
           vAirflowPoundMinute = convertSliderResultAirflowAirDensityAll;
@@ -1629,7 +1642,8 @@ class _AirflowGasLawConvState extends State<AirflowGasLawConv> {
     });
   }
 
-  void calcAirflowCfm(double vAirflowCfmIn,
+  void calcAirflowCfm(
+      double vAirflowCfmIn,
       double vAirflowPoundMinuteIn,
       double vAirflowManifoldTemp,
       double vAirflowPsiAmbient,

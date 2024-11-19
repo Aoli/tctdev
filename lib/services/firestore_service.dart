@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:tct/globals/global_variables.dart';
-import 'package:tct/data_models/turbineDb.dart';
+import 'package:tct/data_models/turbine_db.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../data_models/turboDb.dart';
+import '../data_models/turbo_db.dart';
 
 class FireStoreService {
   FirebaseFirestore _db = FirebaseFirestore.instance;

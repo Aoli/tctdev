@@ -1,16 +1,15 @@
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/reusable_card.dart';
-import 'package:Turbocharger/components/turbocharger_icons_icons.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
-import 'package:Turbocharger/globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
+import 'package:tct//components/analytics_event.dart';
+import 'package:tct//data_models/analytics_event_type.dart';
+import 'package:tct//components/reusable_card.dart';
+import 'package:tct//components/turbocharger_icons_icons.dart';
+import 'package:tct//globals/app_localizations.dart';
+import 'package:tct//globals/constant.dart';
+import 'package:tct//globals/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/settings_provider.dart';
-import '../../data_models/turboDb.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import '../../data_models/turbo_db.dart';
+import 'package:tct//globals/constants_ui.dart';
 
 class TurboSelection extends StatefulWidget {
   bool routeSetting;
@@ -33,7 +32,6 @@ class _TurboSelectionState extends State<TurboSelection> {
 
   @override
   Widget build(BuildContext context) {
-
     SettingsNotifier settingsProvider = Provider.of<SettingsNotifier>(context);
 //    reports =  Provider.of<List<Report>>(context)
 //        .where((list) => settingsProvider.brandNameList.contains(list.aaBrandName)).toList() ?? Provider.of<List<Report>>(context);
@@ -62,8 +60,10 @@ class _TurboSelectionState extends State<TurboSelection> {
                         image: AssetImage('images/turbo_appbar_logo.png'),
                       ))),
               Text(
-                AppLocalizations.of(context).translate('turbo_selection_0000')// 'TCT Turbo register'
-               , style: kAppBarTextStyle,
+                AppLocalizations.of(context)
+                    .translate('turbo_selection_0000') // 'TCT Turbo register'
+                ,
+                style: kAppBarTextStyle,
                 textScaleFactor: textScaleFactorTc * 0.9,
               ),
               Container(width: 30),
@@ -83,7 +83,7 @@ class _TurboSelectionState extends State<TurboSelection> {
       body: (settingsProvider == null)
           ? Center(child: CircularProgressIndicator())
           : (reports == null)
-          ? Center(child: CircularProgressIndicator())
+              ? Center(child: CircularProgressIndicator())
               : Column(
                   children: <Widget>[
                     _searchBar(settingsProvider, context),
@@ -103,11 +103,10 @@ class _TurboSelectionState extends State<TurboSelection> {
                           itemBuilder: (context, index) {
 //                            Report report = reports[index];
                             reports = Provider.of<List<TurboDb>>(context)
-                                .where((report) =>
-                                settingsProvider
+                                .where((report) => settingsProvider
                                     .brandNameList
                                     .contains(report.aaBrandName))
-                            // .where((report) => settingsProvider.aaDataStatus == 'Published')
+                                // .where((report) => settingsProvider.aaDataStatus == 'Published')
                                 .toList();
 
                             //   print('index $index');
@@ -119,105 +118,112 @@ class _TurboSelectionState extends State<TurboSelection> {
                               children: <Widget>[
                                 index == 0
                                     ? Column(
-                                  children: <Widget>[
-                                    reports?.length != 0
-                                        ? Container()
-                                        : Column(
+                                        children: <Widget>[
+                                          reports?.length != 0
+                                              ? Container()
+                                              : Column(
 //
-                                      children: <Widget>[
-                                        Center(
-                                            heightFactor: 1.2,
-                                            child: Column(
-                                              children: <Widget>[
-                                                Icon(
-                                                  TurbochargerIcons
-                                                      .iconturbo2048px,
-                                                  color: Colors.red,
-                                                  size: 48.0,
-                                                  semanticLabel:
-                                                  'Turbo-icon',
-                                                ),
-                                                SizedBox(
-                                                    height: 30),
-                                                Text(
-                                                  AppLocalizations.of(context).translate('turbo_selection_0010') // 'No data?',
-                                                  ,style:
-                                                  kLabelTextStyleActive,
-                                                  textScaleFactor:
-                                                  textScaleFactorTc,
-                                                ),
-                                                SizedBox(height: 8),
-                                                Text(
-                                                    AppLocalizations.of(context).translate('turbo_selection_0020')//'Please change your selections',
-                                                    ,style:
-                                                    kLabelTextStyle,
-                                                    textScaleFactor:
-                                                    textScaleFactorTc *
-                                                        1.1),
-                                                SizedBox(height: 8),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets
-                                                      .only(
-                                                      left:
-                                                      20.0,
-                                                      top: 0,
-                                                      right: 20,
-                                                      bottom:
-                                                      5),
-                                                  child: Column(
-                                                    children: <
-                                                        Widget>[
-                                                      Divider(
-                                                          color: Colors
-                                                              .white),
-                                                      Opacity(
-                                                        opacity:
-                                                        0.7,
-                                                        child: Text(
-                                                            AppLocalizations.of(context).translate('turbo_selection_0030')// 'We are continuously adding more turbos to the turbo register.\n\nHowever, if you are missing a particular turbo-brand or turbo, please fill in the form to suggest a new turbo for the turbo register.',
-                                                           , style:
-                                                            kBodyItalicTextStyle,
-                                                            textScaleFactor:
-                                                            textScaleFactorTc *
-                                                                0.9),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets
-                                                      .only(
-                                                      left:
-                                                      20.0,
-                                                      top: 0,
-                                                      right: 20,
-                                                      bottom:
-                                                      5),
-                                                  child: Column(
-                                                    children: <
-                                                        Widget>[
-                                                      RaisedButton(
-                                                        color:
-                                                        kActiveCardColourOutput,
-                                                        splashColor:
-                                                        Colors
-                                                            .blue,
-                                                        elevation:
-                                                        8,
-                                                        shape:
-                                                        RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          new BorderRadius
-                                                              .circular(
-                                                              8.0),
-                                                          side: BorderSide(
-                                                              color:
-                                                              Colors.blue),
-                                                        ),
-                                                        onPressed:
-                                                            () {
+                                                  children: <Widget>[
+                                                    Center(
+                                                        heightFactor: 1.2,
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            Icon(
+                                                              TurbochargerIcons
+                                                                  .iconturbo2048px,
+                                                              color: Colors.red,
+                                                              size: 48.0,
+                                                              semanticLabel:
+                                                                  'Turbo-icon',
+                                                            ),
+                                                            SizedBox(
+                                                                height: 30),
+                                                            Text(
+                                                              AppLocalizations.of(
+                                                                      context)
+                                                                  .translate(
+                                                                      'turbo_selection_0010') // 'No data?',
+                                                              ,
+                                                              style:
+                                                                  kLabelTextStyleActive,
+                                                              textScaleFactor:
+                                                                  textScaleFactorTc,
+                                                            ),
+                                                            SizedBox(height: 8),
+                                                            Text(
+                                                                AppLocalizations.of(
+                                                                        context)
+                                                                    .translate(
+                                                                        'turbo_selection_0020') //'Please change your selections',
+                                                                ,
+                                                                style:
+                                                                    kLabelTextStyle,
+                                                                textScaleFactor:
+                                                                    textScaleFactorTc *
+                                                                        1.1),
+                                                            SizedBox(height: 8),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left:
+                                                                          20.0,
+                                                                      top: 0,
+                                                                      right: 20,
+                                                                      bottom:
+                                                                          5),
+                                                              child: Column(
+                                                                children: <Widget>[
+                                                                  Divider(
+                                                                      color: Colors
+                                                                          .white),
+                                                                  Opacity(
+                                                                    opacity:
+                                                                        0.7,
+                                                                    child: Text(
+                                                                        AppLocalizations.of(context).translate(
+                                                                            'turbo_selection_0030') // 'We are continuously adding more turbos to the turbo register.\n\nHowever, if you are missing a particular turbo-brand or turbo, please fill in the form to suggest a new turbo for the turbo register.',
+                                                                        ,
+                                                                        style:
+                                                                            kBodyItalicTextStyle,
+                                                                        textScaleFactor:
+                                                                            textScaleFactorTc *
+                                                                                0.9),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left:
+                                                                          20.0,
+                                                                      top: 0,
+                                                                      right: 20,
+                                                                      bottom:
+                                                                          5),
+                                                              child: Column(
+                                                                children: <Widget>[
+                                                                  RaisedButton(
+                                                                    color:
+                                                                        kActiveCardColourOutput,
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .blue,
+                                                                    elevation:
+                                                                        8,
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius: new BorderRadius
+                                                                          .circular(
+                                                                          8.0),
+                                                                      side: BorderSide(
+                                                                          color:
+                                                                              Colors.blue),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
 //                                                          Navigator.of(
 //                                                              context)
 //                                                              .push(
@@ -226,92 +232,94 @@ class _TurboSelectionState extends State<TurboSelection> {
 //                                                                      context) =>
 //                                                                      TurboSelectorFeedback(
 //                                                                          feedbackLink: feedBackLink)));
-                                                          //String turboAddAnalytics = settingsProvider.selectedTurbo.aaBrandName.toString() + ' ' + settingsProvider.selectedTurbo.aaTurboBranchModel.toString();
+                                                                      //String turboAddAnalytics = settingsProvider.selectedTurbo.aaBrandName.toString() + ' ' + settingsProvider.selectedTurbo.aaTurboBranchModel.toString();
 
-                                                          var _analyticsParameter = {
-                                                            'TurboAdd': 'Turbo Selection'
-                                                          };
-                                                          // Execute a function to send logEvent() to Firebase Analytics
-                                                          Analytics
-                                                              .analyticsLogEvent(
-                                                              AnalyticsEventType
-                                                                  .turbo_add_analytics,
-                                                              _analyticsParameter);
+                                                                      var _analyticsParameter =
+                                                                          {
+                                                                        'TurboAdd':
+                                                                            'Turbo Selection'
+                                                                      };
+                                                                      // Execute a function to send logEvent() to Firebase Analytics
+                                                                      Analytics.analyticsLogEvent(
+                                                                          AnalyticsEventType
+                                                                              .turbo_add_analytics,
+                                                                          _analyticsParameter);
 
-                                                          Navigator.of(context)
-                                                              .pushNamed(
-                                                              "turbo_add",
-                                                              arguments:
-                                                              metricUnit);
-                                                        },
-                                                        child:
-                                                        Container(
-                                                          child:
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                            children: <
-                                                                Widget>[
-                                                              Icon(
-                                                                TurbochargerIcons
-                                                                    .iconturbo2048px,
-                                                                color:
-                                                                Colors.white,
-                                                                size:
-                                                                20.0,
-                                                                semanticLabel:
-                                                                'Feedback',
+                                                                      Navigator.of(context).pushNamed(
+                                                                          "turbo_add",
+                                                                          arguments:
+                                                                              metricUnit);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <Widget>[
+                                                                          Icon(
+                                                                            TurbochargerIcons.iconturbo2048px,
+                                                                            color:
+                                                                                Colors.white,
+                                                                            size:
+                                                                                20.0,
+                                                                            semanticLabel:
+                                                                                'Feedback',
+                                                                          ),
+                                                                          SizedBox(
+                                                                              width: 10),
+                                                                          Text(
+                                                                            AppLocalizations.of(context).translate('turbo_selection_0040') //'Suggest a missing turbo',
+                                                                            ,
+                                                                            style:
+                                                                                kLabelTextStyle,
+                                                                            textScaleFactor:
+                                                                                textScaleFactorTc,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
                                                               ),
-                                                              SizedBox(
-                                                                  width: 10),
-                                                              Text(
-                                                                AppLocalizations.of(context).translate('turbo_selection_0040')//'Suggest a missing turbo',
-                                                                ,style:
-                                                                kLabelTextStyle,
-                                                                textScaleFactor:
-                                                                textScaleFactorTc,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left:
+                                                                          20.0,
+                                                                      top: 0,
+                                                                      right: 20,
+                                                                      bottom:
+                                                                          10),
+                                                              child: Opacity(
+                                                                opacity: 0.7,
+                                                                child: Text(
+                                                                    AppLocalizations.of(
+                                                                            context)
+                                                                        .translate(
+                                                                            'turbo_selection_0050') // 'All turbos are added manually by the TCT-team after evaluating your input.',
+                                                                    ,
+                                                                    style:
+                                                                        kBodyItalicTextStyle,
+                                                                    textScaleFactor:
+                                                                        textScaleFactorTc *
+                                                                            0.9),
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                  ],
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets
-                                                      .only(
-                                                      left:
-                                                      20.0,
-                                                      top: 0,
-                                                      right: 20,
-                                                      bottom:
-                                                      10),
-                                                  child: Opacity(
-                                                    opacity: 0.7,
-                                                    child: Text(
-                                                        AppLocalizations.of(context).translate('turbo_selection_0050')// 'All turbos are added manually by the TCT-team after evaluating your input.',
-                                                        ,style:
-                                                        kBodyItalicTextStyle,
-                                                        textScaleFactor:
-                                                        textScaleFactorTc *
-                                                            0.9),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
-                                      ],
-                                    ),
-                                  ],
-                                )
+                                        ],
+                                      )
                                     : Container(),
                                 Container(
                                     child: index >= reports?.length
                                         ? Container()
                                         : _listItem(settingsProvider, index,
-                                        reports, context)),
+                                            reports, context)),
                               ],
                             );
                           },
@@ -320,7 +328,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                       ),
                     ),
                   ],
-      ),
+                ),
 //      floatingActionButton: FloatingActionButton(
 //        child: Icon(Icons.add),
 //        onPressed: () {
@@ -346,9 +354,7 @@ class _TurboSelectionState extends State<TurboSelection> {
 //            .push(MaterialPageRoute(builder: (context) => TurboInfoPage()));
 //        RouteSettings(name: turboAnalytics);
 
-        Navigator.of(context).pushNamed("turbo_details",
-            arguments: metricUnit);
-
+        Navigator.of(context).pushNamed("turbo_details", arguments: metricUnit);
       },
       colour: kActiveCardColourOutput,
       cardChild: Column(
@@ -357,10 +363,7 @@ class _TurboSelectionState extends State<TurboSelection> {
 //        height: 100,turbo_details
             child: ListTile(
               leading: Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width / 2.7,
+                width: MediaQuery.of(context).size.width / 2.7,
                 child: Row(
                   children: <Widget>[
                     SizedBox(width: 10),
@@ -383,22 +386,24 @@ class _TurboSelectionState extends State<TurboSelection> {
                         reports[index]?.turbineAR == 0
                             ? Container()
                             : Row(
-                          children: <Widget>[
-                            Opacity(
-                              opacity: 0.5,
-                              child: Text(
-                                AppLocalizations.of(context).translate('turbo_selection_0060')// 'Turbine A/R: ',
-                               , style: kLabelTextStyle,
-                                textScaleFactor: textScaleFactorTc,
+                                children: <Widget>[
+                                  Opacity(
+                                    opacity: 0.5,
+                                    child: Text(
+                                      AppLocalizations.of(context).translate(
+                                          'turbo_selection_0060') // 'Turbine A/R: ',
+                                      ,
+                                      style: kLabelTextStyle,
+                                      textScaleFactor: textScaleFactorTc,
+                                    ),
+                                  ),
+                                  Text(
+                                    (reports[index].turbineAR / 100).toString(),
+                                    style: kLabelTextStyle,
+                                    textScaleFactor: textScaleFactorTc,
+                                  ),
+                                ],
                               ),
-                            ),
-                            Text(
-                              (reports[index].turbineAR / 100).toString(),
-                              style: kLabelTextStyle,
-                              textScaleFactor: textScaleFactorTc,
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ],
@@ -411,76 +416,80 @@ class _TurboSelectionState extends State<TurboSelection> {
                   reports[index]?.hpMax == 0
                       ? Container()
                       : Row(
-                    children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Opacity(
-                            opacity: 0.5,
-                            child: Text(
-                              AppLocalizations.of(context).translate('turbo_selection_0070')// 'Horsepower',
-                             , style: kLabelTextStyle,
-                              textScaleFactor: textScaleFactorTc,
+                          children: <Widget>[
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Opacity(
+                                  opacity: 0.5,
+                                  child: Text(
+                                    AppLocalizations.of(context).translate(
+                                        'turbo_selection_0070') // 'Horsepower',
+                                    ,
+                                    style: kLabelTextStyle,
+                                    textScaleFactor: textScaleFactorTc,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    reports[index]?.hpMin == 0
+                                        ? Container()
+                                        : Text(
+                                            reports[index]?.hpMin?.toString(),
+                                            style: kLabelTextStyle,
+                                            textScaleFactor: textScaleFactorTc,
+                                          ),
+                                    reports[index]?.hpMin == 0
+                                        ? Container()
+                                        : Text(
+                                            ' - ',
+                                            style: kLabelTextStyle,
+                                            textScaleFactor: textScaleFactorTc,
+                                          ),
+                                    Text(
+                                      // ignore: null_aware_before_operator
+                                      reports[index]?.hpMax?.toString() + ' Hp',
+                                      style: kLabelTextStyle,
+                                      textScaleFactor: textScaleFactorTc,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              reports[index]?.hpMin == 0
-                                  ? Container()
-                                  : Text(
-                                reports[index]?.hpMin?.toString(),
-                                style: kLabelTextStyle,
-                                textScaleFactor: textScaleFactorTc,
-                              ),
-                              reports[index]?.hpMin == 0
-                                  ? Container()
-                                  : Text(
-                                ' - ',
-                                style: kLabelTextStyle,
-                                textScaleFactor: textScaleFactorTc,
-                              ),
-                              Text(
-                                // ignore: null_aware_before_operator
-                                reports[index]?.hpMax?.toString() + ' Hp',
-                                style: kLabelTextStyle,
-                                textScaleFactor: textScaleFactorTc,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                          ],
+                        ),
 
                   SizedBox(height: 4),
 
                   reports[index]?.compressorInducer == 0
                       ? Container()
                       : Column(
-                    children: <Widget>[
-                      Opacity(
-                        opacity: 0.5,
-                        child: Text(
-                          AppLocalizations.of(context).translate('turbo_selection_0080')// 'Comp Ind',
-                         , style: kLabelTextStyle,
-                          textScaleFactor: textScaleFactorTc,
+                          children: <Widget>[
+                            Opacity(
+                              opacity: 0.5,
+                              child: Text(
+                                AppLocalizations.of(context).translate(
+                                    'turbo_selection_0080') // 'Comp Ind',
+                                ,
+                                style: kLabelTextStyle,
+                                textScaleFactor: textScaleFactorTc,
+                              ),
+                            ),
+                            Container(
+                              child: reports[index]?.compressorInducer == 0
+                                  ? Text(kNotApplicable,
+                                      textScaleFactor: textScaleFactorTc)
+                                  : Text(
+                                      // ignore: null_aware_before_operator
+                                      (reports[index]?.compressorInducer / 100)
+                                              ?.toString() +
+                                          ' mm',
+                                      style: kLabelTextStyle,
+                                      textScaleFactor: textScaleFactorTc,
+                                    ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Container(
-                        child: reports[index]?.compressorInducer == 0
-                            ? Text(kNotApplicable,
-                            textScaleFactor: textScaleFactorTc)
-                            : Text(
-                          // ignore: null_aware_before_operator
-                          (reports[index]?.compressorInducer / 100)
-                              ?.toString() +
-                              ' mm',
-                          style: kLabelTextStyle,
-                          textScaleFactor: textScaleFactorTc,
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
               subtitle: Column(
@@ -509,23 +518,23 @@ class _TurboSelectionState extends State<TurboSelection> {
                   reports[index].mapStatusCompressor == false
                       ? Text(kNotApplicable, textScaleFactor: textScaleFactorTc)
                       : Container(
-                      child: CircleAvatar(
-                        radius: 10,
-                        backgroundColor: kActiveCardColourOutput,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('CM',
-                                style: kLabelTextStyle,
-                                textScaleFactor: textScaleFactorTc * .8),
-                          ],
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(1.0), // borde width
-                      decoration: new BoxDecoration(
-                        color: const Color(0xFFFFFFFF), // border color
-                        shape: BoxShape.circle,
-                      )),
+                          child: CircleAvatar(
+                            radius: 10,
+                            backgroundColor: kActiveCardColourOutput,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text('CM',
+                                    style: kLabelTextStyle,
+                                    textScaleFactor: textScaleFactorTc * .8),
+                              ],
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(1.0), // borde width
+                          decoration: new BoxDecoration(
+                            color: const Color(0xFFFFFFFF), // border color
+                            shape: BoxShape.circle,
+                          )),
                 ],
               ),
               isThreeLine: true,
@@ -555,10 +564,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Garrett',
@@ -568,8 +574,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                     ),
                   ),
                   // ignore: null_aware_in_condition
-                  selected:
-                  (settingsProvider.brandNameList.contains('Garrett'))
+                  selected: (settingsProvider.brandNameList.contains('Garrett'))
                       ? true
                       : false,
                   onSelected: (bool value) {
@@ -589,10 +594,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Borg Warner',
@@ -603,9 +605,9 @@ class _TurboSelectionState extends State<TurboSelection> {
                   ),
                   // ignore: null_aware_in_condition
                   selected:
-                  (settingsProvider.brandNameList.contains('Borg Warner'))
-                      ? true
-                      : false,
+                      (settingsProvider.brandNameList.contains('Borg Warner'))
+                          ? true
+                          : false,
                   onSelected: (bool value) {
                     if (value == true) {
                       settingsProvider.addBrandNameList('Borg Warner');
@@ -623,10 +625,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Precision',
@@ -637,9 +636,9 @@ class _TurboSelectionState extends State<TurboSelection> {
                   ),
                   // ignore: null_aware_in_condition
                   selected:
-                  (settingsProvider.brandNameList.contains('Precision'))
-                      ? true
-                      : false,
+                      (settingsProvider.brandNameList.contains('Precision'))
+                          ? true
+                          : false,
                   onSelected: (bool value) {
                     if (value == true) {
                       settingsProvider.addBrandNameList('Precision');
@@ -657,10 +656,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Holset',
@@ -690,10 +686,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Turbonetics',
@@ -704,9 +697,9 @@ class _TurboSelectionState extends State<TurboSelection> {
                   ),
                   // ignore: null_aware_in_condition
                   selected:
-                  (settingsProvider.brandNameList.contains('Turbonetics'))
-                      ? true
-                      : false,
+                      (settingsProvider.brandNameList.contains('Turbonetics'))
+                          ? true
+                          : false,
                   onSelected: (bool value) {
                     if (value == true) {
                       settingsProvider.addBrandNameList('Turbonetics');
@@ -724,10 +717,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Mitsubishi',
@@ -738,9 +728,9 @@ class _TurboSelectionState extends State<TurboSelection> {
                   ),
                   // ignore: null_aware_in_condition
                   selected:
-                  (settingsProvider.brandNameList.contains('Mitsubishi'))
-                      ? true
-                      : false,
+                      (settingsProvider.brandNameList.contains('Mitsubishi'))
+                          ? true
+                          : false,
                   onSelected: (bool value) {
                     if (value == true) {
                       settingsProvider.addBrandNameList('Mitsubishi');
@@ -758,10 +748,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Xona',
@@ -791,10 +778,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'Bullseye',
@@ -805,9 +789,9 @@ class _TurboSelectionState extends State<TurboSelection> {
                   ),
                   // ignore: null_aware_in_condition
                   selected:
-                  (settingsProvider.brandNameList.contains('Bullseye'))
-                      ? true
-                      : false,
+                      (settingsProvider.brandNameList.contains('Bullseye'))
+                          ? true
+                          : false,
                   onSelected: (bool value) {
                     if (value == true) {
                       settingsProvider.addBrandNameList('Bullseye');
@@ -825,10 +809,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                   showCheckmark: false,
                   // labelStyle: TextStyle(color: Colors.black12),
                   label: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 4.6,
+                    width: MediaQuery.of(context).size.width / 4.6,
                     child: Center(
                       child: Text(
                         'IHI',
@@ -881,8 +862,10 @@ class _TurboSelectionState extends State<TurboSelection> {
     if (_controller.offset <= _controller.position.minScrollExtent &&
         !_controller.position.outOfRange) {
       Text(
-        AppLocalizations.of(context).translate('turbo_selection_0090')//'End  of Scroll',
-       , textScaleFactor: textScaleFactorTc,
+        AppLocalizations.of(context)
+            .translate('turbo_selection_0090') //'End  of Scroll',
+        ,
+        textScaleFactor: textScaleFactorTc,
       );
     }
   }

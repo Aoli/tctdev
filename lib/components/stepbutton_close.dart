@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class StepButtonClose extends StatelessWidget {
   StepButtonClose(
-      {@required this.icon,
+      {required this.icon,
       @required this.onStepPress,
       this.onPressEnd,
       this.onStep});
 
-  final Function onStepPress;
-  final Function onPressEnd;
-  final Function onStep;
+  final GestureLongPressCallback? onStepPress;
+  final GestureLongPressUpCallback? onPressEnd;
+  final GestureTapCallback? onStep;
 
   final IconData icon;
   final double buttonWidth = 30.0;

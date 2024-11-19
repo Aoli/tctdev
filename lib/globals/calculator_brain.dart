@@ -1,12 +1,14 @@
 import 'dart:math';
-import 'package:Turbocharger/globals/constant.dart';
+import 'package:flutter/material.dart';
+import 'package:tct/globals/constant.dart';
 import 'package:flutter/cupertino.dart';
 
 class CalculatorBrain {
-  CalculatorBrain({this.compressorInducerSize,
-    this.compressorExducerSize,
-    this.turbineInducerSize,
-    this.turbineExducerSize});
+  CalculatorBrain(
+      {required this.compressorInducerSize,
+      required this.compressorExducerSize,
+      required this.turbineInducerSize,
+      required this.turbineExducerSize});
 
   final double compressorInducerSize;
   final double compressorExducerSize;
@@ -25,8 +27,8 @@ class CalculatorBrain {
     return dieselHp;
   }
 
-  double calculateCompressorTrim(double compressorInducerSize,
-      double compressorExducerSize) {
+  double calculateCompressorTrim(
+      double compressorInducerSize, double compressorExducerSize) {
     double compressorTrim = (100 *
         ((pow(compressorInducerSize, 2)) / (pow(compressorExducerSize, 2))));
 
@@ -35,8 +37,8 @@ class CalculatorBrain {
 
 //************************* Compressor Metric calculation ***************************
 
-  double calculateCompressorPressure(double compressorInducerSize,
-      double compressorExducerSize) {
+  double calculateCompressorPressure(
+      double compressorInducerSize, double compressorExducerSize) {
     double compressorPressure = (1 *
         ((pow(compressorExducerSize, 2)) / (pow(compressorInducerSize, 2))));
     return compressorPressure;
@@ -46,37 +48,38 @@ class CalculatorBrain {
 
 //************************* Turbine Metric calculation ***************************
 
-  double calculateTurbineTrim(double turbineInducerSize,
-      double turbineExducerSize) {
+  double calculateTurbineTrim(
+      double turbineInducerSize, double turbineExducerSize) {
     double turbineTrim =
-    (100 * ((pow(turbineExducerSize, 2)) / (pow(turbineInducerSize, 2))));
+        (100 * ((pow(turbineExducerSize, 2)) / (pow(turbineInducerSize, 2))));
     return turbineTrim;
   }
 
-  double calculateTurbinePressure(double turbineInducerSize,
-      double turbineExducerSize) {
+  double calculateTurbinePressure(
+      double turbineInducerSize, double turbineExducerSize) {
     double turbinePressure =
-    (1 * ((pow(turbineInducerSize, 2)) / (pow(turbineExducerSize, 2))));
+        (1 * ((pow(turbineInducerSize, 2)) / (pow(turbineExducerSize, 2))));
     return turbinePressure;
   }
 
 //******************** Calculate Airflow and Pressure Ratio ******************
 
-  double calcDesiredWheelHorsepower(double desiredEngineHorsepower,
-      double desiredDriveTrainPower) {
+  double calcDesiredWheelHorsepower(
+      double desiredEngineHorsepower, double desiredDriveTrainPower) {
     double desiredWheelHorsepower =
         desiredEngineHorsepower * (desiredDriveTrainPower / 100);
     return desiredWheelHorsepower;
   }
 
-  double calcMassFlowRatePoundMinute(double desiredEngineHorsepower,
-      double bsfc, double afr) {
+  double calcMassFlowRatePoundMinute(
+      double desiredEngineHorsepower, double bsfc, double afr) {
     double massFlowRatePoundMinute =
         (desiredEngineHorsepower * (bsfc) * afr) / 60;
     return massFlowRatePoundMinute;
   }
 
-  double calcMassFlowRatePoundMinuteTbp(double targetBoostPressure,
+  double calcMassFlowRatePoundMinuteTbp(
+      double targetBoostPressure,
       double engineDisplacement,
       double volumetricEfficiency,
       double maxEngineSpeed,
@@ -143,8 +146,7 @@ class CalculatorBrain {
   }
 
   double calcCubicPoundMinuteManiFoldTemp(double vAirflowCfm,
-      double vAirflowManifoldTemp,
-      double vAirflowPsi, double vAirflowPsiG) {
+      double vAirflowManifoldTemp, double vAirflowPsi, double vAirflowPsiG) {
     var upper = vAirflowCfm * kAirflow144P * (vAirflowPsi + vAirflowPsiG);
 //    print(vAirflowCfm);
 //    print('upper $upper');
@@ -181,7 +183,8 @@ class CalculatorBrain {
 //  const kAirflowPsiA = 29.4;
 //  const kAirflow144P=144;
 
-  double calcRequiredAbsolutePressure(double massFlowRatePoundMinute,
+  double calcRequiredAbsolutePressure(
+      double massFlowRatePoundMinute,
       double engineDisplacment,
       double volumeEffiency,
       double maxEngineSpeed,
@@ -189,30 +192,28 @@ class CalculatorBrain {
       double gasConstant,
       double numberOfTurbos) {
     double requiredAbsolutePressure =
-    ((massFlowRatePoundMinute * gasConstant * (460 + intakeTempValve)) /
-        (61.0237441 *
-            ((volumeEffiency / 100) *
-                (maxEngineSpeed / 2) *
-                engineDisplacment) /
-            numberOfTurbos));
+        ((massFlowRatePoundMinute * gasConstant * (460 + intakeTempValve)) /
+            (61.0237441 *
+                ((volumeEffiency / 100) *
+                    (maxEngineSpeed / 2) *
+                    engineDisplacment) /
+                numberOfTurbos));
 
     return requiredAbsolutePressure;
   }
 
-  double calcResultantManifoldPressure(double requiredAbsolutePressure,
-      double vAirflowPsiAmbient) {
+  double calcResultantManifoldPressure(
+      double requiredAbsolutePressure, double vAirflowPsiAmbient) {
     double resultantManifoldPressure =
         requiredAbsolutePressure - vAirflowPsiAmbient;
     return resultantManifoldPressure;
   }
 
-  double calcPressureRatio(double vAirflowPsiG,
-      double vAirflowPsiAmbient,
-      double preTurboFlowLoss,
-      double postTurboFlowLoss) {
-    double pressureRatio = (vAirflowPsiG + vAirflowPsiAmbient +
-        postTurboFlowLoss) /
-        (vAirflowPsiAmbient - preTurboFlowLoss);
+  double calcPressureRatio(double vAirflowPsiG, double vAirflowPsiAmbient,
+      double preTurboFlowLoss, double postTurboFlowLoss) {
+    double pressureRatio =
+        (vAirflowPsiG + vAirflowPsiAmbient + postTurboFlowLoss) /
+            (vAirflowPsiAmbient - preTurboFlowLoss);
     return pressureRatio;
   }
 
@@ -365,7 +366,7 @@ class CalculatorBrain {
     debugPrint('valueOfUnitFrom $valueOfUnitFrom');
 
     switch (unitFormula) {
-    // *** Convert Length
+      // *** Convert Length
       case 'LengthInchToMillimeter':
         double valueReturn = valueOfUnitFrom * kConvertLengthInchToMillimeter;
         return valueReturn;
@@ -376,7 +377,7 @@ class CalculatorBrain {
         double valueReturn = valueOfUnitFrom * kConvertLengthMillimeterToMeter;
         return valueReturn;
 
-    // *** Convert Pressure Bar
+      // *** Convert Pressure Bar
       case 'PressureBarToAtmosphere':
         double valueReturn = valueOfUnitFrom * kConvertPressureBarToAtmosphere;
         return valueReturn;
@@ -399,7 +400,7 @@ class CalculatorBrain {
         double valueReturn = valueOfUnitFrom * kConvertPressureBarToPsi;
         return valueReturn;
 
-    // *** Convert Pressure Psi
+      // *** Convert Pressure Psi
       case 'PressurePsiToBar':
         debugPrint('PsiToBar: valueOfUnitFrom $valueOfUnitFrom');
         double valueReturn = valueOfUnitFrom * kConvertPressurePsiToBar;
@@ -411,7 +412,7 @@ class CalculatorBrain {
         double valueReturn = valueOfUnitFrom * kConvertPressurePsiToAtmosphere;
         return valueReturn;
 
-    // *** Convert Distance
+      // *** Convert Distance
       case 'DistanceNauticalMileToKm':
         double valueReturn = valueOfUnitFrom * kConvertDistanceNauticalMileToKm;
         return valueReturn;
@@ -434,7 +435,7 @@ class CalculatorBrain {
             valueOfUnitFrom * kConvertDistanceMileToNauticalMile;
         return valueReturn;
 
-    // *** Convert Mass
+      // *** Convert Mass
       case 'MassKilogramToPound':
         double valueReturn = valueOfUnitFrom * kConvertMassKilogramToPound;
         return valueReturn;
@@ -453,7 +454,7 @@ class CalculatorBrain {
       case 'MassKilogramToGram':
         double valueReturn = valueOfUnitFrom * kConvertMassKilogramToGram;
         return valueReturn;
-    // ***** Convert Temperature
+      // ***** Convert Temperature
 
       case 'TemperatureCelsiusToFahrenheit':
         double valueReturn = (valueOfUnitFrom * 9 / 5) + 32;
@@ -462,7 +463,7 @@ class CalculatorBrain {
         double valueReturn = (valueOfUnitFrom - 32) * 5 / 9;
         return valueReturn;
 
-    // *** Convert Speed
+      // *** Convert Speed
       case 'SpeedKilometerPerHourToMilesPerHour':
         debugPrint('Multi_Mph $valueOfUnitFrom');
         double valueReturn =
@@ -477,7 +478,7 @@ class CalculatorBrain {
         print('Kmh $valueReturn');
         return valueReturn;
 
-    // *** Convert Volume
+      // *** Convert Volume
 
       case 'VolumeUsLiquidGallonToLiter':
         double valueReturn =
@@ -552,7 +553,7 @@ class CalculatorBrain {
     debugPrint('valueOfUnitFrom $valueOfUnitFrom');
 
     switch (unitFormula) {
-    // *** Convert Length
+      // *** Convert Length
       case 'AirflowAirDensityPoundPerMinuteToCfm':
         double valueReturn = valueOfUnitFrom / vAirDensityAirflow;
         return valueReturn;
@@ -578,8 +579,7 @@ class CalculatorBrain {
     final int resultHour = minuteValue ~/ 60;
     final int minutes = minuteValue % 60;
     print(
-        '${resultHour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(
-            2, "0")}');
+        '${resultHour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}');
     return resultMinutes;
   }
 

@@ -101,7 +101,12 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
     ),
   );
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+      compressorInducerSize: inducerCompressorValue,
+      compressorExducerSize: exducerCompressorValue,
+      turbineInducerSize: 0.0, // Replace with actual value
+      turbineExducerSize: 0.0 // Replace with actual value
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +140,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
             Expanded(
               flex: 2,
               child: ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourInput,
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -400,8 +406,8 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                 snackbarEnable = false;
                                 // _scaffoldKey.currentState
                                 //     .removeCurrentSnackBar();
-                                _scaffoldKey.currentState
-                                    ?.showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               } else if (inducerCompressorMetric <=
                                   exducerCompressor) {
                                 snackbarEnable = false;
@@ -425,6 +431,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                   children: <Widget>[
                     Expanded(
                       child: ReusableCard(
+                        onPress: () {},
                         cardChild: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -468,6 +475,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                     ),
                     Expanded(
                       child: ReusableCard(
+                        onPress: () {},
                         cardChild: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           //crossAxisAlignment: CrossAxisAlignment.center,

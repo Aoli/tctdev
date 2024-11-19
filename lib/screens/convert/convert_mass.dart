@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class MassPage extends StatefulWidget {
   @override
@@ -32,7 +31,7 @@ class _MassPageState extends State<MassPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Weight'};
@@ -41,7 +40,7 @@ class _MassPageState extends State<MassPage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -80,7 +79,12 @@ class _MassPageState extends State<MassPage> {
     ),
   );
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0, // Provide appropriate value
+    compressorExducerSize: 0.0, // Provide appropriate value
+    turbineInducerSize: 0.0, // Provide appropriate value
+    turbineExducerSize: 0.0, // Provide appropriate value
+  );
 
   @override
   void initState() {
@@ -122,9 +126,11 @@ class _MassPageState extends State<MassPage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('convert_weight_0000')
+            Text(
+              AppLocalizations.of(context).translate('convert_weight_0000')
               //'MASS Conversion',
-              , style: kAppBarTextStyle,
+              ,
+              style: kAppBarTextStyle,
               textScaleFactor: textScaleFactorTc,
             ),
             Container(width: 30.0, child: submitRatingButton),
@@ -137,6 +143,11 @@ class _MassPageState extends State<MassPage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    resetValues();
+                  });
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -146,9 +157,10 @@ class _MassPageState extends State<MassPage> {
                       Column(
                         children: <Widget>[
                           Text(
-                            AppLocalizations.of(context).translate(
-                                'convert_weight_0010') //'Mass',
-                            ,style: kSecondSubjectTextStyle,
+                            AppLocalizations.of(context)
+                                .translate('convert_weight_0010') //'Mass',
+                            ,
+                            style: kSecondSubjectTextStyle,
                             textScaleFactor: textScaleFactorTc,
                           ),
                           Center(
@@ -165,10 +177,10 @@ class _MassPageState extends State<MassPage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor: textScaleFactorTc,
-                                          )),
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
@@ -190,7 +202,8 @@ class _MassPageState extends State<MassPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_weight_0020')
                                           //'US Pound',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -198,7 +211,7 @@ class _MassPageState extends State<MassPage> {
                                             convertResultMassPound
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -215,7 +228,8 @@ class _MassPageState extends State<MassPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_weight_0030')
                                           // 'Kilogram',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -223,7 +237,7 @@ class _MassPageState extends State<MassPage> {
                                             convertResultMassKilogram
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -240,7 +254,8 @@ class _MassPageState extends State<MassPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_weight_0040')
                                           //'Gram',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -248,7 +263,7 @@ class _MassPageState extends State<MassPage> {
                                             convertResultMassGram
                                                 .toStringAsFixed(0),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -276,7 +291,8 @@ class _MassPageState extends State<MassPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_weight_0050')
                                           //  'Ounce',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -284,7 +300,7 @@ class _MassPageState extends State<MassPage> {
                                             (convertResultMassPound * 16)
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -292,8 +308,9 @@ class _MassPageState extends State<MassPage> {
                                           Text(
                                             AppLocalizations.of(context)
                                                 .translate(
-                                                'convert_weight_0060') //'oz',
-                                           , style: kLabelTextStyle,
+                                                    'convert_weight_0060') //'oz',
+                                            ,
+                                            style: kLabelTextStyle,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -303,25 +320,26 @@ class _MassPageState extends State<MassPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_weight_0070')
                                           //'Stone',
-                                        ,  style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             (convertResultMassKilogram *
-                                                0.15747)
+                                                    0.15747)
                                                 .toStringAsFixed(3),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                         DataCell(
                                           Text(
-                                            AppLocalizations.of(context)
-                                                .translate(
+                                            AppLocalizations.of(context).translate(
                                                 'convert_weight_0080') // 'st',
-                                            ,style: kLabelTextStyle,
+                                            ,
+                                            style: kLabelTextStyle,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -337,6 +355,11 @@ class _MassPageState extends State<MassPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    resetValues();
+                  });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -429,8 +452,8 @@ class _MassPageState extends State<MassPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if (Decimal.parse(
-                                              convertSliderResultMassAll
-                                                  .toStringAsFixed(1)) >
+                                                  convertSliderResultMassAll
+                                                      .toStringAsFixed(1)) >
                                               Decimal.parse(
                                                   vMinSliderConvertVolumeAllStepper
                                                       .toStringAsFixed(1))) {
@@ -452,8 +475,8 @@ class _MassPageState extends State<MassPage> {
                                     onStep: () {
                                       setState(() {
                                         if (Decimal.parse(
-                                            convertSliderResultMassAll
-                                                .toStringAsFixed(1)) >
+                                                convertSliderResultMassAll
+                                                    .toStringAsFixed(1)) >
                                             Decimal.parse(
                                                 vMinSliderConvertVolumeAllStepper
                                                     .toStringAsFixed(1))) {
@@ -491,8 +514,8 @@ class _MassPageState extends State<MassPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if ((Decimal.parse(
-                                              convertSliderResultMassAll
-                                                  .toStringAsFixed(1)) <
+                                                  convertSliderResultMassAll
+                                                      .toStringAsFixed(1)) <
                                               (Decimal.parse(
                                                   vMaxSliderConvertVolumeAllStepper
                                                       .toStringAsFixed(1))))) {
@@ -514,8 +537,8 @@ class _MassPageState extends State<MassPage> {
                                     onStep: () {
                                       setState(() {
                                         if ((Decimal.parse(
-                                            convertSliderResultMassAll
-                                                .toStringAsFixed(1)) <
+                                                convertSliderResultMassAll
+                                                    .toStringAsFixed(1)) <
                                             (Decimal.parse(
                                                 vMaxSliderConvertVolumeAllStepper
                                                     .toStringAsFixed(1))))) {
@@ -545,9 +568,11 @@ class _MassPageState extends State<MassPage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_weight_0090') //'Pound',
-                                      , style: kUnitTextStyles,
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_weight_0090') //'Pound',
+                                      ,
+                                      style: kUnitTextStyles,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -559,9 +584,11 @@ class _MassPageState extends State<MassPage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_weight_0090') //'Kilogram',
-                                      , style: kUnitTextStyles,
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_weight_0090') //'Kilogram',
+                                      ,
+                                      style: kUnitTextStyles,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -573,9 +600,11 @@ class _MassPageState extends State<MassPage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_weight_0100') //'Gram',
-                                      , style: kUnitTextStyles,
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_weight_0100') //'Gram',
+                                      ,
+                                      style: kUnitTextStyles,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -604,9 +633,9 @@ class _MassPageState extends State<MassPage> {
 
   int radioValue = 0;
 
-  void handleRadioValueChanged(int value) {
+  void handleRadioValueChanged(int? value) {
     setState(() {
-      radioValue = value;
+      radioValue = value!;
       resetValues();
 
       switch (radioValue) {

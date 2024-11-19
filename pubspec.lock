@@ -42,7 +42,7 @@ packages:
     source: hosted
     version: "1.1.1"
   cloud_firestore:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: cloud_firestore
       sha256: d5b73c5f27d95504e45d96e793fe9f9daa62e42b22da85b9f8de4916f46e916d
@@ -82,7 +82,7 @@ packages:
     source: hosted
     version: "0.3.4+2"
   cupertino_icons:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: cupertino_icons
       sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
@@ -90,7 +90,7 @@ packages:
     source: hosted
     version: "1.0.8"
   date_format:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: date_format
       sha256: a48254e60bdb7f1d5a15cac7f86e37491808056c0a99dbdc850841def4754ddc
@@ -98,7 +98,7 @@ packages:
     source: hosted
     version: "2.0.9"
   decimal:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: decimal
       sha256: "4140a688f9e443e2f4de3a1162387bf25e1ac6d51e24c9da263f245210f41440"
@@ -106,7 +106,7 @@ packages:
     source: hosted
     version: "3.0.2"
   device_info_plus:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: device_info_plus
       sha256: f545ffbadee826f26f2e1a0f0cbd667ae9a6011cc0f77c0f8f00a969655e6e95
@@ -178,7 +178,7 @@ packages:
     source: hosted
     version: "0.9.3+3"
   firebase_analytics:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: firebase_analytics
       sha256: "8be7c45091f01cc15130edf8201ed4f4b7b022a38424ed9aac6b9a6d7c45bb09"
@@ -226,7 +226,7 @@ packages:
     source: hosted
     version: "2.18.1"
   firebase_remote_config:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: firebase_remote_config
       sha256: "29619302396823622dd9d0ccb8ac2b48804c518c0c82aa85ef3d86b91fdf55ca"
@@ -250,7 +250,7 @@ packages:
     source: hosted
     version: "1.7.4"
   flip_card:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flip_card
       sha256: "5d4aa58f3983cced0782f4ce45826b7eea36e8e464964d9209dcbc7a87b2292f"
@@ -258,12 +258,12 @@ packages:
     source: hosted
     version: "0.7.0"
   flutter:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
   flutter_icons_null_safety:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_icons_null_safety
       sha256: "60fd2594b08cba99d74c9c75e0fb7856b33377a538563713dca21bb71fcc1eec"
@@ -279,7 +279,7 @@ packages:
     source: hosted
     version: "5.0.0"
   flutter_localization:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_localization
       sha256: "9b3b8825146a3850297a0ec3686b326d618328dca4cd5178b764af9303a26379"
@@ -310,7 +310,7 @@ packages:
     source: sdk
     version: "0.0.0"
   font_awesome_flutter:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: font_awesome_flutter
       sha256: d3a89184101baec7f4600d58840a764d2ef760fe1c5a20ef9e6b0e9b24a07a3a
@@ -334,7 +334,7 @@ packages:
     source: hosted
     version: "4.0.2"
   image_picker:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: image_picker
       sha256: "021834d9c0c3de46bf0fe40341fa07168407f694d9b2bb18d532dc1261867f7a"
@@ -478,7 +478,7 @@ packages:
     source: hosted
     version: "1.0.0"
   package_info_plus:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: package_info_plus
       sha256: da8d9ac8c4b1df253d1a328b7bf01ae77ef132833479ab40763334db13b91cce
@@ -542,7 +542,7 @@ packages:
     source: hosted
     version: "2.1.8"
   provider:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: provider
       sha256: c8a055ee5ce3fd98d6fc872478b03823ffdb448699c6ebdbbc71d59b596fd48c
@@ -558,7 +558,7 @@ packages:
     source: hosted
     version: "2.2.3"
   shared_preferences:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: shared_preferences
       sha256: "95f9997ca1fb9799d494d0cb2a780fd7be075818d59f00c43832ed112b158a82"
@@ -699,7 +699,7 @@ packages:
     source: hosted
     version: "1.1.0"
   webview_flutter:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: webview_flutter
       sha256: "889a0a678e7c793c308c68739996227c9661590605e70b1f6cf6b9a6634f7aec"

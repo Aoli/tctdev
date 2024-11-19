@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class StepButton extends StatelessWidget {
   StepButton(
-      {@required this.icon,
-      @required this.onStepPress,
-      this.onPressEnd,
-      this.onStep});
+      {required this.icon,
+      required this.onStepPress,
+      required this.onPressEnd,
+      required this.onStep});
 
-  final Function onStepPress;
-  final Function onPressEnd;
-  final Function onStep;
+  final VoidCallback onStepPress;
+  final VoidCallback onPressEnd;
+  final VoidCallback onStep;
 
   final IconData icon;
   final double buttonWidth = 30.0;
@@ -32,7 +32,7 @@ class StepButton extends StatelessWidget {
                 width: buttonWidth,
                 height: buttonHeight,
                 decoration: BoxDecoration(
-                  //color: Colors.blueGrey.shade700,
+                    //color: Colors.blueGrey.shade700,
                     gradient: LinearGradient(
                       colors: [Colors.white54, Colors.white12],
                       begin: Alignment.topCenter,

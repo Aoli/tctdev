@@ -1,4 +1,6 @@
 import 'dart:io' show Platform;
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:tct/data_models/Map_iphone_models.dart';
 import 'package:tct/globals/app_localizations.dart';
 import 'package:tct/provider/settings_provider.dart';
@@ -6,6 +8,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:tct/globals/global_variables.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart'
+    as remote_config;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/analytics_event.dart';
 import '../data_models/analytics_event_type.dart';
@@ -16,9 +21,9 @@ import 'package:tct/components/turbocharger_icons_icons.dart';
 import 'package:tct/globals/constants_ui.dart';
 
 class MenuPage extends StatefulWidget {
-  bool metricUnit;
+  final bool metricUnit;
 
-  MenuPage({required Set key, required this.metricUnit}) : super(ey: key);
+  MenuPage({Key? key, required this.metricUnit}) : super(key: key);
 
   _MenuPageState createState() => _MenuPageState(metricUnit);
 }
@@ -58,7 +63,6 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   // @override
-  // void calculate() {}
 
   void initState() {
     super.initState();
@@ -124,7 +128,12 @@ class _MenuPageState extends State<MenuPage> {
     ),
   );
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   Color primaryColor = Color(0xff7b0000);
 
@@ -400,6 +409,7 @@ class _MenuPageState extends State<MenuPage> {
                               arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
 
                     ReusableCard(
@@ -425,6 +435,7 @@ class _MenuPageState extends State<MenuPage> {
                               arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
 
                     ReusableCard(
@@ -448,6 +459,7 @@ class _MenuPageState extends State<MenuPage> {
                               .pushNamed("ar_ratio", arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
                     ReusableCard(
                       colour: kActiveCardColourInput,
@@ -471,6 +483,7 @@ class _MenuPageState extends State<MenuPage> {
                               .pushNamed("tctappnews", arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
                     ReusableCard(
                       colour: kActiveCardColourInput,
@@ -494,6 +507,7 @@ class _MenuPageState extends State<MenuPage> {
                               .pushNamed("feedback", arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
                   ],
                 ),
@@ -527,6 +541,7 @@ class _MenuPageState extends State<MenuPage> {
 //                      ),
 //                    ),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconturbo2048px),
@@ -575,6 +590,7 @@ class _MenuPageState extends State<MenuPage> {
 //                              arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
 //
 
@@ -602,6 +618,7 @@ class _MenuPageState extends State<MenuPage> {
 //                              .pushNamed("airflowpage", arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
                   ],
                 ),
@@ -611,6 +628,7 @@ class _MenuPageState extends State<MenuPage> {
                   children: <Widget>[
                     SizedBox(height: 10.0),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconcylinder2048px),
@@ -659,6 +677,7 @@ class _MenuPageState extends State<MenuPage> {
                               .pushNamed("torque", arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
                     ReusableCard(
                       colour: kActiveCardColourInput,
@@ -684,6 +703,7 @@ class _MenuPageState extends State<MenuPage> {
                               .pushNamed("hptorque", arguments: metricUnit);
                         },
                       ),
+                      onPress: () {},
                     ),
 //                    ReusableCard(
 //                      colour: kInactiveCardColour,
@@ -704,6 +724,7 @@ class _MenuPageState extends State<MenuPage> {
 //                      ),
 //                    ),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(Icons.info_outline),
@@ -736,6 +757,7 @@ class _MenuPageState extends State<MenuPage> {
                   children: <Widget>[
                     SizedBox(height: 10.0),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconenginecalc2048px),
@@ -757,6 +779,7 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                     ),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconenginecalc2048px),
@@ -778,6 +801,7 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                     ),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconenginecalc2048px),
@@ -819,6 +843,7 @@ class _MenuPageState extends State<MenuPage> {
 //                      ),
 //                    ),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconenginecalc2048px),
@@ -840,6 +865,7 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                     ),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconenginecalc2048px),
@@ -861,6 +887,7 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                     ),
                     ReusableCard(
+                      onPress: () {},
                       colour: kActiveCardColourInput,
                       cardChild: ListTile(
                         leading: Icon(TurbochargerIcons.iconenginecalc2048px),
@@ -884,158 +911,161 @@ class _MenuPageState extends State<MenuPage> {
                   ],
                 ),
               ),
-              Container(
-                child: ListView(
-                  children: <Widget>[
-                    SizedBox(height: 10.0),
-                    ReusableCard(
-                      colour: kActiveCardColourInput,
-                      cardChild: ListTile(
-                        leading: Icon(Icons.info_outline),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        title: Text(
-                          AppLocalizations.of(context)
-                              .translate('a_menu_0360') // 'About TurboCharger',
-                          ,
-                          style: kSecondSubjectTextStyle,
-                          textScaleFactor: textScaleFactorTc,
-                        ),
-                        //  subtitle: Text(
-                        //    'Conversions is next on the list'),
-                        onTap: () {
-                          // Navigator.of(context).pop();
-                          Navigator.of(context).pushNamed("appinformation",
-                              arguments: metricUnit);
-                        },
+              ListView(
+                children: <Widget>[
+                  SizedBox(height: 10.0),
+                  ReusableCard(
+                    onPress: () {},
+                    colour: kActiveCardColourInput,
+                    cardChild: ListTile(
+                      leading: Icon(Icons.info_outline),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      title: Text(
+                        AppLocalizations.of(context)
+                            .translate('a_menu_0360') // 'About TurboCharger',
+                        ,
+                        style: kSecondSubjectTextStyle,
+                        textScaleFactor: textScaleFactorTc,
                       ),
+                      //  subtitle: Text(
+                      //    'Conversions is next on the list'),
+                      onTap: () {
+                        // Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushNamed("appinformation", arguments: metricUnit);
+                      },
                     ),
-                    ReusableCard(
-                      colour: kActiveCardColourInput,
-                      cardChild: ListTile(
-                        leading: Icon(Icons.info_outline),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        title: Text(
-                          AppLocalizations.of(context).translate(
-                              'a_menu_0370') // 'TurboCharger Website',
-                          ,
-                          style: kSecondSubjectTextStyle,
-                          textScaleFactor: textScaleFactorTc,
-                        ),
-                        //  subtitle: Text(
-                        //    'Conversions is next on the list'),
-                        onTap: () {
-                          // Navigator.of(context).pop();
-                          Navigator.of(context)
-                              .pushNamed("tcwebsite", arguments: metricUnit);
-                        },
+                  ),
+                  ReusableCard(
+                    onPress: () {},
+                    colour: kActiveCardColourInput,
+                    cardChild: ListTile(
+                      leading: Icon(Icons.info_outline),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      title: Text(
+                        AppLocalizations.of(context)
+                            .translate('a_menu_0370') // 'TurboCharger Website',
+                        ,
+                        style: kSecondSubjectTextStyle,
+                        textScaleFactor: textScaleFactorTc,
                       ),
+                      //  subtitle: Text(
+                      //    'Conversions is next on the list'),
+                      onTap: () {
+                        // Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushNamed("tcwebsite", arguments: metricUnit);
+                      },
                     ),
-                    ReusableCard(
-                      colour: kActiveCardColourInput,
-                      cardChild: ListTile(
-                        leading: Icon(Icons.info_outline),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        title: Text(
-                          AppLocalizations.of(context)
-                              .translate('a_menu_0380') // 'TCT News',
-                          ,
-                          style: kSecondSubjectTextStyle,
-                          textScaleFactor: textScaleFactorTc,
-                        ),
-                        subtitle: Text(
-                          AppLocalizations.of(context).translate(
-                              'a_menu_0390') // 'News and TCT roadmap',
-                          ,
-                          textScaleFactor: textScaleFactorTc,
-                        ),
-                        onTap: () {
-                          // Navigator.of(context).pop();
-                          Navigator.of(context)
-                              .pushNamed("tctappnews", arguments: metricUnit);
-                        },
+                  ),
+                  ReusableCard(
+                    onPress: () {},
+                    colour: kActiveCardColourInput,
+                    cardChild: ListTile(
+                      leading: Icon(Icons.info_outline),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      title: Text(
+                        AppLocalizations.of(context)
+                            .translate('a_menu_0380') // 'TCT News',
+                        ,
+                        style: kSecondSubjectTextStyle,
+                        textScaleFactor: textScaleFactorTc,
                       ),
-                    ),
-                    ReusableCard(
-                      colour: kActiveCardColourInput,
-                      cardChild: ListTile(
-                        leading: Icon(Icons.info_outline),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        title: Text(
-                          AppLocalizations.of(context)
-                              .translate('a_menu_0400') // 'Credits',
-                          ,
-                          style: kSecondSubjectTextStyle,
-                          textScaleFactor: textScaleFactorTc,
-                        ),
-                        onTap: () {
-                          // Navigator.of(context).pop();
-                          Navigator.of(context)
-                              .pushNamed("credits", arguments: metricUnit);
-                        },
+                      subtitle: Text(
+                        AppLocalizations.of(context)
+                            .translate('a_menu_0390') // 'News and TCT roadmap',
+                        ,
+                        textScaleFactor: textScaleFactorTc,
                       ),
+                      onTap: () {
+                        // Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushNamed("tctappnews", arguments: metricUnit);
+                      },
                     ),
-                    ReusableCard(
-                      colour: kActiveCardColourInput,
-                      cardChild: ListTile(
-                        leading: Icon(Icons.info_outline),
-                        trailing: Icon(Icons.keyboard_arrow_right),
-                        title: Text(
-                          AppLocalizations.of(context).translate(
-                              'a_menu_0410') //  'Please give us feedback',
-                          ,
-                          style: kSecondSubjectTextStyle,
-                          textScaleFactor: textScaleFactorTc,
-                        ),
-                        //  subtitle: Text(
-                        //    'Conversions is next on the list'),
-                        onTap: () {
-                          // Navigator.of(context).pop();
-                          Navigator.of(context)
-                              .pushNamed("feedback", arguments: metricUnit);
-                        },
+                  ),
+                  ReusableCard(
+                    onPress: () {},
+                    colour: kActiveCardColourInput,
+                    cardChild: ListTile(
+                      leading: Icon(Icons.info_outline),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      title: Text(
+                        AppLocalizations.of(context)
+                            .translate('a_menu_0400') // 'Credits',
+                        ,
+                        style: kSecondSubjectTextStyle,
+                        textScaleFactor: textScaleFactorTc,
                       ),
+                      onTap: () {
+                        // Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushNamed("credits", arguments: metricUnit);
+                      },
                     ),
+                  ),
+                  ReusableCard(
+                    onPress: () {},
+                    colour: kActiveCardColourInput,
+                    cardChild: ListTile(
+                      leading: Icon(Icons.info_outline),
+                      trailing: Icon(Icons.keyboard_arrow_right),
+                      title: Text(
+                        AppLocalizations.of(context).translate(
+                            'a_menu_0410') //  'Please give us feedback',
+                        ,
+                        style: kSecondSubjectTextStyle,
+                        textScaleFactor: textScaleFactorTc,
+                      ),
+                      //  subtitle: Text(
+                      //    'Conversions is next on the list'),
+                      onTap: () {
+                        // Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushNamed("feedback", arguments: metricUnit);
+                      },
+                    ),
+                  ),
 
-//                    ReusableCard(
-//                      colour: kActiveCardColour,
-//                      cardChild: ListTile(
-//                        leading: Icon(Icons.info_outline),
-//                        // trailing: Icon(Icons.keyboard_arrow_right),
-//                        title: Text(
-//                          'Turbo Wiki',
-//                          textScaleFactor: textScaleFactorTc,
-//                        ),
-//                        subtitle: Text(
-//                          'Experimental ... soon ready',
-//                          textScaleFactor: textScaleFactorTc,
-//                        ),
-//                        onTap: () {
-//                          // Navigator.of(context).pop();
-//                          //  Navigator.of(context)
-//                          //      .pushNamed("mass", arguments: metricUnit);
-//                        },
-//                      ),
-//                    ),
-//                    ReusableCard(
-//                      colour: kActiveCardColour,
-//                      cardChild: ListTile(
-//                        leading: Icon(Icons.explore),
-//                        // trailing: Icon(Icons.keyboard_arrow_right),
-//                        title: Text(
-//                          'Measure Help',
-//                          textScaleFactor: textScaleFactorTc,
-//                        ),
-//                        subtitle: Text('Experimental ...Not ready',
-//                            textScaleFactor: textScaleFactorTc),
-//                        onTap: () {
-//                          // Navigator.of(context).pop();
-//                          Navigator.of(context)
-//                              .pushNamed("measurehelp", arguments: metricUnit);
-//                        },
-//                      ),
-//                    ),
-                  ],
-                ),
+                  //                    ReusableCard(
+                  //                      colour: kActiveCardColour,
+                  //                      cardChild: ListTile(
+                  //                        leading: Icon(Icons.info_outline),
+                  //                        // trailing: Icon(Icons.keyboard_arrow_right),
+                  //                        title: Text(
+                  //                          'Turbo Wiki',
+                  //                          textScaleFactor: textScaleFactorTc,
+                  //                        ),
+                  //                        subtitle: Text(
+                  //                          'Experimental ... soon ready',
+                  //                          textScaleFactor: textScaleFactorTc,
+                  //                        ),
+                  //                        onTap: () {
+                  //                          // Navigator.of(context).pop();
+                  //                          //  Navigator.of(context)
+                  //                          //      .pushNamed("mass", arguments: metricUnit);
+                  //                        },
+                  //                      ),
+                  //                    ),
+                  //                    ReusableCard(
+                  //                      colour: kActiveCardColour,
+                  //                      cardChild: ListTile(
+                  //                        leading: Icon(Icons.explore),
+                  //                        // trailing: Icon(Icons.keyboard_arrow_right),
+                  //                        title: Text(
+                  //                          'Measure Help',
+                  //                          textScaleFactor: textScaleFactorTc,
+                  //                        ),
+                  //                        subtitle: Text('Experimental ...Not ready',
+                  //                            textScaleFactor: textScaleFactorTc),
+                  //                        onTap: () {
+                  //                          // Navigator.of(context).pop();
+                  //                          Navigator.of(context)
+                  //                              .pushNamed("measurehelp", arguments: metricUnit);
+                  //                        },
+                  //                      ),
+                  //                    ),
+                ],
               ),
             ],
           );
@@ -1055,18 +1085,19 @@ class _MenuPageState extends State<MenuPage> {
     int currentBuildNumber = int.parse(info.buildNumber);
     String currentVersionNumber = info.version;
 
-    RemoteConfig remoteConfig = await RemoteConfig.instance;
+    remote_config.FirebaseRemoteConfig remoteConfig =
+        await remote_config.FirebaseRemoteConfig.instance;
     await remoteConfig.fetch();
-    await remoteConfig.activateFetched();
-    await remoteConfig.fetch(expiration: Duration(seconds: 5));
+    await remoteConfig.fetchAndActivate();
     final requiredBuildNumberAndroid =
         remoteConfig.getInt('android_app_version');
     print('requiredBuildNumberAndroid $requiredBuildNumberAndroid');
 
-    RemoteConfig remoteConfigIos = await RemoteConfig.instance;
+    remote_config.FirebaseRemoteConfig remoteConfigIos =
+        await remote_config.FirebaseRemoteConfig.instance;
     await remoteConfigIos.fetch();
-    await remoteConfigIos.activateFetched();
-    await remoteConfigIos.fetch(expiration: Duration(seconds: 5));
+    await remoteConfigIos.fetchAndActivate();
+    await remoteConfigIos.fetch();
     final requiredBuildNumberIos = remoteConfig.getInt('ios_app_version');
     print('requiredBuildNumberIos $requiredBuildNumberIos');
 
@@ -1144,7 +1175,7 @@ class _MenuPageState extends State<MenuPage> {
             ),
             actions: <Widget>[
               // usually buttons at the bottom of the dialog
-              new FlatButton(
+              new TextButton(
                 child: new Text(
                   AppLocalizations.of(context)
                       .translate('a_menu_0440') //  "Close",
@@ -1187,7 +1218,7 @@ class _MenuPageState extends State<MenuPage> {
             ),
             actions: <Widget>[
               // usually buttons at the bottom of the dialog
-              new FlatButton(
+              new TextButton(
                 child: new Text(
                     AppLocalizations.of(context)
                         .translate('a_menu_0470') //"Close",
@@ -1274,7 +1305,7 @@ void mobilSystemAndroidAnalytics(androidInfo) {
   print('androids $androids');
 
 // MobileSytem and Width
-  var _analyticsParameterMobileSystemWidth = {
+  var _analyticsParameterMobileSystemWidth = <String, Object>{
     'MobileSystemWidth': mobileSystemWidth
   };
   print('MobileSystemWidth $mobileSystemWidth');
@@ -1297,7 +1328,7 @@ void mobilSystemAndroidAnalytics(androidInfo) {
       AnalyticsEventType.system_width_txt, _analyticsParameterSystemWidthTxt);
 
 // mobileOsVersion
-  var _analyticsParameterMobileOsVersion = {
+  var _analyticsParameterMobileOsVersion = <String, Object>{
     'MobileOsVersion': systemAndVersion
   };
   print('systemAndVersion $systemAndVersion');
@@ -1307,7 +1338,7 @@ void mobilSystemAndroidAnalytics(androidInfo) {
       AnalyticsEventType.mobile_os_version, _analyticsParameterMobileOsVersion);
 
 // mobileBrandModel
-  var _analyticsParameterMobileBrandModel = {
+  var _analyticsParameterMobileBrandModel = <String, Object>{
     'MobileBrandModel': mobileBrandModel
   };
   print('mobileBrandModel $mobileBrandModel');
@@ -1351,14 +1382,16 @@ mobilSystemIosAnalytics(iosInfo) {
   var str1 = strList.split(' ')[0];
   print(str1[0].toUpperCase() + str1.substring(1).toLowerCase()); // Welcome
 
-  var _analyticsParameterMobileSystem = {'MobileSystem': systemName};
+  var _analyticsParameterMobileSystem = <String, Object>{
+    'MobileSystem': systemName
+  };
   print('systemName $systemName');
 // Execute a function to send logEvent() to Firebase Analytics
   Analytics.analyticsLogEvent(
       AnalyticsEventType.mobile_system, _analyticsParameterMobileSystem);
 
   // MobileSytem and Width
-  var _analyticsParameterMobileSystemWidth = {
+  var _analyticsParameterMobileSystemWidth = <String, Object>{
     'MobileSystemWidth': mobileSystemWidth
   };
   print('MobileSystemWidth $mobileSystemWidth');
@@ -1381,7 +1414,7 @@ mobilSystemIosAnalytics(iosInfo) {
       AnalyticsEventType.system_width_txt, _analyticsParameterSystemWidthTxt);
 
 // mobileOsVersion
-  var _analyticsParameterMobileOsVersion = {
+  var _analyticsParameterMobileOsVersion = <String, Object>{
     'MobileOsVersion': systemAndVersion
   };
   print('systemAndVersion $systemAndVersion');
@@ -1391,7 +1424,7 @@ mobilSystemIosAnalytics(iosInfo) {
       AnalyticsEventType.mobile_os_version, _analyticsParameterMobileOsVersion);
 
 // mobileBrandModel
-  var _analyticsParameterMobileBrandModel = {
+  var _analyticsParameterMobileBrandModel = <String, Object>{
     'MobileBrandModel': mobileBrandModel
   };
   print('modelIphone $mobileBrandModel');

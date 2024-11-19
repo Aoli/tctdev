@@ -4,7 +4,6 @@ import 'package:tct/components/analytics_event.dart';
 import 'package:tct/data_models/analytics_event_type.dart';
 import 'package:tct/components/stepbutton.dart';
 import 'package:tct/provider/settings_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../components/reusable_card.dart';
@@ -18,7 +17,8 @@ import 'package:tct/globals/constants_ui.dart';
 class CompressorPage extends StatefulWidget {
   final bool metricUnit;
 
-  CompressorPage({Key key, @required this.metricUnit, RouteSettings settings})
+  CompressorPage(
+      {Key? key, required this.metricUnit, required RouteSettings settings})
       : super(key: key);
 
   @override
@@ -98,7 +98,7 @@ class _CompressorPageState extends State<CompressorPage> {
       inducerCompressorDisplay = inducerCompressorValue.toStringAsFixed(1);
 
       pressureCompressorDisplay = pressureCompressorResult.toStringAsFixed(2);
-      sliderDivisions = null;
+      //sliderDivisions = null;
       sliderDivisionInducerExducer = 130;
     } else {
       vMinInducerValue = kMinCompressorInducerImperial;
@@ -136,7 +136,7 @@ class _CompressorPageState extends State<CompressorPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.red.shade900,
           onPressed: () {
-            _scaffoldKey.currentState?.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Airflow HP RPM'};
@@ -186,7 +186,12 @@ class _CompressorPageState extends State<CompressorPage> {
 
   double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: inducerCompressorValue,
+    compressorExducerSize: exducerCompressorValue,
+    turbineInducerSize: inducerCompressorValue,
+    turbineExducerSize: exducerCompressorValue,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -218,6 +223,7 @@ class _CompressorPageState extends State<CompressorPage> {
           //crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ReusableCard(
+              onPress: () {},
               //Compressor side Inducer *****************************
               colour: kActiveCardColourInput,
               cardChild: Column(
@@ -764,6 +770,7 @@ class _CompressorPageState extends State<CompressorPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
+                    onPress: () {},
                     colour: kActiveCardColourOutput,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -793,6 +800,7 @@ class _CompressorPageState extends State<CompressorPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
+                    onPress: () {},
                     colour: kActiveCardColourOutput,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -834,6 +842,7 @@ class _CompressorPageState extends State<CompressorPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
+                    onPress: () {},
                     colour: kActiveCardColourOutput,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -867,6 +876,7 @@ class _CompressorPageState extends State<CompressorPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
+                    onPress: () {},
                     colour: kActiveCardColourOutput,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -900,6 +910,7 @@ class _CompressorPageState extends State<CompressorPage> {
               ],
             )),
             ReusableCard(
+              onPress: () {},
               colour: kActiveCardColourInput,
               cardChild: (Container(
                 child: Row(

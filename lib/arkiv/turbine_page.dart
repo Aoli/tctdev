@@ -15,7 +15,8 @@ import 'package:tct/globals/constants_ui.dart';
 class TurbinePage extends StatefulWidget {
   final bool metricUnit;
 
-  TurbinePage({Key key, @required this.metricUnit, RouteSettings settings})
+  TurbinePage(
+      {Key? key, required this.metricUnit, required RouteSettings settings})
       : super(key: key);
 
   @override
@@ -50,7 +51,7 @@ class _TurbinePageState extends State<TurbinePage> {
         inducerTurbineDisplay = inducerTurbineValue.toStringAsFixed(1);
 
         pressureTurbineDisplay = pressureTurbineResult.toStringAsFixed(2);
-        sliderDivisions = null;
+        //sliderDivisions = null;
         sliderDivisionInducerExducer = 130;
       } else {
         vMinInducerValue = kMinCompressorInducerImperial;
@@ -96,7 +97,7 @@ class _TurbinePageState extends State<TurbinePage> {
       inducerTurbineDisplay = inducerTurbineValue.toStringAsFixed(1);
 
       pressureTurbineDisplay = pressureTurbineResult.toStringAsFixed(2);
-      sliderDivisions = null;
+      //sliderDivisions = null;
       sliderDivisionInducerExducer = 130;
     }
   }
@@ -114,13 +115,13 @@ class _TurbinePageState extends State<TurbinePage> {
           icon: Icon(Icons.info_outline),
           color: Colors.red.shade900,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
-            var _analyticsParameter = {'Snackbar': 'Turbine'};
+            var analyticsParameter = {'Snackbar': 'Turbine'};
             // Execute a function to send logEvent() to Firebase Analytics
             Analytics.analyticsLogEvent(
-                AnalyticsEventType.snack_bar, _analyticsParameter);
+                AnalyticsEventType.snack_bar, analyticsParameter);
           });
     }
     return Text('');
@@ -162,9 +163,14 @@ class _TurbinePageState extends State<TurbinePage> {
     ),
   );
 
-  double petrolTurboCalc;
+  late double petrolTurboCalc;
 
-  CalculatorBrain calculateWithBrain = CalculatorBrain();
+  CalculatorBrain calculateWithBrain = CalculatorBrain(
+    compressorInducerSize: inducerTurbineValue,
+    compressorExducerSize: exducerTurbineValue,
+    turbineInducerSize: inducerTurbineValue,
+    turbineExducerSize: exducerTurbineValue,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -194,6 +200,7 @@ class _TurbinePageState extends State<TurbinePage> {
         //crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           ReusableCard(
+            onPress: () {},
             //Turbine side Inducer *****************************
             colour: kActiveCardColourInput,
             cardChild: Column(
@@ -666,6 +673,7 @@ class _TurbinePageState extends State<TurbinePage> {
             children: <Widget>[
               Expanded(
                 child: ReusableCard(
+                  onPress: () {},
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -690,6 +698,7 @@ class _TurbinePageState extends State<TurbinePage> {
               ),
               Expanded(
                 child: ReusableCard(
+                  onPress: () {},
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -726,6 +735,7 @@ class _TurbinePageState extends State<TurbinePage> {
             ],
           )),
           ReusableCard(
+            onPress: () {},
             colour: kActiveCardColourInput,
             cardChild: (Container(
               child: Row(

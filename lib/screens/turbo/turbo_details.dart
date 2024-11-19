@@ -1,17 +1,17 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/turbocharger_icons_icons.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
-import 'package:Turbocharger/globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/turbocharger_icons_icons.dart';
+import 'package:tct/globals/app_localizations.dart';
+import 'package:tct/globals/constant.dart';
+import 'package:tct/globals/global_variables.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../provider/settings_provider.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class TurboInfoPage extends StatefulWidget {
   @override
@@ -198,22 +198,28 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                         columns: [
                           DataColumn(
                               label: Text(
-                                AppLocalizations.of(context).translate('turbo_details_0000')// 'Compressor',
-                           , style: TextStyle(color: Colors.white),
+                            AppLocalizations.of(context).translate(
+                                'turbo_details_0000') // 'Compressor',
+                            ,
+                            style: TextStyle(color: Colors.white),
                             textScaleFactor: textScaleFactorTc * 1.3,
                           )),
                           DataColumn(
                               numeric: true,
                               label: Text(
-                                AppLocalizations.of(context).translate('turbo_details_0010')//'Min',
-                               , style: kLabelTextStyleBlackBold,
+                                AppLocalizations.of(context)
+                                    .translate('turbo_details_0010') //'Min',
+                                ,
+                                style: kLabelTextStyleBlackBold,
                                 textScaleFactor: textScaleFactorTc * 1.3,
                               )),
                           DataColumn(
                               numeric: true,
                               label: Text(
-                                AppLocalizations.of(context).translate('turbo_details_0020')// 'Max',
-                                ,style: kLabelTextStyleBlackBold,
+                                AppLocalizations.of(context)
+                                    .translate('turbo_details_0020') // 'Max',
+                                ,
+                                style: kLabelTextStyleBlackBold,
                                 textScaleFactor: textScaleFactorTc * 1.3,
                               )),
                         ],
@@ -222,8 +228,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                             DataCell(settings.selectedTurbo.hpMax == 0
                                 ? Container()
                                 : Text(
-                              AppLocalizations.of(context).translate('turbo_details_0030')//'Horsepower',
-                                   , style: kLabelTextStyleBlackBold,
+                                    AppLocalizations.of(context).translate(
+                                        'turbo_details_0030') //'Horsepower',
+                                    ,
+                                    style: kLabelTextStyleBlackBold,
                                     textScaleFactor: textScaleFactorTc,
                                   )),
                             DataCell(
@@ -249,8 +257,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                             DataCell(settings.selectedTurbo.displacementMax == 0
                                 ? Container()
                                 : Text(
-                              AppLocalizations.of(context).translate('turbo_details_0040')// 'Displacement',
-                                    ,style: kLabelTextStyleBlackBold,
+                                    AppLocalizations.of(context).translate(
+                                        'turbo_details_0040') // 'Displacement',
+                                    ,
+                                    style: kLabelTextStyleBlackBold,
                                     textScaleFactor: textScaleFactorTc,
                                   )),
                             DataCell(
@@ -365,7 +375,8 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                                             AnalyticsEventType.compressor_map,
                                             _analyticsParameter);
 
-                                        print('compressorMapBrandModel $compressorMapBrandModel');
+                                        print(
+                                            'compressorMapBrandModel $compressorMapBrandModel');
 
                                         cardKey.currentState.toggleCard();
                                       });
@@ -402,8 +413,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                                               )),
                                           SizedBox(width: 10),
                                           Text(
-                                            AppLocalizations.of(context).translate('turbo_details_0050')//  'Compressor Map',
-                                           , style: kLabelTextStyle,
+                                            AppLocalizations.of(context).translate(
+                                                'turbo_details_0050') //  'Compressor Map',
+                                            ,
+                                            style: kLabelTextStyle,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ],
@@ -432,23 +445,29 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           DataColumn(
                               numeric: true,
                               label: Text(
-                                AppLocalizations.of(context).translate('turbo_details_0060')//'Compressor',
-                               , style: kLabelTextStyleBlackBold,
+                                AppLocalizations.of(context).translate(
+                                    'turbo_details_0060') //'Compressor',
+                                ,
+                                style: kLabelTextStyleBlackBold,
                                 textScaleFactor: textScaleFactorTc * 1.3,
                               )),
                           DataColumn(
                               numeric: true,
                               label: Text(
-                                AppLocalizations.of(context).translate('turbo_details_0070')// 'Turbine',
-                               , style: kLabelTextStyleBlackBold,
+                                AppLocalizations.of(context).translate(
+                                    'turbo_details_0070') // 'Turbine',
+                                ,
+                                style: kLabelTextStyleBlackBold,
                                 textScaleFactor: textScaleFactorTc * 1.3,
                               )),
                         ],
                         rows: [
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0080')//  'Inducer',
-                             , style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context).translate(
+                                  'turbo_details_0080') //  'Inducer',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(
@@ -544,8 +563,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ]),
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0090')// 'Exducer',
-                            ,  style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context)
+                                  .translate('turbo_details_0090') // 'Exducer',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(
@@ -638,8 +659,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ]),
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0100')// 'Trim',
-                            ,  style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context)
+                                  .translate('turbo_details_0100') // 'Trim',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(
@@ -671,8 +694,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ]),
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0110')// 'A/R',
-                            ,  style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context)
+                                  .translate('turbo_details_0110') // 'A/R',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(
@@ -726,8 +751,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ]),
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0120')// 'Inlet',
-                             , style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context)
+                                  .translate('turbo_details_0120') // 'Inlet',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(Text(
@@ -750,8 +777,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ]),
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0130')// 'Outlet',
-                            ,  style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context)
+                                  .translate('turbo_details_0130') // 'Outlet',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(Text(
@@ -767,8 +796,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ]),
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0140')//  'Scroll',
-                           ,   style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context)
+                                  .translate('turbo_details_0140') //  'Scroll',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(Text(
@@ -791,8 +822,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ]),
                           DataRow(cells: [
                             DataCell(Text(
-                              AppLocalizations.of(context).translate('turbo_details_0150')//  'Wastegate',
-                             , style: kLabelTextStyleBlackBold,
+                              AppLocalizations.of(context).translate(
+                                  'turbo_details_0150') //  'Wastegate',
+                              ,
+                              style: kLabelTextStyleBlackBold,
                               textScaleFactor: textScaleFactorTc,
                             )),
                             DataCell(
@@ -939,8 +972,11 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ? Container()
                           : Row(
                               children: <Widget>[
-                                Text(AppLocalizations.of(context).translate('turbo_details_0160')//Info Source:,
-                                   , style: kLabelTextStyleBlackBold,
+                                Text(
+                                    AppLocalizations.of(context).translate(
+                                        'turbo_details_0160') //Info Source:,
+                                    ,
+                                    style: kLabelTextStyleBlackBold,
                                     textScaleFactor: textScaleFactorTc),
                                 Text(
                                   settings.selectedTurbo.tctInfoSource,
@@ -999,8 +1035,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  AppLocalizations.of(context).translate('turbo_details_0170')//'More info:',
-                                ,  style: kLabelTextStyleBlack,
+                                  AppLocalizations.of(context).translate(
+                                      'turbo_details_0170') //'More info:',
+                                  ,
+                                  style: kLabelTextStyleBlack,
                                   textScaleFactor: textScaleFactorTc,
                                 ),
                                 Opacity(
@@ -1020,8 +1058,11 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(AppLocalizations.of(context).translate('turbo_details_0180')//'Note: ',
-                                   , style: kLabelTextStyleBlack,
+                                Text(
+                                    AppLocalizations.of(context).translate(
+                                        'turbo_details_0180') //'Note: ',
+                                    ,
+                                    style: kLabelTextStyleBlack,
                                     textScaleFactor: textScaleFactorTc),
                                 Text(
                                   settings.selectedTurbo.tctComment,
@@ -1073,8 +1114,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                                   ),
                                   SizedBox(width: 10),
                                   Text(
-                                    AppLocalizations.of(context).translate('turbo_details_0190')// 'Report errors or add info',
-                                   , style: kLabelTextStyle,
+                                    AppLocalizations.of(context).translate(
+                                        'turbo_details_0190') // 'Report errors or add info',
+                                    ,
+                                    style: kLabelTextStyle,
                                     textScaleFactor: textScaleFactorTc,
                                   ),
                                 ],
@@ -1133,8 +1176,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                                   ),
                                   SizedBox(width: 10),
                                   Text(
-                                    AppLocalizations.of(context).translate('turbo_details_0200')// 'Suggest a missing turbo',
-                                   , style: kLabelTextStyle,
+                                    AppLocalizations.of(context).translate(
+                                        'turbo_details_0200') // 'Suggest a missing turbo',
+                                    ,
+                                    style: kLabelTextStyle,
                                     textScaleFactor: textScaleFactorTc,
                                   ),
                                 ],
@@ -1154,21 +1199,27 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  AppLocalizations.of(context).translate('turbo_details_0210')// 'TCT Disclaimer:',
-                                 , style: kLabelTextStyleBlack,
+                                  AppLocalizations.of(context).translate(
+                                      'turbo_details_0210') // 'TCT Disclaimer:',
+                                  ,
+                                  style: kLabelTextStyleBlack,
                                   textScaleFactor: textScaleFactorTc,
                                 ),
                                 Text(
-                                  AppLocalizations.of(context).translate('turbo_details_0220')// settings.selectedTurbo.zTctDisclaimer,
-                                 , style: kBodyItalicTextStyleBlack,
+                                  AppLocalizations.of(context).translate(
+                                      'turbo_details_0220') // settings.selectedTurbo.zTctDisclaimer,
+                                  ,
+                                  style: kBodyItalicTextStyleBlack,
                                   textScaleFactor: textScaleFactorTc,
                                 ),
                               ],
                             ),
                       Divider(color: Colors.black45),
                       Text(
-                        AppLocalizations.of(context).translate('turbo_details_0230')// settings.selectedTurbo.zTurboCompanyIntellectualPropertyDisclaimer,
-                       , style: kBodyItalicTextStyleBlack,
+                        AppLocalizations.of(context).translate(
+                            'turbo_details_0230') // settings.selectedTurbo.zTurboCompanyIntellectualPropertyDisclaimer,
+                        ,
+                        style: kBodyItalicTextStyleBlack,
                         textScaleFactor: textScaleFactorTc,
                       ),
                     ],
@@ -1227,8 +1278,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                           ),
                           SizedBox(width: 10),
                           Text(
-                            AppLocalizations.of(context).translate('turbo_details_0240')//  'Go back to details page',
-                          ,  style: kLabelTextStyle,
+                            AppLocalizations.of(context).translate(
+                                'turbo_details_0240') //  'Go back to details page',
+                            ,
+                            style: kLabelTextStyle,
                             textScaleFactor: textScaleFactorTc,
                           ),
                         ],
@@ -1251,8 +1304,10 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
 //                                      MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context).translate('turbo_details_0250')// 'Inlet Temperature:',
-                       , style: kLabelTextStyleBlackBold,
+                        AppLocalizations.of(context).translate(
+                            'turbo_details_0250') // 'Inlet Temperature:',
+                        ,
+                        style: kLabelTextStyleBlackBold,
                         textScaleFactor: textScaleFactorTc,
                       ),
                       Text(
@@ -1341,7 +1396,7 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
       //******************************** Turbo CompressorSize Text
 
       String turboCompressorInducerSizeText =
-      (settings.selectedTurbo.compressorInducer / 100).toString();
+          (settings.selectedTurbo.compressorInducer / 100).toString();
 
       var _analyticsParameterTurboCompIndSizeText = {
         'TurboCompIndSizeText': turboCompressorInducerSizeText
@@ -1355,8 +1410,8 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
 
       var _analyticsParameterTurboHpMaxText = {'TurboHpMaxText': turboHpMaxTxt};
       // Execute a function to send logEvent() to Firebase Analytics
-      Analytics.analyticsLogEvent(
-          AnalyticsEventType.turbo_hp_max_txt, _analyticsParameterTurboHpMaxText);
+      Analytics.analyticsLogEvent(AnalyticsEventType.turbo_hp_max_txt,
+          _analyticsParameterTurboHpMaxText);
 
       //***********************************************************************
 

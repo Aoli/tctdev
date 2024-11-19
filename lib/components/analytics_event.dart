@@ -8,12 +8,12 @@ import 'dart:async';
 import '../data_models/analytics_event_type.dart';
 
 class Analytics {
-  static String _isEventType;
-  static final FirebaseAnalytics analytics = FirebaseAnalytics();
+  static String _isEventType = '';
+  static final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   // logEvent()
   static Future analyticsLogEvent(
-      AnalyticsEventType eventType, Map<String, dynamic> parameterMap) async {
+      AnalyticsEventType eventType, Map<String, Object> parameterMap) async {
     _isEventType = await _enumToString(eventType);
     await analytics.logEvent(
       name: _isEventType,

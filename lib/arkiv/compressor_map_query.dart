@@ -9,7 +9,7 @@ class CompressorMapQueryPage extends StatefulWidget {
   final bool metricUnit;
 
   CompressorMapQueryPage(
-      {Key key, @required this.metricUnit, RouteSettings settings})
+      {Key? key, required this.metricUnit, RouteSettings? settings})
       : super(key: key);
 
   @override
@@ -32,10 +32,10 @@ class _CompressorMapQueryPageState extends State<CompressorMapQueryPage> {
     print('metricUnit $metricUnit');
 
     CompressorQuery().getCompressorMaps('Garrett').then((QuerySnapshot docs) {
-      if (docs.documents.isNotEmpty) {
+      if (docs.docs.isNotEmpty) {
         compressorMapQueryFlag = true;
         setState(() {
-          compressorMaps = docs.documents[0].data;
+          compressorMaps = docs.docs[0].data();
         });
         print('if compressorMapQueryFlag $compressorMapQueryFlag');
         print('1)');
@@ -122,7 +122,7 @@ class _CompressorMapQueryPageState extends State<CompressorMapQueryPage> {
 
 class CompressorQuery {
   getCompressorMaps(String brand) {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection('compressormap')
         .where('brand', isEqualTo: brand)
 //        .where('turbo', isEqualTo: turbo)
@@ -130,6 +130,6 @@ class CompressorQuery {
           'timeStamp',
           descending: true,
         )
-        .getDocuments();
+        .get();
   }
 }

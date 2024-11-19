@@ -1,17 +1,17 @@
 import 'dart:io' show Platform;
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/data_models/Map_iphone_models.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/components/turbocharger_icons_icons.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/data_models/Map_iphone_models.dart';
+import 'package:tct/globals/app_localizations.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/components/turbocharger_icons_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:package_info/package_info.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class AppInformationPage extends StatefulWidget {
   final bool metricUnit;
@@ -57,7 +57,7 @@ class _AppInformationPageState extends State<AppInformationPage> {
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
-  new GlobalKey<ScaffoldState>();
+      new GlobalKey<ScaffoldState>();
   final snackBarCompressor = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -123,9 +123,12 @@ class _AppInformationPageState extends State<AppInformationPage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('info_about_tct_0000')
+            Text(
+                AppLocalizations.of(context).translate('info_about_tct_0000')
                 //'ABOUT TCT',
-                , style: kAppBarTextStyle, textScaleFactor: textScaleFactorTc),
+                ,
+                style: kAppBarTextStyle,
+                textScaleFactor: textScaleFactorTc),
             Container(width: 30.0, child: submitRatingButton),
           ],
         ),
@@ -145,10 +148,11 @@ class _AppInformationPageState extends State<AppInformationPage> {
                         alignment: Alignment.centerLeft,
                         child: Container(
                           child: Text(
-                            AppLocalizations.of(context).translate(
-                                'info_about_tct_0010')
+                            AppLocalizations.of(context)
+                                .translate('info_about_tct_0010')
                             //'TCT - TurboCharger Tuning',
-                            , style: kSecondSubjectTextStyle,
+                            ,
+                            style: kSecondSubjectTextStyle,
                             textScaleFactor: textScaleFactorTc,
                           ),
                         ),
@@ -169,16 +173,17 @@ class _AppInformationPageState extends State<AppInformationPage> {
                                         Text(
                                             AppLocalizations.of(context)
                                                 .translate(
-                                                'info_about_tct_0020')
+                                                    'info_about_tct_0020')
                                             //'The TCT is made with turbo engine enthusiasts in mind. The app calculates: ',
-                                            ,style: kLabelTextStyle,
-                                        textScaleFactor: textScaleFactorTc),
+                                            ,
+                                            style: kLabelTextStyle,
+                                            textScaleFactor: textScaleFactorTc),
                                         SizedBox(height: 20),
                                         Container(
                                           alignment: Alignment.centerLeft,
                                           child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: <Widget>[
                                               ListTile(
                                                 leading: Icon(TurbochargerIcons
@@ -187,15 +192,16 @@ class _AppInformationPageState extends State<AppInformationPage> {
                                                 title: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0030')
+                                                            'info_about_tct_0030')
                                                     //'Turbo',
-                                                    ,textScaleFactor:
-                                                    textScaleFactorTc),
+                                                    ,
+                                                    textScaleFactor:
+                                                        textScaleFactorTc),
                                                 subtitle: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0040') //'Trim, Boost/Back Pressure'
-                                                ),
+                                                            'info_about_tct_0040') //'Trim, Boost/Back Pressure'
+                                                    ),
 
                                                 // subtitle: Text('Max HP based on inducer size'),
                                               ),
@@ -206,15 +212,16 @@ class _AppInformationPageState extends State<AppInformationPage> {
                                                 title: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0050')
+                                                            'info_about_tct_0050')
                                                     //'Airflow',
-                                                    ,textScaleFactor:
-                                                    textScaleFactorTc),
+                                                    ,
+                                                    textScaleFactor:
+                                                        textScaleFactorTc),
                                                 subtitle: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0060') //'Airflow calculations'
-                                                ),
+                                                            'info_about_tct_0060') //'Airflow calculations'
+                                                    ),
                                               ),
                                               ListTile(
                                                 leading: Icon(TurbochargerIcons
@@ -223,15 +230,16 @@ class _AppInformationPageState extends State<AppInformationPage> {
                                                 title: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0070')
+                                                            'info_about_tct_0070')
                                                     //'Tuning',
-                                                    ,textScaleFactor:
-                                                    textScaleFactorTc),
+                                                    ,
+                                                    textScaleFactor:
+                                                        textScaleFactorTc),
                                                 subtitle: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0080') //'Engine Displacement, Torque, Horsepower'
-                                                ),
+                                                            'info_about_tct_0080') //'Engine Displacement, Torque, Horsepower'
+                                                    ),
                                               ),
                                               ListTile(
                                                 leading: Icon(TurbochargerIcons
@@ -240,32 +248,34 @@ class _AppInformationPageState extends State<AppInformationPage> {
                                                 title: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0090')
+                                                            'info_about_tct_0090')
                                                     //'Convert',
-                                                    ,textScaleFactor:
-                                                    textScaleFactorTc),
+                                                    ,
+                                                    textScaleFactor:
+                                                        textScaleFactorTc),
                                                 subtitle: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0100') //'Convert units'
-                                                ),
+                                                            'info_about_tct_0100') //'Convert units'
+                                                    ),
                                               ),
                                               ListTile(
                                                 leading:
-                                                Icon(Icons.info_outline),
+                                                    Icon(Icons.info_outline),
                                                 // trailing: Icon(Icons.keyboard_arrow_right),
                                                 title: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0110')
+                                                            'info_about_tct_0110')
                                                     //'Info',
-                                                   , textScaleFactor:
-                                                    textScaleFactorTc),
+                                                    ,
+                                                    textScaleFactor:
+                                                        textScaleFactorTc),
                                                 subtitle: Text(
                                                     AppLocalizations.of(context)
                                                         .translate(
-                                                        'info_about_tct_0120') //'Information about the app'
-                                                ),
+                                                            'info_about_tct_0120') //'Information about the app'
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -303,7 +313,8 @@ class _AppInformationPageState extends State<AppInformationPage> {
                           child: Text(
                             AppLocalizations.of(context).translate(
                                 'info_about_tct_0130') //'Disclaimer',
-                           , textScaleFactor: textScaleFactorTc,
+                            ,
+                            textScaleFactor: textScaleFactorTc,
                             style: kSecondSubjectTextStyle,
                           ),
                         ),
@@ -317,11 +328,12 @@ class _AppInformationPageState extends State<AppInformationPage> {
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              AppLocalizations.of(context).translate(
-                                  'info_about_tct_0140')
+                              AppLocalizations.of(context)
+                                  .translate('info_about_tct_0140')
                               //'All calculations in this app are well-known formulas within the turbocharger and tuning community. But there are a lot of recipes, formulas, and methods out there with alternative ways to make similar calculations, dependent on situations or prerequisites. We believe that you are familiar with what this tool has to offer and that you can realize when this tool is useful or not. Always consult professionals, your Turbo handbook, or Turbo shop for specific guidance within this area before purchase and mounting any turbo or tuning related items. We don\'t take any responsibility for errors or wrong buying, using, or mounting any gear or, equipment related to the use of this app.',
-                    ,style: TextStyle(fontStyle: FontStyle.italic),textScaleFactor: textScaleFactorTc,
-
+                              ,
+                              style: TextStyle(fontStyle: FontStyle.italic),
+                              textScaleFactor: textScaleFactorTc,
                             ),
                           )
                         ],
@@ -334,9 +346,10 @@ class _AppInformationPageState extends State<AppInformationPage> {
                           children: <Widget>[
                             SizedBox(height: 40),
                             Text(
-                              AppLocalizations.of(context).translate(
-                                  'info_about_tct_0150') //'TCT ',
-                              ,style: kBuildVersionStyle,
+                              AppLocalizations.of(context)
+                                  .translate('info_about_tct_0150') //'TCT ',
+                              ,
+                              style: kBuildVersionStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                             Text(
@@ -372,15 +385,15 @@ class _AppInformationPageState extends State<AppInformationPage> {
                       Divider(color: Colors.white),
                       Platform.isAndroid
                           ? Text(
-                        '$manufacturer, $model, Android $release, ',
-                        style: kBuildVersionStyle,
-                        textScaleFactor: textScaleFactorTc,
-                      )
+                              '$manufacturer, $model, Android $release, ',
+                              style: kBuildVersionStyle,
+                              textScaleFactor: textScaleFactorTc,
+                            )
                           : Text(
-                        '${iphoneMapping[modelIphone]}, $systemName $version',
-                        style: kBuildVersionStyle,
-                        textScaleFactor: textScaleFactorTc,
-                      ),
+                              '${iphoneMapping[modelIphone]}, $systemName $version',
+                              style: kBuildVersionStyle,
+                              textScaleFactor: textScaleFactorTc,
+                            ),
                       // Divider(color: Colors.white),
                       // Text('telefon: ${iphoneMapping[modelIphone]}'),
 

@@ -1,15 +1,14 @@
 import 'dart:async';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/constants_ui.dart';
 
 class FeedbackPage extends StatefulWidget {
   final bool metricUnit;
 
-  FeedbackPage({Key key, @required this.metricUnit}) : super(key: key);
+  FeedbackPage({required Key key, required this.metricUnit}) : super(key: key);
 
   @override
   _FeedbackPageState createState() => _FeedbackPageState(metricUnit);
@@ -38,8 +37,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       image: new DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage('images/turbo_appbar_logo.png'),
-                      )
-                  )),
+                      ))),
               Text('TurboCharger Feedback',
                   style: kAppBarTextStyle, textScaleFactor: textScaleFactorTc),
               Container(width: 30.0),
@@ -48,7 +46,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
         ),
         body: WebView(
           initialUrl:
-          "https://docs.google.com/forms/d/e/1FAIpQLSeOGSMAnC4QbM9ad6iJa-l2mKP4xfRWLrRZs-sv265zVjaDWg/viewform?usp=sf_link",
+              "https://docs.google.com/forms/d/e/1FAIpQLSeOGSMAnC4QbM9ad6iJa-l2mKP4xfRWLrRZs-sv265zVjaDWg/viewform?usp=sf_link",
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);

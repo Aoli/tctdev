@@ -1,26 +1,24 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:Turbocharger/data_models/note_model.dart';
+import 'package:tct/data_models/note_model.dart';
 import 'package:http/http.dart' as http;
 
-
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
-  List<Note> _notes = List<Note>();
-  List<Note> _notesForDisplay = List<Note>();
+  List<Note> _notes = List<Note>.empty(growable: true);
+  List<Note> _notesForDisplay = List<Note>.empty(growable: true);
 
   Future<List<Note>> fetchNotes() async {
-    var url = 'https://raw.githubusercontent.com/boriszv/json/master/random_example.json';
-    var response = await http.get(url);
+    var url =
+        'https://raw.githubusercontent.com/boriszv/json/master/random_example.json';
+    var response = await http.get(Uri.parse(url));
 
-    var notes = List<Note>();
+    var notes = List<Note>.empty(growable: true);
 
     if (response.statusCode == 200) {
       var notesJson = json.decode(response.body);
@@ -50,20 +48,17 @@ class _HomePageState extends State<HomePage> {
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {
-            return index == 0 ? _searchBar() : _listItem(index-1);
+            return index == 0 ? _searchBar() : _listItem(index - 1);
           },
-          itemCount: _notesForDisplay.length+1,
-        )
-    );
+          itemCount: _notesForDisplay.length + 1,
+        ));
   }
 
   _searchBar() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
-        decoration: InputDecoration(
-            hintText: 'Search...'
-        ),
+        decoration: InputDecoration(hintText: 'Search...'),
         onChanged: (text) {
           text = text.toLowerCase();
           setState(() {
@@ -80,22 +75,18 @@ class _HomePageState extends State<HomePage> {
   _listItem(index) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
+        padding: const EdgeInsets.only(
+            top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               _notesForDisplay[index].title,
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             Text(
               _notesForDisplay[index].text,
-              style: TextStyle(
-                  color: Colors.grey.shade600
-              ),
+              style: TextStyle(color: Colors.grey.shade600),
             ),
           ],
         ),

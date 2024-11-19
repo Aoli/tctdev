@@ -9,7 +9,7 @@ class CompressorMapChipsPage extends StatefulWidget {
   final bool metricUnit;
 
   CompressorMapChipsPage(
-      {Key key, @required this.metricUnit, RouteSettings settings})
+      {Key? key, required this.metricUnit, RouteSettings? settings})
       : super(key: key);
 
   @override
@@ -54,7 +54,7 @@ class _CompressorMapChipsPageState extends State<CompressorMapChipsPage> {
         ),
         body: Container(
           child: StreamBuilder(
-              stream: Firestore.instance
+              stream: FirebaseFirestore.instance
                   .collection('compressormap')
                   .orderBy(
                     'turbo',
@@ -70,16 +70,12 @@ class _CompressorMapChipsPageState extends State<CompressorMapChipsPage> {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Container(child: Text('No data'));
-                } else if (snapshot == null) {
-                  return Container(
-                    child: Text('Data = Null'),
-                  );
                 } else {
                   return ListView.builder(
-                      itemCount: snapshot.data.documents.length,
+                      itemCount: snapshot.data?.docs.length ?? 0,
                       itemBuilder: (context, index) {
                         DocumentSnapshot myCompressor =
-                            snapshot.data.documents[index];
+                            snapshot.data!.docs[index];
                         return Stack(children: <Widget>[
                           Container(
                             child: Column(

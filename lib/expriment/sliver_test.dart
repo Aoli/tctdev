@@ -1,15 +1,14 @@
-import 'package:Turbocharger/components/reusable_card.dart';
-import 'package:Turbocharger/components/turbocharger_icons_icons.dart';
-import 'package:Turbocharger/globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/data_models/turboDb.dart';
-import 'package:Turbocharger/provider/settings_provider.dart';
-import 'package:Turbocharger/screens/info/turbo_selector_feedback.dart';
-import 'package:Turbocharger/screens/turbo/turbo_details.dart';
+import 'package:tct/components/reusable_card.dart';
+import 'package:tct/components/turbocharger_icons_icons.dart';
+import 'package:tct/globals/constant.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/data_models/turbo_db.dart';
+import 'package:tct/provider/settings_provider.dart';
+import 'package:tct/screens/info/turbo_selector_feedback.dart';
+import 'package:tct/screens/turbo/turbo_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/constants_ui.dart';
 
 class SliversBasicPage extends StatelessWidget {
   var list = true;
@@ -391,7 +390,8 @@ class SliversBasicPage extends StatelessWidget {
                                     reports[index]?.hpMin == 0
                                         ? Container()
                                         : Text(
-                                            reports[index]?.hpMin?.toString(),
+                                            reports[index]?.hpMin?.toString() ??
+                                                '',
                                             style: kLabelTextStyle,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
@@ -404,7 +404,9 @@ class SliversBasicPage extends StatelessWidget {
                                           ),
                                     Text(
                                       // ignore: null_aware_before_operator
-                                      reports[index]?.hpMax?.toString() + ' Hp',
+                                      (reports[index]?.hpMax?.toString() ??
+                                              '') +
+                                          ' Hp',
                                       style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                     ),
@@ -433,10 +435,9 @@ class SliversBasicPage extends StatelessWidget {
                               child: reports[index]?.compressorInducer == 0
                                   ? Text(kNotApplicable)
                                   : Text(
-                                      // ignore: null_aware_before_operator
                                       (reports[index]?.compressorInducer / 100)
-                                              ?.toString() +
-                                          ' mm',
+                                              ?.toString() ??
+                                          '' + ' mm',
                                       style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                     ),

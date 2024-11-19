@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Turbocharger/globals/calculator_brain.dart';
+import 'package:tct/globals/calculator_brain.dart';
 import 'package:decimal/decimal.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 import 'package:flushbar/flushbar.dart';
 
 class CompressorTurbinePage extends StatefulWidget {
@@ -29,7 +29,6 @@ class CompressorTurbinePage extends StatefulWidget {
 }
 
 class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
-
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   bool metricUnit;
 
@@ -37,7 +36,7 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
 
   //bool metricUnit = false;
   bool buttonBool = false;
- bool  flushBarStatus = false;
+  bool flushBarStatus = false;
 
   void _onChangedUnitSwitch(bool value) {
 //    SettingsNotifier settings = Provider.of<SettingsNotifier>(context, listen: false);
@@ -57,18 +56,15 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
     resetValues(metricUnit);
   }
 
-
-
   helpIcon(BuildContext context) {
     var _onPressed;
-    if(_enabled){
+    if (_enabled) {
       _onPressed = () {
         showSimpleFlushbar(context);
         setState(() {
           _enabled = false;
         });
       };
-
     }
     if (inducerCompressorMetric > exducerCompressorMetric ||
         inducerTurbineMetric < exducerTurbineMetric) {
@@ -79,7 +75,6 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
         ),
         color: Colors.red.shade700,
         onPressed: _onPressed,
-
       );
     }
     return Text('');
@@ -132,11 +127,8 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
   Widget build(BuildContext context) {
     //  SettingsNotifier settings = Provider.of<SettingsNotifier>(context);
 
-
-
-
     return Scaffold(
-     // key: _scaffoldKey,
+      // key: _scaffoldKey,
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,7 +148,7 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
                 ,
                 style: kAppBarTextStyle,
                 textScaleFactor: textScaleFactorTc * 0.9),
-           // Container(width: 50),
+            // Container(width: 50),
 
             Container(width: 30.0, child: helpIcon(context)),
           ],
@@ -172,15 +164,13 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
                   inducerTurbineMetric < exducerTurbineMetric) {
                 buttonBool = true;
               } else {
-                  buttonBool = false;
+                buttonBool = false;
               }
               return Column(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   // Container(width: 30.0, child: submitRatingButton(context)),
-
-
 
                   FlipCard(
                     key: cardKey,
@@ -207,13 +197,13 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
 
   void showSimpleFlushbar(BuildContext context) {
     String flushBarMessage05 =
-    AppLocalizations.of(context).translate('compressor_turbine_0005');
+        AppLocalizations.of(context).translate('compressor_turbine_0005');
     String flushBarMessage06 =
-    AppLocalizations.of(context).translate('compressor_turbine_0006');
+        AppLocalizations.of(context).translate('compressor_turbine_0006');
     String flushBarMessage07 =
-    AppLocalizations.of(context).translate('compressor_turbine_0007');
+        AppLocalizations.of(context).translate('compressor_turbine_0007');
     String flushBarMessage08 =
-    AppLocalizations.of(context).translate('compressor_turbine_0008');
+        AppLocalizations.of(context).translate('compressor_turbine_0008');
 
     flushBarStatus = true;
 
@@ -222,7 +212,6 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
     // Execute a function to send logEvent() to Firebase Analytics
     Analytics.analyticsLogEvent(
         AnalyticsEventType.snack_bar, _analyticsParameter);
-
 
     Flushbar(
       // There is also a messageText property for when you want to
@@ -235,8 +224,7 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
       //progressIndicatorValueColor: Animation<Colors.red>,
       //borderColor: Colors.blue,
       //borderWidth: 10,
-      messageText:
-      Column(
+      messageText: Column(
         children: <Widget>[
           SizedBox(
             height: 20.0,
@@ -280,7 +268,7 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
             textScaleFactor: textScaleFactorTc,
           ),
         ],
-      ),//'Hello from a Flushbar',
+      ), //'Hello from a Flushbar',
       // Even the button can be styled to your heart's content
       mainButton: FlatButton(
         child: Text(
@@ -289,20 +277,16 @@ class _CompressorTurbinePageState extends State<CompressorTurbinePage> {
         ),
         // onPressed: () {},
         onPressed: () {
-
           Navigator.pop(context);
           setState(() {
             _enabled = true;
           });
-
-
         },
       ),
-    // duration: Duration(seconds: 5),
+      // duration: Duration(seconds: 5),
 
       // Show it with a cascading operator
     )..show(context);
-
   }
 
   Widget CompressorSide() {

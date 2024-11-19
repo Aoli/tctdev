@@ -11,16 +11,16 @@ class TurbineDb {
   final String wastegate;
 
   TurbineDb({
-    this.aaStatus,
-    this.aaTurboModel,
-    this.arTurbine,
-    this.divided,
-    this.imgInletMap,
-    this.imgOutletMap,
-    this.scroll,
-    this.turbineInlet,
-    this.turbineOutlet,
-    this.wastegate,
+    required this.aaStatus,
+    required this.aaTurboModel,
+    required this.arTurbine,
+    required this.divided,
+    required this.imgInletMap,
+    required this.imgOutletMap,
+    required this.scroll,
+    required this.turbineInlet,
+    required this.turbineOutlet,
+    required this.wastegate,
   });
 
   TurbineDb.fromJson(Map<String, dynamic> parsedJson)

@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:Turbocharger/globals/global_variables.dart';
+import 'package:tct/globals/global_variables.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/constants_ui.dart';
 
 class TurboSelectorFeedback extends StatefulWidget {
   final String feedbackLink;

@@ -1,19 +1,17 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
-import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
+import 'package:decimal/decimal.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class PsiAndBarPage extends StatefulWidget {
   @override
@@ -32,7 +30,7 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Pressure'};
@@ -41,7 +39,7 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -82,7 +80,12 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -114,9 +117,12 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('convert_pressure_0000')
+            Text(
+                AppLocalizations.of(context).translate('convert_pressure_0000')
                 //'PRESSURE Conversion',
-                , style: kAppBarTextStyle, textScaleFactor: textScaleFactorTc),
+                ,
+                style: kAppBarTextStyle,
+                textScaleFactor: textScaleFactorTc),
             Container(width: 30.0, child: submitRatingButton),
           ],
         ),
@@ -127,6 +133,11 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {
+                  // setState(() {
+                  //   metricUnit = !metricUnit;
+                  // });
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -138,9 +149,9 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                           Text(
                             AppLocalizations.of(context).translate(
                                 'convert_pressure_0010') //'Pressure',
-                            , style: kSecondSubjectTextStyle,
+                            ,
+                            style: kSecondSubjectTextStyle,
                             textScaleFactor: textScaleFactorTc,
-
                           ),
                           Center(
                             child: Theme(
@@ -156,6 +167,13 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
+                                      DataColumn(
+                                          numeric: true,
+                                          label: Text(
                                             '',
                                             style: kLabelTextStyleActive,
                                             textScaleFactor: textScaleFactorTc,
@@ -165,16 +183,7 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                           label: Text(
                                             '',
                                             style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
-                                          )),
-                                      DataColumn(
-                                          numeric: true,
-                                          label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           )),
                                     ],
                                     rows: [
@@ -182,56 +191,53 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_pressure_0020')
+                                                  'convert_pressure_0020')
                                           // 'Pound per square inch',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultPressurePsi
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                                kResultNumberStyleWhite18_600,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                         DataCell(
                                           Text(
                                             unitPressurePsi,
                                             style: kLabelTextStyle,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                       ]),
                                       DataRow(cells: [
                                         DataCell(Text(
-                                          AppLocalizations.of(context)
-                                              .translate(
+                                          AppLocalizations.of(context).translate(
                                               'convert_pressure_0030') // 'Bar',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultPressureBar
                                                 .toStringAsFixed(3),
                                             style:
-                                            kResultNumberStyleWhite18_600,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                                kResultNumberStyleWhite18_600,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                         DataCell(
                                           Text(
                                             unitPressureBar,
                                             style: kLabelTextStyle,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                       ]),
@@ -240,23 +246,21 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                           '',
                                           style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             '',
                                             style:
-                                            kResultNumberStyleWhite18_600,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                                kResultNumberStyleWhite18_600,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                         DataCell(
                                           Text(
                                             '',
                                             style: kLabelTextStyle,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                       ]),
@@ -264,28 +268,27 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_pressure_0040')
+                                                  'convert_pressure_0040')
                                           // 'Kilopascal',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultPressureKiloPascal
                                                 .toStringAsFixed(1),
                                             style:
-                                            kResultNumberStyleWhite18_600,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                                kResultNumberStyleWhite18_600,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                         DataCell(
                                           Text(
                                             unitPressureKiloPascal,
                                             style: kLabelTextStyle,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                       ]),
@@ -293,28 +296,27 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_pressure_0050')
+                                                  'convert_pressure_0050')
                                           // 'Atmosphere',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultPressureAtmosphere
                                                 .toStringAsFixed(3),
                                             style:
-                                            kResultNumberStyleWhite18_600,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                                kResultNumberStyleWhite18_600,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                         DataCell(
                                           Text(
                                             unitPressureAtmosphere,
                                             style: kLabelTextStyle,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                       ]),
@@ -322,28 +324,26 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_pressure_0060')
+                                                  'convert_pressure_0060')
                                           // 'Inch of mercury',
-                                         , style: kLabelTextStyleLarge,
-                                          textScaleFactor:
-                                          textScaleFactorTc,
+                                          ,
+                                          style: kLabelTextStyleLarge,
+                                          textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultPressureInchOfMercury
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                                kResultNumberStyleWhite18_600,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                         DataCell(
                                           Text(
                                             unitPressureInchOfMercury,
                                             style: kLabelTextStyle,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
                                       ]),
@@ -351,21 +351,21 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                               ),
                             ),
                           ),
-
-
                         ],
                       ),
-
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: FlatButton(
-                          // color: Colors.blueGrey,
-                          splashColor: Color(0xFF4c8c4a),
-                          textColor: Colors.white38,
-                          child: Text(AppLocalizations.of(context).translate(
-                              'convert_pressure_0070') //'Reset',
-                              , style: kLabelTextStyle
-                              , textScaleFactor: textScaleFactorTc * 0.8),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white38,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('convert_pressure_0070') //'Reset',
+                              ,
+                              style: kLabelTextStyle,
+                              textScaleFactor: textScaleFactorTc * 0.8),
                           onPressed: () {
                             convertResultPressureBar = 1.01325;
                             calculatePsi(convertResultPressureBar);
@@ -377,6 +377,11 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  // setState(() {
+                  //   metricUnit = !metricUnit;
+                  // });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -386,10 +391,12 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                     Container(
                       child: Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_pressure_0080') //'Psi',
-                             , style: kSecondSubjectTextStyle,
-                          textScaleFactor: textScaleFactorTc),
+                          Text(
+                              AppLocalizations.of(context)
+                                  .translate('convert_pressure_0080') //'Psi',
+                              ,
+                              style: kSecondSubjectTextStyle,
+                              textScaleFactor: textScaleFactorTc),
 
                           SizedBox(height: 20.0),
                           Row(
@@ -440,7 +447,7 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                 min: kMinPressurePsi - 0.05,
                                 max: kMaxPressurePsi + 0.05,
                                 label:
-                                convertResultPressurePsi.toStringAsFixed(2),
+                                    convertResultPressurePsi.toStringAsFixed(2),
                                 inactiveColor: Color(0xFF8D8E89),
                                 divisions: sliderDivisionsPressurePsi,
                                 onChanged: (double sliderValue) {
@@ -470,8 +477,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if (Decimal.parse(
-                                              convertResultPressurePsi
-                                                  .toStringAsFixed(2)) >
+                                                  convertResultPressurePsi
+                                                      .toStringAsFixed(2)) >
                                               Decimal.parse(kMinPressurePsi
                                                   .toStringAsFixed(2))) {
                                             convertResultPressurePsi =
@@ -489,8 +496,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                     onStep: () {
                                       setState(() {
                                         if (Decimal.parse(
-                                            convertResultPressurePsi
-                                                .toStringAsFixed(2)) >
+                                                convertResultPressurePsi
+                                                    .toStringAsFixed(2)) >
                                             Decimal.parse(kMinPressurePsi
                                                 .toStringAsFixed(2))) {
                                           convertResultPressurePsi =
@@ -511,8 +518,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if ((Decimal.parse(
-                                              convertResultPressurePsi
-                                                  .toStringAsFixed(1)) <
+                                                  convertResultPressurePsi
+                                                      .toStringAsFixed(1)) <
                                               (Decimal.parse(kMaxPressurePsi
                                                   .toStringAsFixed(1))))) {
                                             convertResultPressurePsi =
@@ -530,8 +537,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                     onStep: () {
                                       setState(() {
                                         if ((Decimal.parse(
-                                            convertResultPressurePsi
-                                                .toStringAsFixed(1)) <
+                                                convertResultPressurePsi
+                                                    .toStringAsFixed(1)) <
                                             (Decimal.parse(kMaxPressurePsi
                                                 .toStringAsFixed(1))))) {
                                           convertResultPressurePsi =
@@ -553,6 +560,11 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  // setState(() {
+                  //   metricUnit = !metricUnit;
+                  // });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -562,9 +574,11 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                     Container(
                       child: Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_pressure_0090') //'Bar',
-                             , style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context)
+                                  .translate('convert_pressure_0090') //'Bar',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           SizedBox(height: 20.0),
                           Row(
@@ -614,7 +628,7 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                 min: kMinPressureBar - 0.01,
                                 max: kMaxPressureBar + 0.01,
                                 label:
-                                convertResultPressureBar.toStringAsFixed(2),
+                                    convertResultPressureBar.toStringAsFixed(2),
                                 inactiveColor: Color(0xFF8D8E89),
                                 divisions: sliderDivisionsPressureBar,
                                 onChanged: (double sliderValue) {
@@ -644,8 +658,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if (Decimal.parse(
-                                              convertResultPressureBar
-                                                  .toStringAsFixed(1)) >
+                                                  convertResultPressureBar
+                                                      .toStringAsFixed(1)) >
                                               Decimal.parse(kMinPressureBar
                                                   .toStringAsFixed(1))) {
                                             convertResultPressureBar =
@@ -663,8 +677,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                     onStep: () {
                                       setState(() {
                                         if (Decimal.parse(
-                                            convertResultPressureBar
-                                                .toStringAsFixed(1)) >
+                                                convertResultPressureBar
+                                                    .toStringAsFixed(1)) >
                                             Decimal.parse(kMinPressureBar
                                                 .toStringAsFixed(1))) {
                                           convertResultPressureBar =
@@ -685,8 +699,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if ((Decimal.parse(
-                                              convertResultPressureBar
-                                                  .toStringAsFixed(1)) <
+                                                  convertResultPressureBar
+                                                      .toStringAsFixed(1)) <
                                               (Decimal.parse(kMaxPressureBar
                                                   .toStringAsFixed(1))))) {
                                             convertResultPressureBar =
@@ -704,8 +718,8 @@ class _PsiAndBarPageState extends State<PsiAndBarPage> {
                                     onStep: () {
                                       setState(() {
                                         if ((Decimal.parse(
-                                            convertResultPressureBar
-                                                .toStringAsFixed(1)) <
+                                                convertResultPressureBar
+                                                    .toStringAsFixed(1)) <
                                             (Decimal.parse(kMaxPressureBar
                                                 .toStringAsFixed(1))))) {
                                           convertResultPressureBar =

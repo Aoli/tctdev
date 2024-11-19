@@ -1,21 +1,19 @@
 import 'dart:convert';
 
-import 'package:Turbocharger/data_models/turboDb.dart';
+import 'package:tct/data_models/turbo_db.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:Turbocharger/data_models/MapSave_ArRatio.dart';
+import 'package:tct/data_models/MapSave_ArRatio.dart';
 
 class SettingsNotifier with ChangeNotifier {
-  String _units;
+  String _units = 'Imperial';
   List<String> _brandNameList = [];
-  int _sortValue;
-  double _sortValue2;
-  TurboDb _selectedTurbo;
+  double _sortValue2 = 550.0;
+  late TurboDb _selectedTurbo;
 
   SettingsNotifier() {
     _units = 'Imperial';
     _brandNameList = [];
-    _sortValue2 = 550.0;
     loadPreferences();
   }
 
@@ -24,8 +22,6 @@ class SettingsNotifier with ChangeNotifier {
   List<String> get brandNameList => _brandNameList;
   TurboDb get selectedTurbo => _selectedTurbo;
   double get sortValue2 => _sortValue2;
-
-
 
   //Setters
   void setUnits(String units) {
@@ -66,7 +62,6 @@ class SettingsNotifier with ChangeNotifier {
     }
   }
 
-
 //  void _setArValues(Map<String, dynamic> arValues) {
 //   _arValues = arValues as ArRatioMap;
 //    notifyListeners();
@@ -88,7 +83,6 @@ class SettingsNotifier with ChangeNotifier {
 //    }
 //  }
 
-
   savePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('units', _units);
@@ -98,13 +92,12 @@ class SettingsNotifier with ChangeNotifier {
 
   loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String units = prefs.getString('units');
-    List<String> brandNameList = prefs.getStringList('brandNameList');
-    double sortValue2 = prefs.getDouble('sortValue2');
+    String? units = prefs.getString('units');
+    List<String>? brandNameList = prefs.getStringList('brandNameList');
+    double? sortValue2 = prefs.getDouble('sortValue2');
 
     if (units != null) setUnits(units);
     if (brandNameList != null) _setBrandNameList(brandNameList);
     if (sortValue2 != null) setSortValue2(sortValue2);
   }
 }
-

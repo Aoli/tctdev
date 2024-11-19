@@ -15,7 +15,7 @@ class ArRatioAdvancedPage extends StatefulWidget {
   final bool metricUnit;
 
   ArRatioAdvancedPage(
-      {Key key, @required this.metricUnit, RouteSettings settings})
+      {Key? key, required this.metricUnit, RouteSettings? settings})
       : super(key: key);
 
   @override
@@ -36,10 +36,10 @@ class _ArRatioAdvancedPageState extends State<ArRatioAdvancedPage> {
       return IconButton(
           icon: Icon(Icons.info_outline),
           color: Colors.white,
-          onPressed: () => _scaffoldCompressorKey.currentState
-              .showSnackBar(snackBarCompressor));
+          onPressed: () =>
+              ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor));
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
@@ -78,7 +78,12 @@ class _ArRatioAdvancedPageState extends State<ArRatioAdvancedPage> {
     ),
   );
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -130,6 +135,7 @@ class _ArRatioAdvancedPageState extends State<ArRatioAdvancedPage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -265,6 +271,7 @@ class _ArRatioAdvancedPageState extends State<ArRatioAdvancedPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {},
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -644,9 +651,9 @@ class _ArRatioAdvancedPageState extends State<ArRatioAdvancedPage> {
 
   int radioValue = 0;
 
-  void handleRadioValueChanged(int value) {
+  void handleRadioValueChanged(int? value) {
     setState(() {
-      radioValue = value;
+      radioValue = value!;
       resetValues(metricUnit);
 
       switch (radioValue) {

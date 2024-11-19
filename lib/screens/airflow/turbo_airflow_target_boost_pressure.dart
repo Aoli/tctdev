@@ -1,24 +1,23 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/components/stepbutton_close.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
-import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/components/stepbutton_close.dart';
+import 'package:tct/globals/app_localizations.dart';
+import 'package:decimal/decimal.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:Turbocharger/globals/calculator_brain.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/calculator_brain.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class AirflowTbpPage extends StatefulWidget {
   final bool metricUnit;
 
-  AirflowTbpPage({Key key, @required this.metricUnit}) : super(key: key);
+  AirflowTbpPage({required Key key, required this.metricUnit})
+      : super(key: key);
 
   @override
   _AirflowTbpPageState createState() => _AirflowTbpPageState(metricUnit);
@@ -34,14 +33,16 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
   void setState(fn) {
     super.setState(fn);
     // print('metricUnit turbine: $metricUnit');
-    if (metricUnit) {} else {}
+    if (metricUnit) {
+    } else {}
   }
 
   @override
   void initState() {
     super.initState();
 
-    if (metricUnit) {} else {}
+    if (metricUnit) {
+    } else {}
   }
 
   Widget get infoButton {
@@ -50,8 +51,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState
-                .showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Airflow Target Boost'};
@@ -61,11 +61,10 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
           });
     }
     snackBarEnable = true;
-    // return Text('');
+    return SizedBox.shrink();
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-  new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final snackBar = SnackBar(
     content: Container(
       child: SingleChildScrollView(
@@ -120,9 +119,14 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
     ),
   );
 
-  double petrolTurboCalc;
+  late double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0, // replace with actual value
+    compressorExducerSize: 0.0, // replace with actual value
+    turbineInducerSize: 0.0, // replace with actual value
+    turbineExducerSize: 0.0, // replace with actual value
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -141,10 +145,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate(
-                'airflow_target_boost_pressure_0000')
-                  //'AIRFLOW - Boost Pressure',
-                , style: kAppBarTextStyle,
+            Text(
+                AppLocalizations.of(context)
+                    .translate('airflow_target_boost_pressure_0000')
+                //'AIRFLOW - Boost Pressure',
+                ,
+                style: kAppBarTextStyle,
                 textScaleFactor: textScaleFactorTc - 0.2),
             Container(width: 30.0, child: infoButton),
           ],
@@ -157,27 +163,32 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
             //crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ReusableCard(
+                onPress: () {
+                  // print('pressed');
+                },
                 colour: kActiveCardColourOutput,
-
                 cardChild: Container(
                   // margin: EdgeInsets.only(left: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(AppLocalizations.of(context).translate(
-                          'airflow_target_boost_pressure_0010')
+                      Text(
+                          AppLocalizations.of(context)
+                              .translate('airflow_target_boost_pressure_0010')
                           //'Result for Compresser Map Analysis',
-                          ,style: kSecondSubjectTextStyle,
+                          ,
+                          style: kSecondSubjectTextStyle,
                           textScaleFactor: textScaleFactorTc * .8),
                       SizedBox(height: 15),
                       Container(
                         // color: Colors.red,
                         width: kInputTextWidth,
                         child: Text(
-                          AppLocalizations.of(context).translate(
-                              'airflow_target_boost_pressure_0020')
+                          AppLocalizations.of(context)
+                              .translate('airflow_target_boost_pressure_0020')
                           //'Mass Airflow',
-                          ,style: kLabelTextStyleActive,
+                          ,
+                          style: kLabelTextStyleActive,
                           textAlign: TextAlign.left,
                           textScaleFactor: textScaleFactorTc,
                         ),
@@ -192,7 +203,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                               AppLocalizations.of(context).translate(
                                   'airflow_target_boost_pressure_0020')
                               //'Pound per Minute lbs/min',
-                              ,style: kLabelTextStyle,
+                              ,
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                           ),
@@ -223,10 +235,11 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                         // color: Colors.red,
                         width: kInputTextWidth,
                         child: Text(
-                          AppLocalizations.of(context).translate(
-                              'airflow_target_boost_pressure_0030')
+                          AppLocalizations.of(context)
+                              .translate('airflow_target_boost_pressure_0030')
                           //'Volume Airflow',
-                          ,style: kLabelTextStyleActive,
+                          ,
+                          style: kLabelTextStyleActive,
                           textAlign: TextAlign.left,
                           textScaleFactor: textScaleFactorTc,
                         ),
@@ -242,7 +255,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                               AppLocalizations.of(context).translate(
                                   'airflow_target_boost_pressure_0040')
                               // 'Cubic Feet per Minute CFM',
-                              ,style: kLabelTextStyle,
+                              ,
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                           ),
@@ -279,7 +293,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                               AppLocalizations.of(context).translate(
                                   'airflow_target_boost_pressure_0050')
                               // 'Cubic Meter per Minute',
-                              ,style: kLabelTextStyle,
+                              ,
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                           ),
@@ -316,7 +331,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                               AppLocalizations.of(context).translate(
                                   'airflow_target_boost_pressure_0060')
                               //'Cubic Meter per Second ',
-                              ,style: kLabelTextStyle,
+                              ,
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                           ),
@@ -354,7 +370,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                               AppLocalizations.of(context).translate(
                                   'airflow_target_boost_pressure_0070')
                               //'Pressure Ratio',
-                              ,style: kLabelTextStyle,
+                              ,
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                           ),
@@ -392,7 +409,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                               AppLocalizations.of(context).translate(
                                   'airflow_target_boost_pressure_0080')
                               // 'Required Absolute Pressure',
-                             , style: kLabelTextStyle,
+                              ,
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                           ),
@@ -429,7 +447,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                               AppLocalizations.of(context).translate(
                                   'airflow_target_boost_pressure_0090')
                               // 'Resultant Manifold Pressure',
-                             , style: kLabelTextStyle,
+                              ,
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc,
                             ),
                           ),
@@ -462,6 +481,9 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
 
               // **************************** Buttons ***********************
               ReusableCard(
+                onPress: () {
+                  // print('pressed');
+                },
                 colour: kActiveCardColourInput,
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -469,7 +491,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                     Text(
                       AppLocalizations.of(context).translate(
                           'airflow_target_boost_pressure_0100') // 'Input',
-                     , style: kSecondSubjectTextStyle,
+                      ,
+                      style: kSecondSubjectTextStyle,
                       textScaleFactor: textScaleFactorTc,
                     ),
                     Column(
@@ -490,7 +513,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                             children: <Widget>[
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Container(
                                       width: 130,
@@ -499,7 +522,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                         AppLocalizations.of(context).translate(
                                             'airflow_target_boost_pressure_0110')
                                         // 'Engine speed',
-                                       , style: kLabelTextStyle,
+                                        ,
+                                        style: kLabelTextStyle,
                                       )),
                                   Container(
                                     width: 70,
@@ -538,7 +562,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                         Duration(milliseconds: tapTime), (t) {
                                       setState(() {
                                         if (Decimal.parse(maxEngineSpeed
-                                            .toStringAsFixed(2)) >
+                                                .toStringAsFixed(2)) >
                                             Decimal.parse(kMinMaxEngineSpeed
                                                 .toStringAsFixed(2))) {
                                           maxEngineSpeed = maxEngineSpeed -
@@ -586,7 +610,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                   onStep: () {
                                     setState(() {
                                       if (Decimal.parse(maxEngineSpeed
-                                          .toStringAsFixed(2)) >
+                                              .toStringAsFixed(2)) >
                                           Decimal.parse(kMinMaxEngineSpeed
                                               .toStringAsFixed(2))) {
                                         maxEngineSpeed =
@@ -633,7 +657,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                 activeTrackColor: Colors.white,
                                 thumbColor: kCompressorInducerSliderNob,
                                 valueIndicatorColor:
-                                kCompressorExducerSliderNob,
+                                    kCompressorExducerSliderNob,
                                 overlayColor: kCompressorSliderOverlayColor,
                                 inactiveTrackColor: kInactiveSlideColour,
                                 thumbShape: RoundSliderThumbShape(
@@ -693,7 +717,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                         Duration(milliseconds: tapTime), (t) {
                                       setState(() {
                                         if (Decimal.parse(maxEngineSpeed
-                                            .toStringAsFixed(2)) <
+                                                .toStringAsFixed(2)) <
                                             Decimal.parse(kMaxMaxEngineSpeed
                                                 .toStringAsFixed(2))) {
                                           maxEngineSpeed = maxEngineSpeed +
@@ -741,7 +765,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                   onStep: () {
                                     setState(() {
                                       if (Decimal.parse(maxEngineSpeed
-                                          .toStringAsFixed(2)) <
+                                              .toStringAsFixed(2)) <
                                           Decimal.parse(kMaxMaxEngineSpeed
                                               .toStringAsFixed(2))) {
                                         maxEngineSpeed =
@@ -808,7 +832,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                         AppLocalizations.of(context).translate(
                                             'airflow_target_boost_pressure_0120')
                                         //'Target Boost Pressure',
-                                       , style: kLabelTextStyle,
+                                        ,
+                                        style: kLabelTextStyle,
                                         textScaleFactor: textScaleFactorTc),
                                   ),
                                   Row(
@@ -845,62 +870,59 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
-                                                        vAirflowPsiG
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(vAirflowPsiG
+                                                        .toStringAsFixed(2)) >
+                                                    (Decimal.parse(
+                                                        kMinAirflowPsiG
                                                             .toStringAsFixed(
-                                                            2)) >
-                                                        (Decimal.parse(
-                                                            kMinAirflowPsiG
-                                                                .toStringAsFixed(
                                                                 2))))) {
-                                                      vAirflowPsiG =
-                                                          vAirflowPsiG -
-                                                              stepAirflowPsiG;
+                                                  vAirflowPsiG = vAirflowPsiG -
+                                                      stepAirflowPsiG;
 
 //                                                  print('Target kMinAirflowPsiG $kMinAirflowPsiG');
 
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -908,7 +930,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(vAirflowPsiG
-                                                  .toStringAsFixed(2)) >
+                                                      .toStringAsFixed(2)) >
                                                   (Decimal.parse(kMinAirflowPsiG
                                                       .toStringAsFixed(2))))) {
                                                 vAirflowPsiG = vAirflowPsiG -
@@ -916,11 +938,11 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
 
 //                                                print('Target kMinAirflowPsiG $kMinAirflowPsiG');
 
-
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -941,7 +963,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -962,62 +983,59 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
-                                                        vAirflowPsiG
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(vAirflowPsiG
+                                                        .toStringAsFixed(2)) <
+                                                    (Decimal.parse(
+                                                        kMaxAirflowPsiG
                                                             .toStringAsFixed(
-                                                            2)) <
-                                                        (Decimal.parse(
-                                                            kMaxAirflowPsiG
-                                                                .toStringAsFixed(
                                                                 2))))) {
-                                                      vAirflowPsiG =
-                                                          vAirflowPsiG +
-                                                              stepAirflowPsiG;
+                                                  vAirflowPsiG = vAirflowPsiG +
+                                                      stepAirflowPsiG;
 
 //                                                  print('Target kMaxAirflowPsiG $kMaxAirflowPsiG');
 
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -1025,7 +1043,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(vAirflowPsiG
-                                                  .toStringAsFixed(2)) <
+                                                      .toStringAsFixed(2)) <
                                                   (Decimal.parse(kMaxAirflowPsiG
                                                       .toStringAsFixed(2))))) {
                                                 vAirflowPsiG = vAirflowPsiG +
@@ -1036,7 +1054,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -1057,7 +1076,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -1100,7 +1118,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0130')
                                       //'Atmospheric Pressure',
-                                     , style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -1142,59 +1161,59 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         vAirflowPsiAmbient
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinAirflowPsiAmbient
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinAirflowPsiAmbient
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      vAirflowPsiAmbient =
-                                                          vAirflowPsiAmbient -
-                                                              stepAirflowPsiAmbient;
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  vAirflowPsiAmbient =
+                                                      vAirflowPsiAmbient -
+                                                          stepAirflowPsiAmbient;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -1202,19 +1221,20 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  vAirflowPsiAmbient
-                                                      .toStringAsFixed(1)) >
+                                                      vAirflowPsiAmbient
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinAirflowPsiAmbient
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 vAirflowPsiAmbient =
                                                     vAirflowPsiAmbient -
                                                         stepAirflowPsiAmbient;
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -1235,7 +1255,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -1256,59 +1275,59 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         vAirflowPsiAmbient
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxAirflowPsiAmbient
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxAirflowPsiAmbient
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      vAirflowPsiAmbient =
-                                                          vAirflowPsiAmbient +
-                                                              stepAirflowPsiAmbient;
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  vAirflowPsiAmbient =
+                                                      vAirflowPsiAmbient +
+                                                          stepAirflowPsiAmbient;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -1316,19 +1335,20 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  vAirflowPsiAmbient
-                                                      .toStringAsFixed(1)) <
+                                                      vAirflowPsiAmbient
+                                                          .toStringAsFixed(1)) <
                                                   (Decimal.parse(
                                                       kMaxAirflowPsiAmbient
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 vAirflowPsiAmbient =
                                                     vAirflowPsiAmbient +
                                                         stepAirflowPsiAmbient;
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -1349,7 +1369,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -1395,7 +1414,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0140')
                                       //'Pre-Turbo Flow Loss',
-                                     , style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -1438,59 +1458,59 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         preTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinPreTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinPreTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      preTurboFlowLoss =
-                                                          preTurboFlowLoss -
-                                                              stepPreTurboFlowLoss;
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  preTurboFlowLoss =
+                                                      preTurboFlowLoss -
+                                                          stepPreTurboFlowLoss;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -1498,19 +1518,20 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  preTurboFlowLoss
-                                                      .toStringAsFixed(1)) >
+                                                      preTurboFlowLoss
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinPreTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 preTurboFlowLoss =
                                                     preTurboFlowLoss -
                                                         stepPreTurboFlowLoss;
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -1531,7 +1552,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -1552,60 +1572,60 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         preTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxPreTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxPreTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      preTurboFlowLoss =
-                                                          preTurboFlowLoss +
-                                                              stepPreTurboFlowLoss;
+                                                  preTurboFlowLoss =
+                                                      preTurboFlowLoss +
+                                                          stepPreTurboFlowLoss;
 
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -1613,19 +1633,20 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  preTurboFlowLoss
-                                                      .toStringAsFixed(1)) <
+                                                      preTurboFlowLoss
+                                                          .toStringAsFixed(1)) <
                                                   (Decimal.parse(
                                                       kMaxPreTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 preTurboFlowLoss =
                                                     preTurboFlowLoss +
                                                         stepPreTurboFlowLoss;
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -1646,7 +1667,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -1693,7 +1713,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0150')
                                       //'Post-Turbo Flow Loss',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -1736,59 +1757,59 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         postTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinPostTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinPostTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      postTurboFlowLoss =
-                                                          postTurboFlowLoss -
-                                                              stepPostTurboFlowLoss;
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  postTurboFlowLoss =
+                                                      postTurboFlowLoss -
+                                                          stepPostTurboFlowLoss;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -1796,19 +1817,20 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  postTurboFlowLoss
-                                                      .toStringAsFixed(1)) >
+                                                      postTurboFlowLoss
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinPostTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 postTurboFlowLoss =
                                                     postTurboFlowLoss -
                                                         stepPostTurboFlowLoss;
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -1829,7 +1851,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -1850,59 +1871,59 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         postTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxPostTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxPostTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      postTurboFlowLoss =
-                                                          postTurboFlowLoss +
-                                                              stepPostTurboFlowLoss;
-                                                      var vTempAirflowPoundMinute =
-                                                          vAirflowPoundMinute;
+                                                  postTurboFlowLoss =
+                                                      postTurboFlowLoss +
+                                                          stepPostTurboFlowLoss;
+                                                  var vTempAirflowPoundMinute =
+                                                      vAirflowPoundMinute;
 
-                                                      var vTempAirflowPsiG = vAirflowPsiG;
+                                                  var vTempAirflowPsiG =
+                                                      vAirflowPsiG;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vTempAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vTempAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vTempAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vTempAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
+                                                  calcAirflowPsiTotal(
+                                                      vTempAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcAirflowPsiTotal(
-                                                          vTempAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -1910,19 +1931,20 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  postTurboFlowLoss
-                                                      .toStringAsFixed(1)) <
+                                                      postTurboFlowLoss
+                                                          .toStringAsFixed(1)) <
                                                   (Decimal.parse(
                                                       kMaxPostTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 postTurboFlowLoss =
                                                     postTurboFlowLoss +
                                                         stepPostTurboFlowLoss;
                                                 var vTempAirflowPoundMinute =
                                                     vAirflowPoundMinute;
 
-                                                var vTempAirflowPsiG = vAirflowPsiG;
+                                                var vTempAirflowPsiG =
+                                                    vAirflowPsiG;
 
                                                 calcEngineDisplacementAirflow(
                                                     engineDisplacementCidAirflow);
@@ -1943,7 +1965,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                                     vAirflowManifoldTemp,
                                                     vAirflowPsiAmbient,
                                                     vAirflowPsiG);
-
 
                                                 calcAirflowPsiTotal(
                                                     vTempAirflowPsiG,
@@ -1994,7 +2015,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0160')
                                       // 'Engine Displacement - Cubic inch',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -2037,55 +2059,55 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         engineDisplacementCidAirflow
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinCubicInchEngineDisplacement
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinCubicInchEngineDisplacement
+                                                            .toStringAsFixed(
                                                                 1))))) {
-                                                      engineDisplacementCidAirflow =
-                                                          engineDisplacementCidAirflow -
-                                                              stepCubicInchEngineDisplacement;
+                                                  engineDisplacementCidAirflow =
+                                                      engineDisplacementCidAirflow -
+                                                          stepCubicInchEngineDisplacement;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
 
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2093,12 +2115,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  engineDisplacementCidAirflow
-                                                      .toStringAsFixed(1)) >
+                                                      engineDisplacementCidAirflow
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinCubicInchEngineDisplacement
                                                           .toStringAsFixed(
-                                                          1))))) {
+                                                              1))))) {
                                                 engineDisplacementCidAirflow =
                                                     engineDisplacementCidAirflow -
                                                         stepCubicInchEngineDisplacement;
@@ -2143,49 +2165,49 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if (engineDisplacementCidAirflow <
-                                                        kMaxCubicInchEngineDisplacement) {
-                                                      engineDisplacementCidAirflow =
-                                                          engineDisplacementCidAirflow +
-                                                              stepCubicInchEngineDisplacement;
+                                                (t) {
+                                              setState(() {
+                                                if (engineDisplacementCidAirflow <
+                                                    kMaxCubicInchEngineDisplacement) {
+                                                  engineDisplacementCidAirflow =
+                                                      engineDisplacementCidAirflow +
+                                                          stepCubicInchEngineDisplacement;
 
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
 
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2263,7 +2285,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0170')
                                       //'Engine Displacement - liter',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -2306,54 +2329,54 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         engineDisplacementAirflow
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinEngineDisplacement
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinEngineDisplacement
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      engineDisplacementAirflow =
-                                                          engineDisplacementAirflow -
-                                                              stepEngineDisplacement;
+                                                  engineDisplacementAirflow =
+                                                      engineDisplacementAirflow -
+                                                          stepEngineDisplacement;
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 //nja
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2361,12 +2384,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  engineDisplacementAirflow
-                                                      .toStringAsFixed(1)) >
+                                                      engineDisplacementAirflow
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinEngineDisplacement
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 engineDisplacementAirflow =
                                                     engineDisplacementAirflow -
                                                         stepEngineDisplacement;
@@ -2410,54 +2433,54 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         engineDisplacementAirflow
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxEngineDisplacement
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxEngineDisplacement
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      engineDisplacementAirflow =
-                                                          engineDisplacementAirflow +
-                                                              stepEngineDisplacement;
+                                                  engineDisplacementAirflow =
+                                                      engineDisplacementAirflow +
+                                                          stepEngineDisplacement;
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 //nja
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2465,12 +2488,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  engineDisplacementAirflow
-                                                      .toStringAsFixed(1)) <
+                                                      engineDisplacementAirflow
+                                                          .toStringAsFixed(1)) <
                                                   (Decimal.parse(
                                                       kMaxEngineDisplacement
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 engineDisplacementAirflow =
                                                     engineDisplacementAirflow +
                                                         stepEngineDisplacement;
@@ -2542,7 +2565,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0180')
                                       //'Volumetric Efficiency',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -2561,7 +2585,7 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                         ),
                                       ),
                                       Container(
-                                        // color: Colors.orange,
+                                          // color: Colors.orange,
                                           width: kInputUnitWidth,
                                           child: Text(
                                             unitProcent,
@@ -2585,48 +2609,48 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         volumetricEfficiency
                                                             .toStringAsFixed(
-                                                            2)) >
-                                                        (Decimal.parse(
-                                                            kMinVolumetricEfficiency
-                                                                .toStringAsFixed(
+                                                                2)) >
+                                                    (Decimal.parse(
+                                                        kMinVolumetricEfficiency
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      volumetricEfficiency =
-                                                          volumetricEfficiency -
-                                                              stepVolumetricEfficiency;
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  volumetricEfficiency =
+                                                      volumetricEfficiency -
+                                                          stepVolumetricEfficiency;
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2634,12 +2658,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  volumetricEfficiency
-                                                      .toStringAsFixed(2)) >
+                                                      volumetricEfficiency
+                                                          .toStringAsFixed(2)) >
                                                   (Decimal.parse(
                                                       kMinVolumetricEfficiency
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 volumetricEfficiency =
                                                     volumetricEfficiency -
                                                         stepVolumetricEfficiency;
@@ -2677,48 +2701,48 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         volumetricEfficiency
                                                             .toStringAsFixed(
-                                                            2)) <
-                                                        (Decimal.parse(
-                                                            kMaxVolumetricEfficiency
-                                                                .toStringAsFixed(
+                                                                2)) <
+                                                    (Decimal.parse(
+                                                        kMaxVolumetricEfficiency
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      volumetricEfficiency =
-                                                          volumetricEfficiency +
-                                                              stepVolumetricEfficiency;
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  volumetricEfficiency =
+                                                      volumetricEfficiency +
+                                                          stepVolumetricEfficiency;
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2726,12 +2750,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  volumetricEfficiency
-                                                      .toStringAsFixed(2)) <
+                                                      volumetricEfficiency
+                                                          .toStringAsFixed(2)) <
                                                   (Decimal.parse(
                                                       kMaxVolumetricEfficiency
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 volumetricEfficiency =
                                                     volumetricEfficiency +
                                                         stepVolumetricEfficiency;
@@ -2797,9 +2821,9 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0190')
                                       //'Intake Temp @ Valve',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
-
                                       textAlign: TextAlign.left,
                                     ),
                                   ),
@@ -2841,53 +2865,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         vAirflowManifoldTemp
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinAirflowManifoldTemp
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinAirflowManifoldTemp
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      vAirflowManifoldTemp =
-                                                          vAirflowManifoldTemp -
-                                                              stepAirflowManifoldTemp;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  vAirflowManifoldTemp =
+                                                      vAirflowManifoldTemp -
+                                                          stepAirflowManifoldTemp;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2895,12 +2919,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  vAirflowManifoldTemp
-                                                      .toStringAsFixed(1)) >
+                                                      vAirflowManifoldTemp
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinAirflowManifoldTemp
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 vAirflowManifoldTemp =
                                                     vAirflowManifoldTemp -
                                                         stepAirflowManifoldTemp;
@@ -2943,53 +2967,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         vAirflowManifoldTemp
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxAirflowManifoldTemp
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxAirflowManifoldTemp
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      vAirflowManifoldTemp =
-                                                          vAirflowManifoldTemp +
-                                                              stepAirflowManifoldTemp;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  vAirflowManifoldTemp =
+                                                      vAirflowManifoldTemp +
+                                                          stepAirflowManifoldTemp;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -2997,12 +3021,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  vAirflowManifoldTemp
-                                                      .toStringAsFixed(1)) <
+                                                      vAirflowManifoldTemp
+                                                          .toStringAsFixed(1)) <
                                                   (Decimal.parse(
                                                       kMaxAirflowManifoldTemp
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 vAirflowManifoldTemp =
                                                     vAirflowManifoldTemp +
                                                         stepAirflowManifoldTemp;
@@ -3073,7 +3097,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0200')
                                       //'Pre-Turbo Flow Loss',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -3116,53 +3141,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         preTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinPreTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinPreTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      preTurboFlowLoss =
-                                                          preTurboFlowLoss -
-                                                              stepPreTurboFlowLoss;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  preTurboFlowLoss =
+                                                      preTurboFlowLoss -
+                                                          stepPreTurboFlowLoss;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -3170,12 +3195,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  preTurboFlowLoss
-                                                      .toStringAsFixed(1)) >
+                                                      preTurboFlowLoss
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinPreTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 preTurboFlowLoss =
                                                     preTurboFlowLoss -
                                                         stepPreTurboFlowLoss;
@@ -3218,53 +3243,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         preTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxPreTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxPreTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      preTurboFlowLoss =
-                                                          preTurboFlowLoss +
-                                                              stepPreTurboFlowLoss;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  preTurboFlowLoss =
+                                                      preTurboFlowLoss +
+                                                          stepPreTurboFlowLoss;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -3272,12 +3297,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  preTurboFlowLoss
-                                                      .toStringAsFixed(1)) >
+                                                      preTurboFlowLoss
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMaxPreTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 preTurboFlowLoss =
                                                     preTurboFlowLoss +
                                                         stepPreTurboFlowLoss;
@@ -3346,7 +3371,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0210')
                                       // 'Post-Turbo Flow Loss',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -3389,53 +3415,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         postTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinPostTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinPostTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      postTurboFlowLoss =
-                                                          postTurboFlowLoss -
-                                                              stepPostTurboFlowLoss;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  postTurboFlowLoss =
+                                                      postTurboFlowLoss -
+                                                          stepPostTurboFlowLoss;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -3443,12 +3469,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  postTurboFlowLoss
-                                                      .toStringAsFixed(1)) >
+                                                      postTurboFlowLoss
+                                                          .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinPostTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 postTurboFlowLoss =
                                                     postTurboFlowLoss -
                                                         stepPostTurboFlowLoss;
@@ -3491,53 +3517,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         postTurboFlowLoss
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxPostTurboFlowLoss
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxPostTurboFlowLoss
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      postTurboFlowLoss =
-                                                          postTurboFlowLoss +
-                                                              stepPostTurboFlowLoss;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  postTurboFlowLoss =
+                                                      postTurboFlowLoss +
+                                                          stepPostTurboFlowLoss;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -3545,12 +3571,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(
-                                                  postTurboFlowLoss
-                                                      .toStringAsFixed(1)) <
+                                                      postTurboFlowLoss
+                                                          .toStringAsFixed(1)) <
                                                   (Decimal.parse(
                                                       kMaxPostTurboFlowLoss
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 postTurboFlowLoss =
                                                     postTurboFlowLoss +
                                                         stepPostTurboFlowLoss;
@@ -3620,7 +3646,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                       AppLocalizations.of(context).translate(
                                           'airflow_target_boost_pressure_0220')
                                       //'Number of Turbos',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                       textAlign: TextAlign.left,
                                     ),
@@ -3641,13 +3668,12 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                         width: kInputUnitWidth,
                                         // color: Colors.orange,
                                         child: Text(
-                                          AppLocalizations.of(context)
-                                              .translate(
+                                          AppLocalizations.of(context).translate(
                                               'airflow_target_boost_pressure_0230')
                                           // 'turbo',
-                                         , style: kUnitTextStyleAirflow,
+                                          ,
+                                          style: kUnitTextStyleAirflow,
                                           textAlign: TextAlign.center,
-
                                           textScaleFactor: textScaleFactorTc,
                                         ),
                                       ),
@@ -3667,53 +3693,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         numberOfTurbos
                                                             .toStringAsFixed(
-                                                            1)) >
-                                                        (Decimal.parse(
-                                                            kMinNumberOfTurbos
-                                                                .toStringAsFixed(
+                                                                1)) >
+                                                    (Decimal.parse(
+                                                        kMinNumberOfTurbos
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      numberOfTurbos =
-                                                          numberOfTurbos -
-                                                              stepNumberOfTurbos;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  numberOfTurbos =
+                                                      numberOfTurbos -
+                                                          stepNumberOfTurbos;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -3721,11 +3747,11 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(numberOfTurbos
-                                                  .toStringAsFixed(1)) >
+                                                      .toStringAsFixed(1)) >
                                                   (Decimal.parse(
                                                       kMinNumberOfTurbos
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 numberOfTurbos =
                                                     numberOfTurbos -
                                                         stepNumberOfTurbos;
@@ -3768,53 +3794,53 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStepPress: () {
                                             timer = Timer.periodic(
                                                 Duration(milliseconds: tapTime),
-                                                    (t) {
-                                                  setState(() {
-                                                    if ((Decimal.parse(
+                                                (t) {
+                                              setState(() {
+                                                if ((Decimal.parse(
                                                         numberOfTurbos
                                                             .toStringAsFixed(
-                                                            1)) <
-                                                        (Decimal.parse(
-                                                            kMaxNumberOfTurbos
-                                                                .toStringAsFixed(
+                                                                1)) <
+                                                    (Decimal.parse(
+                                                        kMaxNumberOfTurbos
+                                                            .toStringAsFixed(
                                                                 2))))) {
-                                                      numberOfTurbos =
-                                                          numberOfTurbos +
-                                                              stepNumberOfTurbos;
-                                                      calcEngineDisplacementAirflow(
-                                                          engineDisplacementCidAirflow);
+                                                  numberOfTurbos =
+                                                      numberOfTurbos +
+                                                          stepNumberOfTurbos;
+                                                  calcEngineDisplacementAirflow(
+                                                      engineDisplacementCidAirflow);
 
-                                                      calcEngineDisplacementCidAirflow(
-                                                          engineDisplacementAirflow);
-                                                      calcMassFlowRatePoundMinuteTbp(
-                                                          vAirflowPsiG,
-                                                          engineDisplacementAirflow,
-                                                          volumetricEfficiency,
-                                                          maxEngineSpeed,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          numberOfTurbos);
+                                                  calcEngineDisplacementCidAirflow(
+                                                      engineDisplacementAirflow);
+                                                  calcMassFlowRatePoundMinuteTbp(
+                                                      vAirflowPsiG,
+                                                      engineDisplacementAirflow,
+                                                      volumetricEfficiency,
+                                                      maxEngineSpeed,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      numberOfTurbos);
 
-                                                      calcAirflowCfm(
-                                                          vAirflowPoundMinute,
-                                                          vAirflowManifoldTemp,
-                                                          vAirflowPsiAmbient,
-                                                          vAirflowPsiG);
+                                                  calcAirflowCfm(
+                                                      vAirflowPoundMinute,
+                                                      vAirflowManifoldTemp,
+                                                      vAirflowPsiAmbient,
+                                                      vAirflowPsiG);
 
-                                                      calcAirflowPsiTotal(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
+                                                  calcAirflowPsiTotal(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
 
-                                                      calcPressureRatio(
-                                                          vAirflowPsiG,
-                                                          vAirflowPsiAmbient,
-                                                          preTurboFlowLoss,
-                                                          postTurboFlowLoss);
-                                                    }
-                                                  });
-                                                });
+                                                  calcPressureRatio(
+                                                      vAirflowPsiG,
+                                                      vAirflowPsiAmbient,
+                                                      preTurboFlowLoss,
+                                                      postTurboFlowLoss);
+                                                }
+                                              });
+                                            });
                                           },
                                           onPressEnd: () {
                                             timer.cancel();
@@ -3822,11 +3848,11 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(numberOfTurbos
-                                                  .toStringAsFixed(1)) <
+                                                      .toStringAsFixed(1)) <
                                                   (Decimal.parse(
                                                       kMaxNumberOfTurbos
                                                           .toStringAsFixed(
-                                                          2))))) {
+                                                              2))))) {
                                                 numberOfTurbos =
                                                     numberOfTurbos +
                                                         stepNumberOfTurbos;
@@ -3889,7 +3915,8 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
     );
   }
 
-  void calcMassFlowRatePoundMinuteTbp(double vAirflowPsiG,
+  void calcMassFlowRatePoundMinuteTbp(
+      double vAirflowPsiG,
       double engineDisplacement,
       double volumetricEfficiency,
       double maxEngineSpeed,
@@ -3920,7 +3947,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
 //
 //      vAirflowCubicMeterPerMinute = vAirflowCubicMeterPerSecond * 60;
 
-
       print('B2 vAirflowPoundMinute $vAirflowPoundMinute');
       print('D cubicMeterPerSecondConversion $vAirflowCubicMeterPerSecond');
     });
@@ -3939,7 +3965,6 @@ class _AirflowTbpPageState extends State<AirflowTbpPage> {
       vAirflowPsiTotal = vAirflowPsiAmbient + vAirflowPsiG;
     });
   }
-
 
   void calcPressureRatio(double vAirflowPsiG, double vAirflowPsiAmbient,
       double preTurboFlowLoss, double postTurboFlowLoss) {

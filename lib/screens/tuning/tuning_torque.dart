@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton_close.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton_close.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class TorquePage extends StatefulWidget {
   bool metricUnit;
@@ -123,9 +122,12 @@ class _TorquePageState extends State<TorquePage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('tuning_torque_0000')
+            Text(
+                AppLocalizations.of(context).translate('tuning_torque_0000')
                 //'TORQUE',
-                ,style: kAppBarTextStyle, textScaleFactor: textScaleFactorTc),
+                ,
+                style: kAppBarTextStyle,
+                textScaleFactor: textScaleFactorTc),
             Container(width: 30.0, child: submitRatingButton),
           ],
         ),
@@ -155,10 +157,17 @@ class _TorquePageState extends State<TorquePage> {
                                 columns: [
                                   DataColumn(
                                       label: Text(
+                                    '',
+                                    style: TextStyle(color: Colors.white),
+                                    textScaleFactor: textScaleFactorTc * 1.3,
+                                  )),
+                                  DataColumn(
+                                      numeric: true,
+                                      label: Text(
                                         '',
-                                        style: TextStyle(color: Colors.white),
-                                        textScaleFactor: textScaleFactorTc *
-                                            1.3,
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor:
+                                            textScaleFactorTc * 1.3,
                                       )),
                                   DataColumn(
                                       numeric: true,
@@ -166,15 +175,7 @@ class _TorquePageState extends State<TorquePage> {
                                         '',
                                         style: kLabelTextStyleActive,
                                         textScaleFactor:
-                                        textScaleFactorTc * 1.3,
-                                      )),
-                                  DataColumn(
-                                      numeric: true,
-                                      label: Text(
-                                        '',
-                                        style: kLabelTextStyleActive,
-                                        textScaleFactor:
-                                        textScaleFactorTc * 1.3,
+                                            textScaleFactorTc * 1.3,
                                       )),
                                 ],
                                 rows: [
@@ -185,31 +186,32 @@ class _TorquePageState extends State<TorquePage> {
                                           AppLocalizations.of(context)
                                               .translate('tuning_torque_0010')
                                           //'Torque',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         ),
                                         Text(
                                           AppLocalizations.of(context)
                                               .translate('tuning_torque_0020')
                                           //' - Imperial'
-                                          , style: kLabelTextStyle,
-                                          textScaleFactor: textScaleFactorTc,),
+                                          ,
+                                          style: kLabelTextStyle,
+                                          textScaleFactor: textScaleFactorTc,
+                                        ),
                                       ],
                                     )),
                                     DataCell(
                                       Text(
                                         resultTorque.toStringAsFixed(0),
                                         style: kResultNumberStyleWhite18_600,
-                                        textScaleFactor:
-                                        textScaleFactorTc,
+                                        textScaleFactor: textScaleFactorTc,
                                       ),
                                     ),
                                     DataCell(
                                       Text(
                                         unitTorque,
                                         style: kLabelTextStyle,
-                                        textScaleFactor:
-                                        textScaleFactorTc,
+                                        textScaleFactor: textScaleFactorTc,
                                       ),
                                     ),
                                   ]),
@@ -221,14 +223,17 @@ class _TorquePageState extends State<TorquePage> {
                                             AppLocalizations.of(context)
                                                 .translate('tuning_torque_0030')
                                             // 'Torque',
-                                            ,style: kLabelTextStyleLarge,
+                                            ,
+                                            style: kLabelTextStyleLarge,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                           Text(
                                             AppLocalizations.of(context)
                                                 .translate('tuning_torque_0040')
                                             //' - Metric', style: kLabelTextStyle,
-                                          ,  textScaleFactor:textScaleFactorTc,),
+                                            ,
+                                            textScaleFactor: textScaleFactorTc,
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -237,17 +242,16 @@ class _TorquePageState extends State<TorquePage> {
                                         (resultTorque * 1.35582)
                                             .toStringAsFixed(0),
                                         style: kResultNumberStyleWhite18_600,
-                                        textScaleFactor:
-                                        textScaleFactorTc,
+                                        textScaleFactor: textScaleFactorTc,
                                       ),
                                     ),
                                     DataCell(
                                       Text(
                                         AppLocalizations.of(context).translate(
                                             'tuning_torque_0050') //'Nm',
-                                        ,style: kLabelTextStyle,
-                                        textScaleFactor:
-                                        textScaleFactorTc,
+                                        ,
+                                        style: kLabelTextStyle,
+                                        textScaleFactor: textScaleFactorTc,
                                       ),
                                     ),
                                   ]),
@@ -280,7 +284,8 @@ class _TorquePageState extends State<TorquePage> {
                               child: Text(
                                   AppLocalizations.of(context).translate(
                                       'tuning_torque_0060') //'Horsepower',
-                                  ,style: kLabelTextStyleLarge,
+                                  ,
+                                  style: kLabelTextStyleLarge,
                                   textScaleFactor: textScaleFactorTc),
                             ),
 
@@ -342,23 +347,22 @@ class _TorquePageState extends State<TorquePage> {
                                         setState(() {
                                           timer = Timer.periodic(
                                               Duration(milliseconds: tapTime),
-                                                  (t) {
-                                                print('- press');
+                                              (t) {
+                                            print('- press');
 
-                                                if ((Decimal.parse(torqueHpInput
+                                            if ((Decimal.parse(torqueHpInput
                                                     .toStringAsFixed(0)) >
-                                                    (Decimal.parse(
-                                                        (vMinTorqueHpInput)
-                                                            .toStringAsFixed(
+                                                (Decimal.parse(
+                                                    (vMinTorqueHpInput)
+                                                        .toStringAsFixed(
                                                             0))))) {
-                                                  torqueHpInput =
-                                                      torqueHpInput -
-                                                          stepTorqueHpInput;
+                                              torqueHpInput = torqueHpInput -
+                                                  stepTorqueHpInput;
 
-                                                  calcTorqueCalc(torqueHpInput,
-                                                      torqueRpmInput);
-                                                }
-                                              });
+                                              calcTorqueCalc(torqueHpInput,
+                                                  torqueRpmInput);
+                                            }
+                                          });
                                         });
                                       },
                                       onPressEnd: () {
@@ -367,7 +371,7 @@ class _TorquePageState extends State<TorquePage> {
                                       onStep: () {
                                         setState(() {
                                           if ((Decimal.parse(torqueHpInput
-                                              .toStringAsFixed(0)) >
+                                                  .toStringAsFixed(0)) >
                                               (Decimal.parse((vMinTorqueHpInput)
                                                   .toStringAsFixed(0))))) {
                                             torqueHpInput = torqueHpInput -
@@ -385,26 +389,25 @@ class _TorquePageState extends State<TorquePage> {
                                         setState(() {
                                           timer = Timer.periodic(
                                               Duration(milliseconds: tapTime),
-                                                  (t) {
-                                                print('+ press');
-                                                print(
-                                                    'torqueHpInput $torqueHpInput');
-                                                print(
-                                                    'kMaxTorqueHpInput $vMaxTorqueHpInput');
-                                                if ((Decimal.parse(torqueHpInput
+                                              (t) {
+                                            print('+ press');
+                                            print(
+                                                'torqueHpInput $torqueHpInput');
+                                            print(
+                                                'kMaxTorqueHpInput $vMaxTorqueHpInput');
+                                            if ((Decimal.parse(torqueHpInput
                                                     .toStringAsFixed(3)) <
-                                                    (Decimal.parse(
-                                                        (vMaxTorqueHpInput)
-                                                            .toStringAsFixed(
+                                                (Decimal.parse(
+                                                    (vMaxTorqueHpInput)
+                                                        .toStringAsFixed(
                                                             3))))) {
-                                                  torqueHpInput =
-                                                      torqueHpInput +
-                                                          stepTorqueHpInput;
+                                              torqueHpInput = torqueHpInput +
+                                                  stepTorqueHpInput;
 
-                                                  calcTorqueCalc(torqueHpInput,
-                                                      torqueRpmInput);
-                                                }
-                                              });
+                                              calcTorqueCalc(torqueHpInput,
+                                                  torqueRpmInput);
+                                            }
+                                          });
                                         });
                                       },
                                       onPressEnd: () {
@@ -413,7 +416,7 @@ class _TorquePageState extends State<TorquePage> {
                                       onStep: () {
                                         setState(() {
                                           if ((Decimal.parse(torqueHpInput
-                                              .toStringAsFixed(3)) <
+                                                  .toStringAsFixed(3)) <
                                               (Decimal.parse((vMaxTorqueHpInput)
                                                   .toStringAsFixed(3))))) {
                                             torqueHpInput = torqueHpInput +
@@ -442,7 +445,8 @@ class _TorquePageState extends State<TorquePage> {
                                   child: Text(
                                       AppLocalizations.of(context).translate(
                                           'tuning_torque_0070') //'RPM',
-                                      ,style: kLabelTextStyleLarge,
+                                      ,
+                                      style: kLabelTextStyleLarge,
                                       textScaleFactor: textScaleFactorTc),
                                 ),
 
@@ -452,11 +456,11 @@ class _TorquePageState extends State<TorquePage> {
                                     thumbColor: kTurbineInducerSliderNob,
                                     overlayColor: kTurbineSliderOverlayColor,
                                     valueIndicatorColor:
-                                    kTurbineInducerSliderNob,
+                                        kTurbineInducerSliderNob,
                                     inactiveTrackColor: kInactiveSlideColour,
                                     thumbShape: RoundSliderThumbShape(
                                         enabledThumbRadius:
-                                        kNobThumbShapeLarge),
+                                            kNobThumbShapeLarge),
                                     overlayShape: RoundSliderOverlayShape(
                                         overlayRadius: kNobOverlayShapeLarge),
                                   ),
@@ -478,7 +482,7 @@ class _TorquePageState extends State<TorquePage> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Container(
                                       alignment: Alignment.center,
@@ -504,7 +508,7 @@ class _TorquePageState extends State<TorquePage> {
                                       children: <Widget>[
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                              MainAxisAlignment.end,
                                           children: <Widget>[
                                             StepButtonClose(
                                               icon: FontAwesomeIcons.minus,
@@ -513,17 +517,17 @@ class _TorquePageState extends State<TorquePage> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     print('- press');
 
                                                     if ((Decimal.parse(
-                                                        torqueRpmInput
-                                                            .toStringAsFixed(
-                                                            0)) >
+                                                            torqueRpmInput
+                                                                .toStringAsFixed(
+                                                                    0)) >
                                                         (Decimal.parse(
                                                             vMinTorqueRpmInput
                                                                 .toStringAsFixed(
-                                                                0))))) {
+                                                                    0))))) {
                                                       torqueRpmInput =
                                                           torqueRpmInput -
                                                               stepTorqueRpmInput;
@@ -541,13 +545,13 @@ class _TorquePageState extends State<TorquePage> {
                                               onStep: () {
                                                 setState(() {
                                                   if ((Decimal.parse(
-                                                      torqueRpmInput
-                                                          .toStringAsFixed(
-                                                          0)) >
+                                                          torqueRpmInput
+                                                              .toStringAsFixed(
+                                                                  0)) >
                                                       (Decimal.parse(
                                                           vMinTorqueRpmInput
                                                               .toStringAsFixed(
-                                                              0))))) {
+                                                                  0))))) {
                                                     torqueRpmInput =
                                                         torqueRpmInput -
                                                             stepTorqueRpmInput;
@@ -566,20 +570,20 @@ class _TorquePageState extends State<TorquePage> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     print('+ press');
                                                     print(
                                                         'torqueRpmInput $torqueRpmInput');
                                                     print(
                                                         'kMaxTorqueRpmInput $vMaxTorqueRpmInput');
                                                     if ((Decimal.parse(
-                                                        torqueRpmInput
-                                                            .toStringAsFixed(
-                                                            0)) <
+                                                            torqueRpmInput
+                                                                .toStringAsFixed(
+                                                                    0)) <
                                                         (Decimal.parse(
                                                             vMaxTorqueRpmInput
                                                                 .toStringAsFixed(
-                                                                0))))) {
+                                                                    0))))) {
                                                       torqueRpmInput =
                                                           torqueRpmInput +
                                                               stepTorqueRpmInput;
@@ -597,13 +601,13 @@ class _TorquePageState extends State<TorquePage> {
                                               onStep: () {
                                                 setState(() {
                                                   if ((Decimal.parse(
-                                                      torqueRpmInput
-                                                          .toStringAsFixed(
-                                                          0)) <
+                                                          torqueRpmInput
+                                                              .toStringAsFixed(
+                                                                  0)) <
                                                       (Decimal.parse(
                                                           vMaxTorqueRpmInput
                                                               .toStringAsFixed(
-                                                              0))))) {
+                                                                  0))))) {
                                                     torqueRpmInput =
                                                         torqueRpmInput +
                                                             stepTorqueRpmInput;

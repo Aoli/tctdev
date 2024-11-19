@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/components/stepbutton_close.dart';
-import 'package:Turbocharger/data_models/MapSave_ArRatio.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/components/stepbutton_close.dart';
+import 'package:tct/data_models/MapSave_ArRatio.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,14 +13,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-import 'package:Turbocharger/provider/settings_provider.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
+import 'package:tct/provider/settings_provider.dart';
 
 class ArRatioPage extends StatefulWidget {
   final bool metricUnit;
 
-  ArRatioPage({Key key, @required this.metricUnit, RouteSettings settings})
+  ArRatioPage(
+      {required Key key,
+      required this.metricUnit,
+      required RouteSettings settings})
       : super(key: key);
 
   @override
@@ -133,7 +136,7 @@ class _ArRatioPageState extends State<ArRatioPage> {
     areaArCalculation = 0.5;
     radiusArCalculation = 45.0;
     arRatioCalculation = 90.0;
-   // metricUnit = saveArRatioMap['mapArUnitSwitchValue'];
+    // metricUnit = saveArRatioMap['mapArUnitSwitchValue'];
     saveArRatioMap['mapArUnitSwitchValue'] = metricUnit;
     saveArRatioMap['mapArResultRatioMm'] = 0.5;
     print('init1');
@@ -156,7 +159,7 @@ class _ArRatioPageState extends State<ArRatioPage> {
     saveArRatioMap['mapArUnitSwitchValue'] = metricUnit;
     print('init7');
 
-   // _getMapFromSharedPref();
+    // _getMapFromSharedPref();
 
     resetValues(metricUnit);
 
@@ -176,10 +179,10 @@ class _ArRatioPageState extends State<ArRatioPage> {
 //    print(saveArRatioMap);
   }
 
- // @override
- // void setState(fn) {
- //   super.setState(fn);
- // }
+  // @override
+  // void setState(fn) {
+  //   super.setState(fn);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -502,7 +505,8 @@ class _ArRatioPageState extends State<ArRatioPage> {
                                                     },
                                                     onStep: () {
                                                       setState(() {
-                                                        print('Nullplace 505 areaArCalculation $areaArCalculation');
+                                                        print(
+                                                            'Nullplace 505 areaArCalculation $areaArCalculation');
                                                         if ((Decimal.parse(
                                                                 areaArCalculation
                                                                     .toStringAsFixed(
@@ -535,8 +539,12 @@ class _ArRatioPageState extends State<ArRatioPage> {
                                       DataRow(cells: [
                                         DataCell(Column(
                                           children: [
-                                            Text(AppLocalizations.of(context).translate('ar_ratio_0050')//'Radius',
-                                               , style: kLabelTextStyle,
+                                            Text(
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                        'ar_ratio_0050') //'Radius',
+                                                ,
+                                                style: kLabelTextStyle,
                                                 textScaleFactor:
                                                     textScaleFactorTc),
                                             Text(
@@ -708,8 +716,10 @@ class _ArRatioPageState extends State<ArRatioPage> {
                           Row(
                             children: <Widget>[
                               Text(
-                                AppLocalizations.of(context).translate('ar_ratio_0060')//'Inch',
-                                ,style: kLabelTextStyle,
+                                AppLocalizations.of(context)
+                                    .translate('ar_ratio_0060') //'Inch',
+                                ,
+                                style: kLabelTextStyle,
                                 textScaleFactor: textScaleFactorTc,
                               ),
                               SizedBox(width: 6),
@@ -737,7 +747,7 @@ class _ArRatioPageState extends State<ArRatioPage> {
 //                            fontWeight: FontWeight.bold, color: Colors.grey),
 //                        textScaleFactor: textScaleFactorTc - 0.3,
 //                      ),
-//                      Text( 
+//                      Text(
 //                        'Inch - Millimeter',
 //                        style: TextStyle(
 //                            fontWeight: FontWeight.bold, color: Colors.white),
@@ -749,16 +759,20 @@ class _ArRatioPageState extends State<ArRatioPage> {
                               ),
                               SizedBox(width: 6),
                               Text(
-                                AppLocalizations.of(context).translate('ar_ratio_0070')// 'mm',
-                               , style: kLabelTextStyle,
+                                AppLocalizations.of(context)
+                                    .translate('ar_ratio_0070') // 'mm',
+                                ,
+                                style: kLabelTextStyle,
                                 textScaleFactor: textScaleFactorTc,
                               ),
                               SizedBox(
                                 width: 20,
                               ),
                               Text(
-                                AppLocalizations.of(context).translate('ar_ratio_0080')// '(Switch will reset the values to default)',
-                               , style: kBodyItalicTextStyle,
+                                AppLocalizations.of(context).translate(
+                                    'ar_ratio_0080') // '(Switch will reset the values to default)',
+                                ,
+                                style: kBodyItalicTextStyle,
                                 textScaleFactor: textScaleFactorTc * 0.8,
                               ),
                             ],
@@ -783,7 +797,7 @@ class _ArRatioPageState extends State<ArRatioPage> {
     );
   }
 
- int radioValue = 0;
+  int radioValue = 0;
 
 //  void handleRadioValueChanged(int value) {
 //    setState(() {
@@ -944,7 +958,6 @@ class _ArRatioPageState extends State<ArRatioPage> {
       print('GET areaArCalculation $areaArCalculation');
       radiusArCalculation = prefs.getDouble('mapArInputRadiusMm');
       print('GET radiusArCalculation $radiusArCalculation');
-
     } else {
       print('Try loading ... inch');
       arRatioCalculation = prefs.getDouble('mapArResultRatioInch');

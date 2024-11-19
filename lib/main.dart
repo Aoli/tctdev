@@ -17,7 +17,6 @@ void main() {
   runApp(TurboCalculator());
 }
 
-//git
 class TurboCalculator extends StatelessWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =

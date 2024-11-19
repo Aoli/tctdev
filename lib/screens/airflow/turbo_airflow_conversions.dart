@@ -1,21 +1,21 @@
 import 'dart:async';
-import 'package:Turbocharger/components/stepbutton_close.dart';
+import 'package:flutter/material.dart';
+import 'package:tct/components/stepbutton_close.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class AirFlowConversion extends StatefulWidget {
   final bool metricUnit;
 
-  AirFlowConversion({Key key, @required this.metricUnit}) : super(key: key);
+  AirFlowConversion({required Key key, required this.metricUnit})
+      : super(key: key);
 
   @override
   _AirFlowConversionState createState() => _AirFlowConversionState(metricUnit);
@@ -36,10 +36,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
       return IconButton(
           icon: Icon(Icons.info_outline),
           color: Colors.white,
-          onPressed: () => _scaffoldCompressorKey.currentState
-              .showSnackBar(snackBarCompressor));
+          onPressed: () =>
+              ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor));
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
@@ -81,7 +81,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+      compressorInducerSize: 0.0,
+      compressorExducerSize: 0.0,
+      turbineInducerSize: 0.0,
+      turbineExducerSize: 0.0);
 
   @override
   void initState() {
@@ -126,6 +130,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
           child: Column(
             children: <Widget>[
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    resetValues();
+                  });
+                },
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
                   child: Column(
@@ -186,9 +195,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                               child: Text(
                                                 vAirflowPoundMinute
                                                     .toStringAsFixed(2),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -199,7 +209,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -220,11 +230,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowPoundMinute
-                                                              .toString()) >
+                                                              vAirflowPoundMinute
+                                                                  .toString()) >
                                                           (Decimal.parse(
                                                               kMinAirflowPoundMinute
                                                                   .toString())))) {
@@ -253,8 +263,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowCfm
-                                                            .toString()) >
+                                                            vAirflowCfm
+                                                                .toString()) >
                                                         (Decimal.parse(
                                                             kMinAirflowPoundMinute
                                                                 .toString())))) {
@@ -283,11 +293,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowPoundMinute
-                                                              .toString()) <
+                                                              vAirflowPoundMinute
+                                                                  .toString()) <
                                                           (Decimal.parse(
                                                               kMaxAirflowPoundMinute
                                                                   .toString())))) {
@@ -316,8 +326,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowPoundMinute
-                                                            .toString()) <
+                                                            vAirflowPoundMinute
+                                                                .toString()) <
                                                         (Decimal.parse(
                                                             kMaxAirflowPoundMinute
                                                                 .toString())))) {
@@ -338,7 +348,6 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                       );
 
                                                       //    calcCubicMeterPerSecond(cubicMeterPerSecondConversion);
-
                                                     }
                                                   });
                                                 },
@@ -386,7 +395,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                             style: kLabelTextStyle,
                                             textAlign: TextAlign.left,
                                             textScaleFactor:
-                                            textScaleFactorTc * .95,
+                                                textScaleFactorTc * .95,
                                           ),
                                         ),
                                         Row(
@@ -398,9 +407,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                               // color: Colors.blue,
                                               child: Text(
                                                 vAirflowCfm.toStringAsFixed(2),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -411,7 +421,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -432,17 +442,16 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowCfm
-                                                              .toString()) >
+                                                              vAirflowCfm
+                                                                  .toString()) >
                                                           (Decimal.parse(
                                                               kMinAirflowCfm
                                                                   .toString())))) {
-                                                        vAirflowCfm =
-                                                            vAirflowCfm -
-                                                                stepCubicFeetPerMinute;
+                                                        vAirflowCfm = vAirflowCfm -
+                                                            stepCubicFeetPerMinute;
 
                                                         calcTempCelsius(
                                                             tempTemperatureFahrenheit);
@@ -464,14 +473,13 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowCfm
-                                                            .toString()) >
+                                                            vAirflowCfm
+                                                                .toString()) >
                                                         (Decimal.parse(
                                                             kMinAirflowCfm
                                                                 .toString())))) {
-                                                      vAirflowCfm =
-                                                          vAirflowCfm -
-                                                              stepCubicFeetPerMinute;
+                                                      vAirflowCfm = vAirflowCfm -
+                                                          stepCubicFeetPerMinute;
 
                                                       calcTempCelsius(
                                                           tempTemperatureFahrenheit);
@@ -493,17 +501,16 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowCfm
-                                                              .toString()) <
+                                                              vAirflowCfm
+                                                                  .toString()) <
                                                           (Decimal.parse(
                                                               kMaxAirflowCfm
                                                                   .toString())))) {
-                                                        vAirflowCfm =
-                                                            vAirflowCfm +
-                                                                stepCubicFeetPerMinute;
+                                                        vAirflowCfm = vAirflowCfm +
+                                                            stepCubicFeetPerMinute;
 
                                                         calcTempCelsius(
                                                             tempTemperatureFahrenheit);
@@ -525,14 +532,13 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowCfm
-                                                            .toString()) <
+                                                            vAirflowCfm
+                                                                .toString()) <
                                                         (Decimal.parse(
                                                             kMaxAirflowCfm
                                                                 .toString())))) {
-                                                      vAirflowCfm =
-                                                          vAirflowCfm +
-                                                              stepCubicFeetPerMinute;
+                                                      vAirflowCfm = vAirflowCfm +
+                                                          stepCubicFeetPerMinute;
 
                                                       calcTempCelsius(
                                                           tempTemperatureFahrenheit);
@@ -567,11 +573,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           // color: Colors.red,
@@ -585,7 +591,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Container(
                                               width: kInputNumberWidth + 40,
@@ -593,9 +599,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                               child: Text(
                                                 vAirflowCubicMeterPerMinute
                                                     .toStringAsFixed(3),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -606,7 +613,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -619,7 +626,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         children: <Widget>[
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                             children: <Widget>[
                                               StepButtonClose(
                                                 icon: FontAwesomeIcons.minus,
@@ -627,11 +634,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowCubicMeterPerMinute
-                                                              .toString()) >
+                                                              vAirflowCubicMeterPerMinute
+                                                                  .toString()) >
                                                           (Decimal.parse(
                                                               kMinCubicMeterPerMinute
                                                                   .toString())))) {
@@ -656,8 +663,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowCubicMeterPerMinute
-                                                            .toString()) >
+                                                            vAirflowCubicMeterPerMinute
+                                                                .toString()) >
                                                         (Decimal.parse(
                                                             kMinCubicMeterPerMinute
                                                                 .toString())))) {
@@ -682,11 +689,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowCubicMeterPerMinute
-                                                              .toString()) <
+                                                              vAirflowCubicMeterPerMinute
+                                                                  .toString()) <
                                                           (Decimal.parse(
                                                               kMaxCubicMeterPerMinute
                                                                   .toString())))) {
@@ -711,8 +718,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowCubicMeterPerMinute
-                                                            .toString()) <
+                                                            vAirflowCubicMeterPerMinute
+                                                                .toString()) <
                                                         (Decimal.parse(
                                                             kMaxCubicMeterPerMinute
                                                                 .toString())))) {
@@ -750,11 +757,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           // color: Colors.red,
@@ -768,7 +775,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Container(
                                               width: kInputNumberWidth + 40,
@@ -776,9 +783,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                               child: Text(
                                                 vAirflowCubicMeterPerSecond
                                                     .toStringAsFixed(4),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -789,7 +797,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -802,7 +810,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         children: <Widget>[
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                             children: <Widget>[
                                               StepButtonClose(
                                                 icon: FontAwesomeIcons.minus,
@@ -810,11 +818,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowCubicMeterPerSecond
-                                                              .toString()) >
+                                                              vAirflowCubicMeterPerSecond
+                                                                  .toString()) >
                                                           (Decimal.parse(
                                                               kMinCubicMeterPerSecond
                                                                   .toString())))) {
@@ -839,8 +847,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowCubicMeterPerSecond
-                                                            .toString()) >
+                                                            vAirflowCubicMeterPerSecond
+                                                                .toString()) >
                                                         (Decimal.parse(
                                                             kMinCubicMeterPerSecond
                                                                 .toString())))) {
@@ -865,11 +873,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowCubicMeterPerSecond
-                                                              .toString()) <
+                                                              vAirflowCubicMeterPerSecond
+                                                                  .toString()) <
                                                           (Decimal.parse(
                                                               kMaxCubicMeterPerSecond
                                                                   .toString())))) {
@@ -894,8 +902,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowCubicMeterPerSecond
-                                                            .toString()) <
+                                                            vAirflowCubicMeterPerSecond
+                                                                .toString()) <
                                                         (Decimal.parse(
                                                             kMaxCubicMeterPerSecond
                                                                 .toString())))) {
@@ -1003,6 +1011,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                 colour: kActiveCardColourOutput,
               ),
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    resetValues();
+                  });
+                },
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
                   child: Column(
@@ -1039,11 +1052,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           // color: Colors.red,
@@ -1057,7 +1070,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Container(
                                               width: kInputNumberWidth,
@@ -1065,9 +1078,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                               child: Text(
                                                 vAirflowManifoldTemp
                                                     .toStringAsFixed(0),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -1078,7 +1092,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -1091,7 +1105,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         children: <Widget>[
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                             children: <Widget>[
                                               StepButtonClose(
                                                 icon: FontAwesomeIcons.minus,
@@ -1099,11 +1113,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowManifoldTemp
-                                                              .toString()) >
+                                                              vAirflowManifoldTemp
+                                                                  .toString()) >
                                                           (Decimal.parse(
                                                               kMinAirflowManifoldTemp
                                                                   .toString())))) {
@@ -1137,8 +1151,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowManifoldTemp
-                                                            .toString()) >
+                                                            vAirflowManifoldTemp
+                                                                .toString()) >
                                                         (Decimal.parse(
                                                             kMinAirflowManifoldTemp
                                                                 .toString())))) {
@@ -1173,11 +1187,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowManifoldTemp
-                                                              .toString()) <
+                                                              vAirflowManifoldTemp
+                                                                  .toString()) <
                                                           (Decimal.parse(
                                                               kMaxAirflowManifoldTemp
                                                                   .toString())))) {
@@ -1211,8 +1225,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowManifoldTemp
-                                                            .toString()) <
+                                                            vAirflowManifoldTemp
+                                                                .toString()) <
                                                         (Decimal.parse(
                                                             kMaxAirflowManifoldTemp
                                                                 .toString())))) {
@@ -1254,11 +1268,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           // color: Colors.red,
@@ -1272,7 +1286,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Container(
                                               width: kInputNumberWidth,
@@ -1280,9 +1294,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                               child: Text(
                                                 vAirflowPsiTotal
                                                     .toStringAsFixed(2),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -1293,7 +1308,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -1306,7 +1321,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         children: <Widget>[
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                             children: <Widget>[],
                                           ),
                                         ],
@@ -1324,11 +1339,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           // color: Colors.red,
@@ -1338,21 +1353,22 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                             style: kLabelTextStyle,
                                             textAlign: TextAlign.left,
                                             textScaleFactor:
-                                            textScaleFactorTc * 0.9,
+                                                textScaleFactorTc * 0.9,
                                           ),
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Container(
                                               width: kInputNumberWidth,
                                               // color: Colors.blue,
                                               child: Text(
                                                 vAirflowPsiG.toStringAsFixed(2),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -1363,7 +1379,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -1376,7 +1392,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         children: <Widget>[
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                             children: <Widget>[
                                               StepButtonClose(
                                                 icon: FontAwesomeIcons.minus,
@@ -1384,11 +1400,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowPsiG
-                                                              .toString()) >
+                                                              vAirflowPsiG
+                                                                  .toString()) >
                                                           (Decimal.parse(
                                                               kMinAirflowPsiG
                                                                   .toString())))) {
@@ -1414,8 +1430,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowPsiG
-                                                            .toString()) >
+                                                            vAirflowPsiG
+                                                                .toString()) >
                                                         (Decimal.parse(
                                                             kMinAirflowPsiG
                                                                 .toString())))) {
@@ -1441,11 +1457,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowPsiG
-                                                              .toString()) <
+                                                              vAirflowPsiG
+                                                                  .toString()) <
                                                           (Decimal.parse(
                                                               kMaxAirflowPsiG
                                                                   .toString())))) {
@@ -1471,8 +1487,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowPsiG
-                                                            .toString()) <
+                                                            vAirflowPsiG
+                                                                .toString()) <
                                                         (Decimal.parse(
                                                             kMaxAirflowPsiG
                                                                 .toString())))) {
@@ -1509,11 +1525,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           // color: Colors.red,
@@ -1523,12 +1539,12 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                             style: kLabelTextStyle,
                                             textAlign: TextAlign.left,
                                             textScaleFactor:
-                                            textScaleFactorTc * 0.9,
+                                                textScaleFactorTc * 0.9,
                                           ),
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Container(
                                               width: kInputNumberWidth,
@@ -1536,9 +1552,10 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                               child: Text(
                                                 vAirflowPsiAmbient
                                                     .toStringAsFixed(2),
-                                                style: kResultNumberStyleWhite18_600,
+                                                style:
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -1549,7 +1566,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -1562,7 +1579,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                         children: <Widget>[
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                                MainAxisAlignment.end,
                                             children: <Widget>[
                                               StepButtonClose(
                                                 icon: FontAwesomeIcons.minus,
@@ -1570,11 +1587,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowPsiAmbient
-                                                              .toString()) >
+                                                              vAirflowPsiAmbient
+                                                                  .toString()) >
                                                           (Decimal.parse(
                                                               kMinAirflowPsiAmbient
                                                                   .toString())))) {
@@ -1585,7 +1602,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                         if (vAirflowPsiAmbient <
                                                             0.01) {
                                                           vAirflowPsiAmbient =
-                                                          0.01;
+                                                              0.01;
                                                         }
 
                                                         calcTempAndPressure(
@@ -1602,8 +1619,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowPsiAmbient
-                                                            .toString()) >
+                                                            vAirflowPsiAmbient
+                                                                .toString()) >
                                                         (Decimal.parse(
                                                             kMinAirflowPsiAmbient
                                                                 .toString())))) {
@@ -1614,7 +1631,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                       if (vAirflowPsiAmbient <
                                                           0.01) {
                                                         vAirflowPsiAmbient =
-                                                        0.01;
+                                                            0.01;
                                                       }
 
                                                       calcTempAndPressure(
@@ -1631,11 +1648,11 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     setState(() {
                                                       if ((Decimal.parse(
-                                                          vAirflowPsiAmbient
-                                                              .toString()) <
+                                                              vAirflowPsiAmbient
+                                                                  .toString()) <
                                                           (Decimal.parse(
                                                               kMaxAirflowPsiAmbient
                                                                   .toString())))) {
@@ -1646,7 +1663,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                         if (vAirflowPsiAmbient <
                                                             0.01) {
                                                           vAirflowPsiAmbient =
-                                                          0.01;
+                                                              0.01;
                                                         }
 
                                                         calcTempAndPressure(
@@ -1663,8 +1680,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                 onStep: () {
                                                   setState(() {
                                                     if ((Decimal.parse(
-                                                        vAirflowPsiAmbient
-                                                            .toString()) <
+                                                            vAirflowPsiAmbient
+                                                                .toString()) <
                                                         (Decimal.parse(
                                                             kMaxAirflowPsiAmbient
                                                                 .toString())))) {
@@ -1675,7 +1692,7 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
                                                       if (vAirflowPsiAmbient <
                                                           0.01) {
                                                         vAirflowPsiAmbient =
-                                                        0.01;
+                                                            0.01;
                                                       }
 
 //                                                      vAirflowCfm = calculate.calcCubicFeetPerMinuteManifoldTemp(
@@ -2098,7 +2115,8 @@ class _AirFlowConversionState extends State<AirFlowConversion> {
     });
   }
 
-  void calcAirflowPoundPerMinute(double vAirflowPoundMinuteIn,
+  void calcAirflowPoundPerMinute(
+      double vAirflowPoundMinuteIn,
       double vAirflowManifoldTemp,
       double vAirflowPsiAmbient,
       double vAirflowPsiG) {

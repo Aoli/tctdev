@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class InchAndMillimeterPage extends StatefulWidget {
   @override
@@ -33,7 +32,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Length'};
@@ -42,7 +41,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -84,7 +83,12 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -121,9 +125,12 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('convert_length_0000')
+            Text(
+                AppLocalizations.of(context).translate('convert_length_0000')
                 //'LENGTH Conversion',
-                , style: kAppBarTextStyle, textScaleFactor: textScaleFactorTc),
+                ,
+                style: kAppBarTextStyle,
+                textScaleFactor: textScaleFactorTc),
             Container(width: 30.0, child: submitRatingButton),
           ],
         ),
@@ -134,6 +141,11 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    // metricUnit = !metricUnit;
+                  });
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -142,9 +154,11 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_length_0010') //'Length',
-                              , style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context)
+                                  .translate('convert_length_0010') //'Length',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           Center(
                             child: Theme(
@@ -160,10 +174,10 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor: textScaleFactorTc,
-                                          )),
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
@@ -185,7 +199,8 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_length_0020')
                                           // 'Inch',
-                                          , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -193,7 +208,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                             convertResultLengthInch
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -210,17 +225,20 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_length_0030')
                                           // 'Feet',
-                                          , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
-                                          Opacity(opacity: 0.7,
+                                          Opacity(
+                                            opacity: 0.7,
                                             child: Text(
                                               (convertResultLengthInch / 12)
                                                   .toStringAsFixed(3),
                                               style:
-                                              kResultNumberStyleWhite18_600,
-                                              textScaleFactor: textScaleFactorTc,
+                                                  kResultNumberStyleWhite18_600,
+                                              textScaleFactor:
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -237,17 +255,20 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_length_0040')
                                           // 'Yard',
-                                          , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
-                                          Opacity(opacity: 0.7,
+                                          Opacity(
+                                            opacity: 0.7,
                                             child: Text(
                                               (convertResultLengthInch / 36)
                                                   .toStringAsFixed(3),
                                               style:
-                                              kResultNumberStyleWhite18_600,
-                                              textScaleFactor: textScaleFactorTc,
+                                                  kResultNumberStyleWhite18_600,
+                                              textScaleFactor:
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -269,7 +290,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                           Text(
                                             '',
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -286,7 +307,8 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_length_0050')
                                           //'Millimeter',
-                                          , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -294,7 +316,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                             convertResultLengthMillimeter
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -311,18 +333,21 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_length_0060')
                                           //'Centimeter',
-                                          , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
-                                          Opacity(opacity: 0.7,
+                                          Opacity(
+                                            opacity: 0.7,
                                             child: Text(
                                               (convertResultLengthMillimeter /
-                                                  10)
+                                                      10)
                                                   .toStringAsFixed(3),
                                               style:
-                                              kResultNumberStyleWhite18_600,
-                                              textScaleFactor: textScaleFactorTc,
+                                                  kResultNumberStyleWhite18_600,
+                                              textScaleFactor:
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -339,18 +364,21 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_length_0070')
                                           // 'Meter',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
-                                          Opacity(opacity: 0.7,
+                                          Opacity(
+                                            opacity: 0.7,
                                             child: Text(
                                               (convertResultLengthMillimeter /
-                                                  1000)
+                                                      1000)
                                                   .toStringAsFixed(5),
                                               style:
-                                              kResultNumberStyleWhite18_600,
-                                              textScaleFactor: textScaleFactorTc,
+                                                  kResultNumberStyleWhite18_600,
+                                              textScaleFactor:
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -370,14 +398,17 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: FlatButton(
-                          // color: Colors.blueGrey,
-                          splashColor: Color(0xFF4c8c4a),
-                          //textColor: Colors.white38,
-                          child: Opacity(opacity: 0.6,
-                            child: Text(AppLocalizations.of(context).translate(
-                                'convert_length_0080') //'Reset',
-                              ,  style: kLabelTextStyle,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            splashFactory: InkSplash.splashFactory,
+                          ),
+                          child: Opacity(
+                            opacity: 0.6,
+                            child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('convert_length_0080') //'Reset',
+                                ,
+                                style: kLabelTextStyle,
                                 textScaleFactor: textScaleFactorTc * 0.8),
                           ),
                           onPressed: () {
@@ -393,13 +424,20 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    // metricUnit = !metricUnit;
+                  });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
                   children: <Widget>[
-                    Text(AppLocalizations.of(context).translate(
-                        'convert_length_0090') //'Inch',
-                       , style: kSecondSubjectTextStyle,
+                    Text(
+                        AppLocalizations.of(context)
+                            .translate('convert_length_0090') //'Inch',
+                        ,
+                        style: kSecondSubjectTextStyle,
                         textScaleFactor: textScaleFactorTc),
                     SizedBox(height: 20.0),
                     Column(
@@ -459,7 +497,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                     var kMinLengthInchTemp =
                                         kMinLengthInch + sliderLimitLength;
                                     if (convertResultLengthInch >
-                                        kMinLengthInchTemp &&
+                                            kMinLengthInchTemp &&
                                         convertResultLengthMillimeter >
                                             kMinLengthMillimeter) {
                                       convertResultLengthInch =
@@ -481,7 +519,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                   var kMinLengthInchTemp =
                                       kMinLengthInch + sliderLimitLength;
                                   if (convertResultLengthInch >
-                                      kMinLengthInchTemp &&
+                                          kMinLengthInchTemp &&
                                       convertResultLengthMillimeter >
                                           kMinLengthMillimeter) {
                                     convertResultLengthInch =
@@ -506,7 +544,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                     var kMaxLengthInchTemp =
                                         kMaxLengthInch - sliderLimitLength;
                                     if (convertResultLengthInch <
-                                        kMaxLengthInchTemp &&
+                                            kMaxLengthInchTemp &&
                                         convertResultLengthMillimeter <
                                             kMaxLengthMillimeter) {
                                       convertResultLengthInch =
@@ -528,7 +566,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                   var kMaxLengthInchTemp =
                                       kMaxLengthInch - sliderLimitLength;
                                   if (convertResultLengthInch <
-                                      kMaxLengthInchTemp &&
+                                          kMaxLengthInchTemp &&
                                       convertResultLengthMillimeter <
                                           kMaxLengthMillimeter) {
                                     convertResultLengthInch =
@@ -549,6 +587,11 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    // metricUnit = !metricUnit;
+                  });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -558,9 +601,11 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                     Container(
                       child: Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_length_0100') //'Millimeter',
-                             , style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context).translate(
+                                  'convert_length_0100') //'Millimeter',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           SizedBox(height: 20.0),
 
@@ -615,7 +660,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                               kMinLengthMillimeter +
                                                   sliderLimitLength;
                                           if (convertResultLengthMillimeter >
-                                              kMinLengthMillimeterTemp &&
+                                                  kMinLengthMillimeterTemp &&
                                               convertResultLengthInch >
                                                   kMinLengthInch) {
                                             convertResultLengthMillimeter =
@@ -639,7 +684,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                             kMinLengthMillimeter +
                                                 sliderLimitLength;
                                         if (convertResultLengthMillimeter >
-                                            kMinLengthMillimeterTemp &&
+                                                kMinLengthMillimeterTemp &&
                                             convertResultLengthInch >
                                                 kMinLengthInch) {
                                           convertResultLengthMillimeter =
@@ -666,7 +711,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                               kMaxLengthMillimeter -
                                                   sliderLimitLength;
                                           if (convertResultLengthMillimeter <
-                                              kMaxLengthMillimeterTemp &&
+                                                  kMaxLengthMillimeterTemp &&
                                               convertResultLengthInch <
                                                   kMaxLengthInch) {
                                             convertResultLengthMillimeter =
@@ -690,7 +735,7 @@ class _InchAndMillimeterPageState extends State<InchAndMillimeterPage> {
                                             kMaxLengthMillimeter -
                                                 sliderLimitLength;
                                         if (convertResultLengthMillimeter <
-                                            kMaxLengthMillimeterTemp &&
+                                                kMaxLengthMillimeterTemp &&
                                             convertResultLengthInch <
                                                 kMaxLengthInch) {
                                           convertResultLengthMillimeter =

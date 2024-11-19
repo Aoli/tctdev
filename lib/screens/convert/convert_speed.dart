@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class SpeedPage extends StatefulWidget {
   @override
@@ -32,8 +31,7 @@ class _SpeedPageState extends State<SpeedPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState
-                .showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Speed'};
@@ -42,11 +40,10 @@ class _SpeedPageState extends State<SpeedPage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-  new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final snackBar = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -67,12 +64,12 @@ class _SpeedPageState extends State<SpeedPage> {
           ),
           Text(
             kSnackBarDevelopmentInfo,
-            style: kSnackBarTextStyle, textScaleFactor: textScaleFactorTc,
+            style: kSnackBarTextStyle,
+            textScaleFactor: textScaleFactorTc,
           ),
         ],
       ),
     ),
-
     backgroundColor: Colors.grey.shade400,
     duration: Duration(seconds: 60),
     action: SnackBarAction(
@@ -82,7 +79,12 @@ class _SpeedPageState extends State<SpeedPage> {
     ),
   );
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -124,9 +126,11 @@ class _SpeedPageState extends State<SpeedPage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('convert_speed_0000')
+            Text(
+              AppLocalizations.of(context).translate('convert_speed_0000')
               //SPEED Conversion',
-             , style: kAppBarTextStyle,
+              ,
+              style: kAppBarTextStyle,
               textScaleFactor: textScaleFactorTc,
             ),
             Container(width: 30.0, child: submitRatingButton),
@@ -140,7 +144,6 @@ class _SpeedPageState extends State<SpeedPage> {
               // ETA
               ReusableCard(
                 colour: kActiveCardColourOutput,
-
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
                   child: Column(
@@ -149,9 +152,10 @@ class _SpeedPageState extends State<SpeedPage> {
                       Column(
                         children: <Widget>[
                           Text(
-                            AppLocalizations.of(context).translate(
-                                'convert_speed_0010') //'Speed',
-                           , style: kSecondSubjectTextStyle,
+                            AppLocalizations.of(context)
+                                .translate('convert_speed_0010') //'Speed',
+                            ,
+                            style: kSecondSubjectTextStyle,
                             textScaleFactor: textScaleFactorTc,
                           ),
 // *********** DataTable ;
@@ -170,26 +174,23 @@ class _SpeedPageState extends State<SpeedPage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
+                                      DataColumn(
+                                          numeric: true,
+                                          label: Text(
                                             '',
                                             style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
                                             '',
                                             style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
-                                          )),
-                                      DataColumn(
-                                          numeric: true,
-                                          label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           )),
                                     ],
                                     rows: [
@@ -198,14 +199,16 @@ class _SpeedPageState extends State<SpeedPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_speed_0020')
                                           //  'Miles per hour',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultSpeedMilesPerHour
                                                 .toStringAsFixed(1),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -222,14 +225,16 @@ class _SpeedPageState extends State<SpeedPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_speed_0030')
                                           // 'Kilometer per hour',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultSpeedKilometerPerHour
                                                 .toStringAsFixed(1),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -246,14 +251,17 @@ class _SpeedPageState extends State<SpeedPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_speed_0040')
                                           // 'Meter per second',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             (convertResultSpeedKilometerPerHour /
-                                                3.6).toStringAsFixed(1),
-                                            style: kResultNumberStyleWhite18_600,
+                                                    3.6)
+                                                .toStringAsFixed(1),
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -270,15 +278,17 @@ class _SpeedPageState extends State<SpeedPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_speed_0050')
                                           //  'Feet per second',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             (convertResultSpeedMilesPerHour *
-                                                1.46666667)
+                                                    1.46666667)
                                                 .toStringAsFixed(1),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -295,15 +305,17 @@ class _SpeedPageState extends State<SpeedPage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_speed_0060')
                                           // 'Knots',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             (convertResultSpeedMilesPerHour *
-                                                kConvertSpeedMilesPerHourToKnots)
+                                                    kConvertSpeedMilesPerHourToKnots)
                                                 .toStringAsFixed(1),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -319,8 +331,6 @@ class _SpeedPageState extends State<SpeedPage> {
                               ),
                             ),
                           ),
-
-
                         ],
                       ),
                     ],
@@ -421,8 +431,8 @@ class _SpeedPageState extends State<SpeedPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if (Decimal.parse(
-                                              convertSliderResultSpeedAll
-                                                  .toStringAsFixed(0)) >
+                                                  convertSliderResultSpeedAll
+                                                      .toStringAsFixed(0)) >
                                               Decimal.parse(
                                                   kMinSliderConvertSpeedAll
                                                       .toStringAsFixed(0))) {
@@ -444,8 +454,8 @@ class _SpeedPageState extends State<SpeedPage> {
                                     onStep: () {
                                       setState(() {
                                         if (Decimal.parse(
-                                            convertSliderResultSpeedAll
-                                                .toStringAsFixed(0)) >
+                                                convertSliderResultSpeedAll
+                                                    .toStringAsFixed(0)) >
                                             Decimal.parse(
                                                 kMinSliderConvertSpeedAll
                                                     .toStringAsFixed(0))) {
@@ -484,8 +494,8 @@ class _SpeedPageState extends State<SpeedPage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if ((Decimal.parse(
-                                              convertSliderResultSpeedAll
-                                                  .toStringAsFixed(1)) <
+                                                  convertSliderResultSpeedAll
+                                                      .toStringAsFixed(1)) <
                                               (Decimal.parse(
                                                   kMaxSliderConvertSpeedAll
                                                       .toStringAsFixed(1))))) {
@@ -507,8 +517,8 @@ class _SpeedPageState extends State<SpeedPage> {
                                     onStep: () {
                                       setState(() {
                                         if ((Decimal.parse(
-                                            convertSliderResultSpeedAll
-                                                .toStringAsFixed(1)) <
+                                                convertSliderResultSpeedAll
+                                                    .toStringAsFixed(1)) <
                                             (Decimal.parse(
                                                 kMaxSliderConvertSpeedAll
                                                     .toStringAsFixed(1))))) {
@@ -538,9 +548,11 @@ class _SpeedPageState extends State<SpeedPage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_speed_0070') //'Miles Per Hour',
-                                     , style: kUnitTextStyleAirflow,
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_speed_0070') //'Miles Per Hour',
+                                      ,
+                                      style: kUnitTextStyleAirflow,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -552,10 +564,12 @@ class _SpeedPageState extends State<SpeedPage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_speed_0080')
+                                  Text(
+                                      AppLocalizations.of(context)
+                                          .translate('convert_speed_0080')
                                       //'Kilometer Per Hour',
-                                     , style: kUnitTextStyleAirflow,
+                                      ,
+                                      style: kUnitTextStyleAirflow,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),

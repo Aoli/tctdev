@@ -1,11 +1,9 @@
-import 'package:Turbocharger/data_models/turboDb.dart';
+import 'package:tct/data_models/turbo_db.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/settings_provider.dart';
-import 'constant.dart';
 import 'global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/constants_ui.dart';
 
 class Settings extends StatelessWidget {
   @override
@@ -31,9 +29,11 @@ class Settings extends StatelessWidget {
                 Text('Units'),
                 DropdownButton<String>(
                   value: settingsProvider.units,
-                  onChanged: (String value) {
-                    settingsProvider.setUnits(value);
-                    print('Unit: $value');
+                  onChanged: (String? value) {
+                    if (value != null) {
+                      settingsProvider.setUnits(value);
+                      print('Unit: $value');
+                    }
                   },
                   items: <String>['Imperial', 'Metric']
                       .map<DropdownMenuItem<String>>((String value) {
@@ -253,8 +253,8 @@ class Settings extends StatelessWidget {
                 Text(' ',
                     style: kBuildVersionStyle,
                     textScaleFactor: textScaleFactorTc),
-                Text('Build:' +
-                    currentBuildNumberGlobal.toString(),
+                Text(
+                  'Build:' + currentBuildNumberGlobal.toString(),
                   style: kBuildVersionStyle,
                   textScaleFactor: textScaleFactorTc,
                 ),
@@ -267,8 +267,8 @@ class Settings extends StatelessWidget {
                 Text(' h:' + displaySizeLength.toStringAsFixed(0),
                     style: kBuildVersionStyle,
                     textScaleFactor: textScaleFactorTc),
-                Text(' RC:' +
-                    remoteConfigBuild.toString(),
+                Text(
+                  ' RC:' + remoteConfigBuild.toString(),
                   style: kBuildVersionStyle,
                   textScaleFactor: textScaleFactorTc,
                 ),

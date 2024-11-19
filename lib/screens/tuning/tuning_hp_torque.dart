@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton_close.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton_close.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class HpBasedOnTorquePage extends StatefulWidget {
   bool metricUnit;
@@ -126,8 +125,12 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('tuning_hp_torque_0000')//'HP based on TORQUE',
-              ,  style: kAppBarTextStyle, textScaleFactor: textScaleFactorTc),
+            Text(
+                AppLocalizations.of(context)
+                    .translate('tuning_hp_torque_0000') //'HP based on TORQUE',
+                ,
+                style: kAppBarTextStyle,
+                textScaleFactor: textScaleFactorTc),
             Container(width: 30.0, child: submitRatingButton),
           ],
         ),
@@ -186,8 +189,11 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                                         DataCell(Row(
                                           children: [
                                             Text(
-                                              AppLocalizations.of(context).translate('tuning_hp_torque_0010')//'Horsepower',
-                                              ,style: kLabelTextStyleLarge,
+                                              AppLocalizations.of(context)
+                                                  .translate(
+                                                      'tuning_hp_torque_0010') //'Horsepower',
+                                              ,
+                                              style: kLabelTextStyleLarge,
                                               textScaleFactor:
                                                   textScaleFactorTc,
                                             ),
@@ -215,8 +221,11 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                                           Row(
                                             children: [
                                               Text(
-                                                AppLocalizations.of(context).translate('tuning_hp_torque_0020')// 'Kilowatt',
-                                                ,style: kLabelTextStyleLarge,
+                                                AppLocalizations.of(context)
+                                                    .translate(
+                                                        'tuning_hp_torque_0020') // 'Kilowatt',
+                                                ,
+                                                style: kLabelTextStyleLarge,
                                                 textScaleFactor:
                                                     textScaleFactorTc,
                                               ),
@@ -234,8 +243,10 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                                         ),
                                         DataCell(
                                           Text(
-                                            AppLocalizations.of(context).translate('tuning_hp_torque_0030')// 'Kw',
-                                            ,style: kLabelTextStyle,
+                                            AppLocalizations.of(context).translate(
+                                                'tuning_hp_torque_0030') // 'Kw',
+                                            ,
+                                            style: kLabelTextStyle,
                                             textScaleFactor:
                                                 textScaleFactorTc * 1.3,
                                           ),
@@ -269,8 +280,11 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                           children: <Widget>[
                             Container(
                               alignment: Alignment.centerLeft,
-                              child: Text(AppLocalizations.of(context).translate('tuning_hp_torque_0040')//'Torque',
-                                  ,style: kLabelTextStyleLarge,
+                              child: Text(
+                                  AppLocalizations.of(context).translate(
+                                      'tuning_hp_torque_0040') //'Torque',
+                                  ,
+                                  style: kLabelTextStyleLarge,
                                   textScaleFactor: textScaleFactorTc),
                             ),
                             //Text('hpTorqueTorque  $hpTorqueTorque'),
@@ -430,8 +444,11 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                                 //   SizedBox(height: 5),
                                 Container(
                                   alignment: Alignment.bottomLeft,
-                                  child: Text(AppLocalizations.of(context).translate('tuning_hp_torque_0050')//'RPM',
-                                      ,style: kLabelTextStyleLarge,
+                                  child: Text(
+                                      AppLocalizations.of(context).translate(
+                                          'tuning_hp_torque_0050') //'RPM',
+                                      ,
+                                      style: kLabelTextStyleLarge,
                                       textScaleFactor: textScaleFactorTc),
                                 ),
 

@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class ConvertDistancePage extends StatefulWidget {
   @override
@@ -32,7 +32,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Length'};
@@ -41,7 +41,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -83,7 +83,12 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -118,7 +123,8 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
             Text(
                 AppLocalizations.of(context).translate('convert_distance_0000')
                 //'Distance Conversion',
-                ,style: kAppBarTextStyle,
+                ,
+                style: kAppBarTextStyle,
                 textScaleFactor: textScaleFactorTc),
             Container(width: 30.0, child: submitRatingButton),
           ],
@@ -130,6 +136,12 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    convertResultDistanceKilometer = 2.54;
+                    convertResultDistanceMiles = 0.10;
+                  });
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -138,9 +150,11 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_distance_0010') //'Distance',
-                              ,style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context).translate(
+                                  'convert_distance_0010') //'Distance',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           Center(
                             child: Theme(
@@ -156,10 +170,10 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor: textScaleFactorTc,
-                                          )),
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
@@ -180,9 +194,10 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_distance_0020')
+                                                  'convert_distance_0020')
                                           //'Miles',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -190,7 +205,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             convertResultDistanceMiles
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -206,9 +221,10 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_distance_0030')
+                                                  'convert_distance_0030')
                                           // 'Yard',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -216,12 +232,12 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             opacity: 0.7,
                                             child: Text(
                                               (convertResultDistanceMiles *
-                                                  kConvertDistanceMileToYard)
+                                                      kConvertDistanceMileToYard)
                                                   .toStringAsFixed(0),
                                               style:
-                                              kResultNumberStyleWhite18_600,
+                                                  kResultNumberStyleWhite18_600,
                                               textScaleFactor:
-                                              textScaleFactorTc,
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -235,10 +251,10 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                       ]),
                                       DataRow(cells: [
                                         DataCell(Text(
-                                          AppLocalizations.of(context)
-                                              .translate(
+                                          AppLocalizations.of(context).translate(
                                               'convert_distance_0040') //'Feet',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -246,12 +262,12 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             opacity: 0.7,
                                             child: Text(
                                               (convertResultDistanceMiles *
-                                                  kConvertDistanceMileToFoot)
+                                                      kConvertDistanceMileToFoot)
                                                   .toStringAsFixed(0),
                                               style:
-                                              kResultNumberStyleWhite18_600,
+                                                  kResultNumberStyleWhite18_600,
                                               textScaleFactor:
-                                              textScaleFactorTc,
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -273,7 +289,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                           Text(
                                             '',
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -289,9 +305,10 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_distance_0050')
+                                                  'convert_distance_0050')
                                           //'Kilometer',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -299,7 +316,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             convertResultDistanceKilometer
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -315,9 +332,10 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_distance_0060')
+                                                  'convert_distance_0060')
                                           //  'Meter',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -325,12 +343,12 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             opacity: 0.7,
                                             child: Text(
                                               (convertResultDistanceKilometer *
-                                                  1000)
+                                                      1000)
                                                   .toStringAsFixed(0),
                                               style:
-                                              kResultNumberStyleWhite18_600,
+                                                  kResultNumberStyleWhite18_600,
                                               textScaleFactor:
-                                              textScaleFactorTc,
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -346,9 +364,10 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_distance_0070')
+                                                  'convert_distance_0070')
                                           //'Nautical Miles',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -356,12 +375,12 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             opacity: 0.7,
                                             child: Text(
                                               (convertResultDistanceKilometer *
-                                                  kConvertDistanceKilometerToNauticalMile)
+                                                      kConvertDistanceKilometerToNauticalMile)
                                                   .toStringAsFixed(2),
                                               style:
-                                              kResultNumberStyleWhite18_600,
+                                                  kResultNumberStyleWhite18_600,
                                               textScaleFactor:
-                                              textScaleFactorTc,
+                                                  textScaleFactorTc,
                                             ),
                                           ),
                                         ),
@@ -381,17 +400,16 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: FlatButton(
-                          // color: Colors.blueGrey,
-                          splashColor: Color(0xFF4c8c4a),
-                          //textColor: Colors.white38,
-                          child: Opacity(
-                            opacity: 0.6,
-                            child: Text(AppLocalizations.of(context).translate(
-                                'convert_distance_0080') //'Reset',
-                               , style: kLabelTextStyle,
-                                textScaleFactor: textScaleFactorTc * 0.8),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Color(0xFF4c8c4a).withOpacity(0.6),
                           ),
+                          child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('convert_distance_0080') //'Reset',
+                              ,
+                              style: kLabelTextStyle,
+                              textScaleFactor: textScaleFactorTc * 0.8),
                           onPressed: () {
                             setState(() {
                               convertResultDistanceKilometer = 2.54;
@@ -405,13 +423,21 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    convertResultDistanceKilometer = 2.54;
+                    convertResultDistanceMiles = 0.10;
+                  });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
                   children: <Widget>[
-                    Text(AppLocalizations.of(context).translate(
-                        'convert_distance_0090') //'Miles',
-                        ,style: kSecondSubjectTextStyle,
+                    Text(
+                        AppLocalizations.of(context)
+                            .translate('convert_distance_0090') //'Miles',
+                        ,
+                        style: kSecondSubjectTextStyle,
                         textScaleFactor: textScaleFactorTc),
                     SizedBox(height: 20.0),
                     Column(
@@ -472,7 +498,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                     var kMinDistanceMilesTemp =
                                         kMinDistanceMiles + sliderLimitLength;
                                     if (convertResultDistanceMiles >
-                                        kMinDistanceMilesTemp &&
+                                            kMinDistanceMilesTemp &&
                                         convertResultDistanceKilometer >
                                             kMinDistanceKilometer) {
                                       convertResultDistanceMiles =
@@ -494,7 +520,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                   var kMinDistanceMilesTemp =
                                       kMinDistanceMiles + sliderLimitLength;
                                   if (convertResultDistanceMiles >
-                                      kMinDistanceMilesTemp &&
+                                          kMinDistanceMilesTemp &&
                                       convertResultDistanceKilometer >
                                           kMinDistanceKilometer) {
                                     convertResultDistanceMiles =
@@ -519,7 +545,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                     var kMaxDistanceMilesTemp =
                                         kMaxDistanceMiles - sliderLimitLength;
                                     if (convertResultDistanceMiles <
-                                        kMaxDistanceMilesTemp &&
+                                            kMaxDistanceMilesTemp &&
                                         convertResultDistanceKilometer <
                                             kMaxDistanceKilometer) {
                                       convertResultDistanceMiles =
@@ -541,7 +567,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                   var kMaxDistanceMilesTemp =
                                       kMaxDistanceMiles - sliderLimitLength;
                                   if (convertResultDistanceMiles <
-                                      kMaxDistanceMilesTemp &&
+                                          kMaxDistanceMilesTemp &&
                                       convertResultDistanceKilometer <
                                           kMaxDistanceKilometer) {
                                     convertResultDistanceMiles =
@@ -562,6 +588,12 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    convertResultDistanceKilometer = 2.54;
+                    convertResultDistanceMiles = 0.10;
+                  });
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -571,9 +603,11 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                     Container(
                       child: Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_distance_0100') //'Kilometer',
-                             , style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context).translate(
+                                  'convert_distance_0100') //'Kilometer',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           SizedBox(height: 20.0),
 
@@ -629,7 +663,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                               kMinDistanceKilometer +
                                                   sliderLimitLength;
                                           if (convertResultDistanceKilometer >
-                                              kMinDistanceKilometerTemp &&
+                                                  kMinDistanceKilometerTemp &&
                                               convertResultDistanceMiles >
                                                   kMinDistanceMiles) {
                                             convertResultDistanceKilometer =
@@ -653,7 +687,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             kMinDistanceKilometer +
                                                 sliderLimitLength;
                                         if (convertResultDistanceKilometer >
-                                            kMinDistanceKilometerTemp &&
+                                                kMinDistanceKilometerTemp &&
                                             convertResultDistanceMiles >
                                                 kMinDistanceMiles) {
                                           convertResultDistanceKilometer =
@@ -680,7 +714,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                               kMaxDistanceKilometer -
                                                   sliderLimitLength;
                                           if (convertResultDistanceKilometer <
-                                              kMaxDistanceKilometerTemp &&
+                                                  kMaxDistanceKilometerTemp &&
                                               convertResultDistanceMiles <
                                                   kMaxDistanceMiles) {
                                             convertResultDistanceKilometer =
@@ -704,7 +738,7 @@ class _ConvertDistancePageState extends State<ConvertDistancePage> {
                                             kMaxDistanceKilometer -
                                                 sliderLimitLength;
                                         if (convertResultDistanceKilometer <
-                                            kMaxDistanceKilometerTemp &&
+                                                kMaxDistanceKilometerTemp &&
                                             convertResultDistanceMiles <
                                                 kMaxDistanceMiles) {
                                           convertResultDistanceKilometer =

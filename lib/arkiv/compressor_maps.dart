@@ -9,7 +9,7 @@ class CompressorMapPage extends StatefulWidget {
   final bool metricUnit;
 
   CompressorMapPage(
-      {Key key, @required this.metricUnit, RouteSettings settings})
+      {Key? key, required this.metricUnit, RouteSettings? settings})
       : super(key: key);
 
   @override
@@ -52,18 +52,18 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
         ),
       ),
       body: StreamBuilder(
-          stream: Firestore.instance.collection('compressormap').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('compressormap')
+              .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Container(width: 0.0, height: 0.0);
-            } else if (snapshot == null) {
-              return Container(width: 0.0, height: 0.0);
-            } else {
+            } else
               return ListView.builder(
-                  itemCount: snapshot.data.documents.length,
+                  itemCount: snapshot.data?.docs.length,
                   itemBuilder: (context, index) {
-                    DocumentSnapshot myCompressor =
-                        snapshot.data.documents[index];
+                    QueryDocumentSnapshot<Map<String, dynamic>>? myCompressor =
+                        snapshot.data?.docs[index];
                     return Stack(
                       children: <Widget>[
                         Center(
@@ -86,7 +86,7 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
                                               MediaQuery.of(context).size.width,
                                           //height: 200.0,
                                           child: Image.network(
-                                            '${myCompressor['imageMap']}',
+                                            '${myCompressor?['imageMap']}',
                                             fit: BoxFit.fill,
                                           ),
                                         ),
@@ -97,13 +97,13 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
                                           children: <Widget>[
                                             Container(
                                               child: Text(
-                                                '${myCompressor['brand']}',
+                                                '${myCompressor?['brand']}',
                                                 style: kCompressorMapTextStyle,
                                               ),
                                             ),
                                             Container(
                                               child: Text(
-                                                '${myCompressor['turbo']}',
+                                                '${myCompressor?['turbo']}',
                                                 style: kCompressorMapTextStyle,
                                               ),
                                             ),
@@ -152,7 +152,6 @@ class _CompressorMapPageState extends State<CompressorMapPage> {
                       ],
                     );
                   });
-            }
           }),
     );
   }

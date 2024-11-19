@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,9 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class CelsiusToFahrenheitPage extends StatefulWidget {
   @override
@@ -118,9 +117,11 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate(
-                'convert_temperature_0000') //'TEMPERATURE Conversion',
-               , style: kAppBarTextStyle,
+            Text(
+                AppLocalizations.of(context).translate(
+                    'convert_temperature_0000') //'TEMPERATURE Conversion',
+                ,
+                style: kAppBarTextStyle,
                 textScaleFactor: textScaleFactorTc - 0.1),
             Container(width: 30.0, child: submitRatingButton),
           ],
@@ -140,9 +141,11 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_temperature_0010') //'Temperature',
-                              , style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context).translate(
+                                  'convert_temperature_0010') //'Temperature',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           Center(
                             child: Theme(
@@ -158,10 +161,10 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor: textScaleFactorTc,
-                                          )),
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
@@ -182,9 +185,10 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_temperature_0020')
+                                                  'convert_temperature_0020')
                                           // 'Fahrenheit',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -192,7 +196,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                             convertResultTemperatureFahrenheit
                                                 .toStringAsFixed(1),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -208,9 +212,10 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_temperature_0030')
+                                                  'convert_temperature_0030')
                                           // 'Celsius',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -218,7 +223,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                             convertResultTemperatureCelsius
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -234,18 +239,19 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_temperature_0040')
+                                                  'convert_temperature_0040')
                                           //'Kelvin',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             (convertResultTemperatureCelsius +
-                                                274.15)
+                                                    274.15)
                                                 .toStringAsFixed(1),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -261,18 +267,19 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'convert_temperature_0050')
+                                                  'convert_temperature_0050')
                                           // 'Rankine',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             (convertResultTemperatureFahrenheit +
-                                                458.67)
+                                                    458.67)
                                                 .toStringAsFixed(1),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -296,9 +303,10 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                           // color: Colors.blueGrey,
                           splashColor: Color(0xFF4c8c4a),
                           textColor: Colors.white38,
-                          child: Text(AppLocalizations.of(context).translate(
-                              'convert_temperature_0060'), //'Reset',
-                               style: kLabelTextStyle,
+                          child: Text(
+                              AppLocalizations.of(context).translate(
+                                  'convert_temperature_0060'), //'Reset',
+                              style: kLabelTextStyle,
                               textScaleFactor: textScaleFactorTc * 0.8),
                           onPressed: () {
                             setState(() {
@@ -322,9 +330,11 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                     Container(
                       child: Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_temperature_0070') //'Fahrenheit',
-                              ,style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context).translate(
+                                  'convert_temperature_0070') //'Fahrenheit',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           SizedBox(height: 20.0),
                           Row(
@@ -405,7 +415,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                               kMinConvertTempFahrenheit +
                                                   sliderLimit;
                                           if (convertResultTemperatureFahrenheit >
-                                              kMinTempFahrenheitTemp &&
+                                                  kMinTempFahrenheitTemp &&
                                               convertResultTemperatureCelsius >
                                                   kMinConvertTempCelsius) {
                                             convertResultTemperatureFahrenheit =
@@ -432,7 +442,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                             kMinConvertTempFahrenheit +
                                                 sliderLimit;
                                         if (convertResultTemperatureFahrenheit >
-                                            kMinTempFahrenheitTemp &&
+                                                kMinTempFahrenheitTemp &&
                                             convertResultTemperatureCelsius >
                                                 kMinConvertTempCelsius) {
                                           convertResultTemperatureFahrenheit =
@@ -458,7 +468,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                               kMaxConvertTempFahrenheit -
                                                   sliderLimit;
                                           if (convertResultTemperatureFahrenheit <
-                                              kMaxTempFahrenheitTemp &&
+                                                  kMaxTempFahrenheitTemp &&
                                               convertResultTemperatureCelsius <
                                                   kMaxConvertTempCelsius) {
                                             convertResultTemperatureFahrenheit =
@@ -481,7 +491,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                             kMaxConvertTempFahrenheit -
                                                 sliderLimit;
                                         if (convertResultTemperatureFahrenheit <
-                                            kMaxTempFahrenheitTemp &&
+                                                kMaxTempFahrenheitTemp &&
                                             convertResultTemperatureCelsius <
                                                 kMaxConvertTempCelsius) {
                                           convertResultTemperatureFahrenheit =
@@ -514,9 +524,11 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                     Container(
                       child: Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'convert_temperature_0080') //'Celsius',
-                             , style: kSecondSubjectTextStyle,
+                          Text(
+                              AppLocalizations.of(context).translate(
+                                  'convert_temperature_0080') //'Celsius',
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           SizedBox(height: 20.0),
                           Row(
@@ -596,7 +608,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                               kMinConvertTempCelsius +
                                                   sliderLimit;
                                           if (convertResultTemperatureCelsius >
-                                              kMinTempCelsiusTemp &&
+                                                  kMinTempCelsiusTemp &&
                                               convertResultTemperatureFahrenheit >
                                                   kMinConvertTempFahrenheit) {
                                             convertResultTemperatureCelsius =
@@ -620,7 +632,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                             kMinConvertTempCelsius +
                                                 sliderLimit;
                                         if (convertResultTemperatureCelsius >
-                                            kMinTempCelsiusTemp &&
+                                                kMinTempCelsiusTemp &&
                                             convertResultTemperatureFahrenheit >
                                                 kMinConvertTempFahrenheit) {
                                           convertResultTemperatureCelsius =
@@ -647,7 +659,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                               kMaxConvertTempCelsius -
                                                   sliderLimit;
                                           if (convertResultTemperatureCelsius <
-                                              kMaxTempCelsiusTemp &&
+                                                  kMaxTempCelsiusTemp &&
                                               convertResultTemperatureFahrenheit <
                                                   kMaxConvertTempFahrenheit) {
                                             convertResultTemperatureCelsius =
@@ -671,7 +683,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                                             kMaxConvertTempCelsius -
                                                 sliderLimit;
                                         if (convertResultTemperatureCelsius <
-                                            kMaxTempCelsiusTemp &&
+                                                kMaxTempCelsiusTemp &&
                                             convertResultTemperatureFahrenheit <
                                                 kMaxConvertTempFahrenheit) {
                                           convertResultTemperatureCelsius =

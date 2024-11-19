@@ -3,12 +3,11 @@
 // ************  Tuning Calc  ************************************
 
 import 'dart:async';
-import 'package:Turbocharger/globals/constant.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
+import 'package:tct/globals/constant.dart';
+import 'package:tct/globals/constants_ui.dart';
 
-
-Timer timer;
-Timer acceleration;
+Timer timer = Timer(Duration.zero, () {});
+Timer acceleration = Timer(Duration.zero, () {});
 var tapTime = 50;
 
 double strokeInputInch = 4.5;
@@ -50,9 +49,9 @@ double resultEngineLiter = 4.69;
 double resultEngineCubicCentimeter = 4691;
 double resultEngineCid = 97.6;
 
-String boreInputDisplay;
-String strokeInputDisplay;
-String boreStrokeRatioDisplay;
+String boreInputDisplay = '';
+String strokeInputDisplay = '';
+String boreStrokeRatioDisplay = '';
 String boreStrokeRatioSquareDisplay = 'Square';
 
 var vEngineSizeSwitchActiveColor;
@@ -60,17 +59,12 @@ var vEngineSizeSwitchInActiveThumbColor;
 var vEngineSizeSwitchActiveTrackColor;
 var vEngineSizeSwitchInActiveTrackColor;
 
-
-
 int cylinderInput = 6;
 
-double resultEngineDisplacement;
+double resultEngineDisplacement = 0.0;
 String unitNrCylinders = "Cyl";
 
 double tempCelsius = 20.0;
-
-
-
 
 double tempTemperatureFahrenheit = 68.0;
 
@@ -94,66 +88,61 @@ int sliderSliderTorqueHp = 30;
 
 String unitTorque = 'ft-lbs';
 
-
 // **********  Units  *************************************
 double changeThisValue = 1000.00;
 
-
-
 String convertSliderHeaderSpeedTextAll = 'Miles Per Hour';
-
-
 
 // ************  Speed  ************************************
 
-double resultKmh;
-double resultMph;
-double resultFeetPerSecond;
-double resultMeterPerSecond;
-double resultKnots;
+double resultKmh = 0.0;
+double resultMph = 0.0;
+double resultFeetPerSecond = 0.0;
+double resultMeterPerSecond = 0.0;
+double resultKnots = 0.0;
 
 // ************  Length  ************************************
 
-double resultMeterM;
-double resultKmM;
-double resultNauticalMileM;
-double resultMileM;
-double resultYardM;
-double resultFootM;
-double resultInchM;
+double resultMeterM = 0.0;
+double resultKmM = 0.0;
+double resultNauticalMileM = 0.0;
+double resultMileM = 0.0;
+double resultYardM = 0.0;
+double resultFootM = 0.0;
+double resultInchM = 0.0;
 
-double resultMeterN;
-double resultKmFromKilometer;
-double resultNauticalMileFromKilometer;
-double resultMileFromKilometer;
-double resultYardN;
-double resultFootN;
-double resultInchN;
+double resultMeterN = 0.0;
+double resultKmFromKilometer = 0.0;
+double resultNauticalMileFromKilometer = 0.0;
+double resultMileFromKilometer = 0.0;
+double resultYardN = 0.0;
+double resultFootN = 0.0;
+double resultInchN = 0.0;
 
-double resultMileCalcMile;
-double resultNauticalMileCalcMile;
-double resultKmCalcMile;
+double resultMileCalcMile = 0.0;
+double resultNauticalMileCalcMile = 0.0;
+double resultKmCalcMile = 0.0;
 
 // ************  ETA-variables  ************************************
 
-double resultKmhEta;
-double resultMphEta;
-double resultFeetPerSecondEta;
-double resultMeterPerSecondEta;
-double resultKnotsEta;
+double resultKmhEta = 0.0;
+double resultMphEta = 0.0;
+double resultFeetPerSecondEta = 0.0;
+double resultMeterPerSecondEta = 0.0;
+double resultKnotsEta = 0.0;
 
-double resultMeterEta;
-double resultKmEta;
-double resultNauticalMileEta;
-double resultMileEta;
-double resultYardEta;
-double resultFootEta;
-double resultInchEta;
+double resultMeterEta = 0.0;
+double resultKmEta = 0.0;
+double resultNauticalMileEta = 0.0;
+double resultMileEta = 0.0;
+double resultYardEta = 0.0;
+double resultFootEta = 0.0;
+double resultInchEta = 0.0;
 
-double resultTimeEta;
-double resultHourEta;
-double resultMinutesEta;
-double resultSecondsEta;
+double resultTimeEta = 0.0;
+double resultHourEta = 0.0;
+double resultMinutesEta = 0.0;
+double resultSecondsEta = 0.0;
 String resultTime = 'hh:mm';
 
 double normalSkrovSpeedValue = 1.0;
@@ -221,7 +210,6 @@ double vAirflowCfm = 500.0;
 double vAirflowPoundMinute = 52.33;
 double vAirflowManifoldTemp = 110.0;
 
-
 //****************** Airflow calculation OUT ********************
 double massFlowRatePoundMinute = 52.23;
 String unitMassFlowRatePoundMinute = 'lbs/min';
@@ -255,7 +243,7 @@ double vAirflowCubicMeterPerMinute = 0.342 * 60; // (m^3/s):	0,293
 double cubicFeetPerMinuteConversion = 725; // (lb/min):	725
 
 String unitHorsePower = 'Hp';
-String unitValue;
+String unitValue = '';
 
 String unitPressureBar = 'bar';
 String unitPressurePsi = 'psi';
@@ -265,7 +253,7 @@ String unitPressurePoundForcePerSquareInch = 'PfSi';
 String unitPressureTorr = 'torr';
 String unitPressureInchOfMercury = 'inHg';
 
-String pressureUnitValue;
+String pressureUnitValue = '';
 
 String inducerTurbineDisplay = '0.5';
 String exducerTurbineDisplay = '0.5';
@@ -314,7 +302,6 @@ double vMinExducerImperial = 0.3;
 
 int sliderDivisionInducer = 1;
 
-
 //  AirFlow  AirDensity
 double convertResultAirflowAirDensityPoundPerMinute = 1.2;
 double convertResultAirflowAirDensityUsLiquidQuart = 10.0;
@@ -339,16 +326,17 @@ double convertResultAirflowAirDensityCubicCentimeter = 1000.0;
 
 double convertSliderResultAirflowAirDensityAll = 10.0;
 String convertSliderTextAirflowAirDensityAll = 'lbs/min';
-String convertSliderHeaderAirflowAirDensityTextAll = 'Pound per Minute - lbs/min';
+String convertSliderHeaderAirflowAirDensityTextAll =
+    'Pound per Minute - lbs/min';
 double kMinSliderConvertAirflowAirDensityAll = 0.0;
 double kMaxSliderConvertAirflowAirDensityAll = 100.0;
 int sliderSliderConvertAirflowAirDensityAll = 100;
 double stepSliderConvertAirflowAirDensityAll = 0.1;
 
-double vMinConvertAirflowAirDensityPoundPerMinute = kMinConvertAirflowAirDensityPoundPerMinute +
-    0.05;
-double vMaxConvertAirflowAirDensityPoundPerMinute = kMaxConvertAirflowAirDensityPoundPerMinute -
-    0.05;
+double vMinConvertAirflowAirDensityPoundPerMinute =
+    kMinConvertAirflowAirDensityPoundPerMinute + 0.05;
+double vMaxConvertAirflowAirDensityPoundPerMinute =
+    kMaxConvertAirflowAirDensityPoundPerMinute - 0.05;
 
 double vMinConvertAirflowAirDensityCfm = kMinConvertAirflowAirDensityCfm + 0.1;
 double vMaxConvertAirflowAirDensityCfm = kMaxConvertAirflowAirDensityCfm - 0.2;
@@ -358,13 +346,13 @@ double vMinConvertAirflowAirDensityCubicCentimeter =
 double vMaxConvertAirflowAirDensityCubicCentimeter =
     kMaxConvertAirflowAirDensityCubicCentimeter - 3.0;
 
-double vMinConvertAirflowAirDensityCubicInch = kMinConvertAirflowAirDensityCubicInch +
-    0.1;
-double vMaxConvertAirflowAirDensityCubicInch = kMaxConvertAirflowAirDensityCubicInch -
-    0.1;
+double vMinConvertAirflowAirDensityCubicInch =
+    kMinConvertAirflowAirDensityCubicInch + 0.1;
+double vMaxConvertAirflowAirDensityCubicInch =
+    kMaxConvertAirflowAirDensityCubicInch - 0.1;
 
-double vMinSliderConvertAirflowAirDensityAllStepper;
-double vMaxSliderConvertAirflowAirDensityAllStepper;
+double vMinSliderConvertAirflowAirDensityAllStepper = 0.0;
+double vMaxSliderConvertAirflowAirDensityAllStepper = 100.0;
 
 String unitSliderConvertAirflowAirDensityAll = 'Lbs/Min';
 
@@ -375,7 +363,6 @@ double kMaxConvertAirflowAirDensityCubicMeterPerMinute = 100.0;
 double kMaxConvertAirflowAirDensityCubicMeterPerSecond = 20.0;
 double kMinConvertAirflowAirDensityCubicMeterPerSecond = 0.01;
 
-
 // **************
 double vAirDensityAirflow = 0.075;
 double kMaxAirDensityAirflow = 2.0;
@@ -383,8 +370,6 @@ double kMinAirDensityAirflow = 0.01;
 double stepAirDensityAirflow = 0.001;
 String unitAirDensityAirflow = 'lbs/f^3';
 int vAirflowResultDecimals = 1;
-
-
 
 //***** Exducer Page *********************************
 
@@ -395,8 +380,8 @@ double exducerTurbineMetric = 12.7;
 double exducerTurbineValue = kMinCompressorExducerMetric;
 double exducerTurbineImperial = vMinExducerImperial;
 
-double vMinExducerValue;
-double vMaxExducerValue;
+double vMinExducerValue = 0.0;
+double vMaxExducerValue = 0.0;
 
 double vMinInducer = 0.3;
 double vMaxInducer = 140.0;
@@ -410,10 +395,10 @@ int sliderDivisionInducerExducer = 50;
 double trimCompressorResult = 1;
 
 double exducerCompressorImperial = vMaxExducerImperial;
-double exducerCompressorValue;
+double exducerCompressorValue = 0.0;
 
-double vMinInducerValue;
-double vMaxInducerValue;
+double vMinInducerValue = 0.0;
+double vMaxInducerValue = 0.0;
 
 // ************ StepButton ******************
 bool stepDirection = false;
@@ -543,8 +528,8 @@ double vMaxConvertVolumeCubicCentimeter =
 double vMinConvertVolumeCubicInch = kMinConvertVolumeCubicInch + 0.1;
 double vMaxConvertVolumeCubicInch = kMaxConvertVolumeCubicInch - 0.1;
 
-double vMinSliderConvertVolumeAllStepper;
-double vMaxSliderConvertVolumeAllStepper;
+double vMinSliderConvertVolumeAllStepper = 0.0;
+double vMaxSliderConvertVolumeAllStepper = 0.0;
 
 // ****************** A/R ratio
 
@@ -579,8 +564,8 @@ double stepValueRadiusArCalculation = 0.01;
 //*************** Engine Size ***********
 
 double resultEngineCubicInch = 10.0;
-String unitEngineSizeBoreInput;
-String unitEngineSizeStrokeInput;
+String unitEngineSizeBoreInput = '';
+String unitEngineSizeStrokeInput = '';
 //*************************************************************************
 
 var labelTextStyleResult0 = kLabelTextStyle;
@@ -618,7 +603,6 @@ var version;
 var name;
 var modelIphone;
 
-
 double deviceWidth = 0.0;
 double deviceHeight = 0.0;
 double picWidth = 0.0;
@@ -630,7 +614,6 @@ String logoPadding = 'right: 8.0';
 
 int temp = 0;
 int radioValueMetric = 0;
-
 
 //******************** turbodatabase firebase
 
@@ -653,13 +636,12 @@ String feedBackLink =
 String addTurbos =
     'https://docs.google.com/forms/d/e/1FAIpQLSeiV8Q0U-7uCUpEYOJrOiTDhRIYuGP_4rhvvg477jCk4eQwVw/viewform?usp=sf_link';
 
-String turboBradAnalytics;
+String turboBradAnalytics = '';
 
 String haveStartedTimes = '';
 
 // *** FireStore
-String turboModel;
-
+String turboModel = '';
 
 //****************** HP Torque variables
 
@@ -667,7 +649,7 @@ double hpTorqueResult = 250.0;
 double hpTorqueRpm = 5252.0;
 double hpTorqueTorque = 250.0;
 int hpTorqueConstant = 5252;
-double resultHpTorque;
+double resultHpTorque = 0.0;
 double stepHpTorqueRpm = 100.0;
 double vMaxHpTorqueRpm = 10000.0;
 double vMinHpTorqueRpm = 1.0;
@@ -677,18 +659,17 @@ double vMinHpTorqueTorque = 1;
 int sliderSliderHpTorqueTorque = vMaxHpTorqueTorque.toInt();
 int sliderSliderHpTorqueRpm = vMaxHpTorqueRpm.toInt();
 
-
 // ****** Ar Map
 
-double mapArResultRatioMm;
-double mapArResultRatioInch;
-double mapArInputAreaMm;
-double mapArInputAreaInch;
-double mapArInputRadiusMm;
-double mapArInputRadiusInch;
-double mapArUnitSwitchValue;
-String mapArSaveTime;
-int mapArSaveIndex;
+double mapArResultRatioMm = 0.0;
+double mapArResultRatioInch = 0.0;
+double mapArInputAreaMm = 0.0;
+double mapArInputAreaInch = 0.0;
+double mapArInputRadiusMm = 0.0;
+double mapArInputRadiusInch = 0.0;
+double mapArUnitSwitchValue = 0.0;
+String mapArSaveTime = '';
+int mapArSaveIndex = 0;
 
 var systemAndVersion;
 var mobileBrandModel;

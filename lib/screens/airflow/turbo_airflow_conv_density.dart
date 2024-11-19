@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/components/stepbutton_close.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/components/stepbutton_close.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +12,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class AirflowSimple extends StatefulWidget {
+  const AirflowSimple({super.key});
+
   @override
   _AirflowSimpleState createState() => _AirflowSimpleState();
 }
@@ -33,8 +34,7 @@ class _AirflowSimpleState extends State<AirflowSimple> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldCompressorKey.currentState
-                .showSnackBar(snackBarCompressor);
+            ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Airflow AirDensity'};
@@ -43,11 +43,11 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
-  new GlobalKey<ScaffoldState>();
+      new GlobalKey<ScaffoldState>();
   final snackBarCompressor = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -130,7 +130,12 @@ class _AirflowSimpleState extends State<AirflowSimple> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -174,7 +179,8 @@ class _AirflowSimpleState extends State<AirflowSimple> {
             Text(
               AppLocalizations.of(context).translate(
                   'airflow_conv_density_0000') //'Airflow Air Density',
-              , style: kAppBarTextStyle,
+              ,
+              style: kAppBarTextStyle,
               textScaleFactor: textScaleFactorTc,
             ),
             Container(width: 30.0, child: submitRatingButton),
@@ -187,6 +193,10 @@ class _AirflowSimpleState extends State<AirflowSimple> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {
+                  //Navigator.pushNamed(context, '/airflow_gas_law');
+                  Navigator.pushNamed(context, '/airflow_gas_law');
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -198,7 +208,8 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                           Text(
                             AppLocalizations.of(context).translate(
                                 'airflow_conv_density_0010') //'Mass Airflow',
-                            , style: kSecondSubjectTextStyle,
+                            ,
+                            style: kSecondSubjectTextStyle,
                             textScaleFactor: textScaleFactorTc,
                           ),
                           Center(
@@ -215,10 +226,10 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor: textScaleFactorTc,
-                                          )),
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
@@ -239,9 +250,10 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'airflow_conv_density_0020')
+                                                  'airflow_conv_density_0020')
                                           // 'Pound per minute',
-                                          , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
@@ -249,7 +261,7 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                             convertResultAirflowAirDensityPoundPerMinute
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -265,18 +277,19 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'airflow_conv_density_0030')
+                                                  'airflow_conv_density_0030')
                                           //  'Kilogram per second',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             (convertResultAirflowAirDensityPoundPerMinute *
-                                                kPoundPerMinuteToKilogramPerSecond)
+                                                    kPoundPerMinuteToKilogramPerSecond)
                                                 .toStringAsFixed(2),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -297,7 +310,8 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                           Text(
                             AppLocalizations.of(context).translate(
                                 'airflow_conv_density_0040') //'Volume Airflow',
-                            , style: kSecondSubjectTextStyle,
+                            ,
+                            style: kSecondSubjectTextStyle,
                             textScaleFactor: textScaleFactorTc,
                           ),
                           Center(
@@ -314,10 +328,10 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor: textScaleFactorTc,
-                                          )),
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
@@ -338,18 +352,19 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'airflow_conv_density_0050')
+                                                  'airflow_conv_density_0050')
                                           //  'Cubic feet per minute',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultAirflowAirDensityCfm
                                                 .toStringAsFixed(1),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -365,18 +380,19 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'airflow_conv_density_0060')
+                                                  'airflow_conv_density_0060')
                                           // 'Cubic meter per minute',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultAirflowAirDensityCubicMeterPerMinute
                                                 .toStringAsFixed(3),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -392,18 +408,19 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'airflow_conv_density_0070')
+                                                  'airflow_conv_density_0070')
                                           //  'Cubic meter per second',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor:
-                                          textScaleFactorTc * .9,
+                                              textScaleFactorTc * .9,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultAirflowAirDensityCubicMeterPerSecond
                                                 .toStringAsFixed(4),
                                             style:
-                                            kResultNumberStyleWhite18_600,
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -426,6 +443,10 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  //Navigator.pushNamed(context, '/airflow_gas_law');
+                  Navigator.pushNamed(context, '/airflow_gas_law');
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -497,7 +518,7 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                     .toStringAsFixed(0),
                                 inactiveColor: Color(0xFF8D8E89),
                                 divisions:
-                                sliderSliderConvertAirflowAirDensityAll,
+                                    sliderSliderConvertAirflowAirDensityAll,
                                 onChanged: (double sliderValue) {
                                   convertSliderResultAirflowAirDensityAll =
                                       sliderValue;
@@ -525,8 +546,8 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if (Decimal.parse(
-                                              convertSliderResultAirflowAirDensityAll
-                                                  .toStringAsFixed(1)) >
+                                                  convertSliderResultAirflowAirDensityAll
+                                                      .toStringAsFixed(1)) >
                                               Decimal.parse(
                                                   vMinSliderConvertAirflowAirDensityAllStepper
                                                       .toStringAsFixed(1))) {
@@ -549,8 +570,8 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                     onStep: () {
                                       setState(() {
                                         if (Decimal.parse(
-                                            convertSliderResultAirflowAirDensityAll
-                                                .toStringAsFixed(1)) >
+                                                convertSliderResultAirflowAirDensityAll
+                                                    .toStringAsFixed(1)) >
                                             Decimal.parse(
                                                 vMinSliderConvertAirflowAirDensityAllStepper
                                                     .toStringAsFixed(1))) {
@@ -572,7 +593,7 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                 child: Text(
                                     convertSliderResultAirflowAirDensityAll
                                         .toStringAsFixed(
-                                        vAirflowResultDecimals),
+                                            vAirflowResultDecimals),
                                     style: kResultNumberStyleWhite18_600,
                                     textScaleFactor: textScaleFactorTc),
                               ),
@@ -592,8 +613,8 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if ((Decimal.parse(
-                                              convertSliderResultAirflowAirDensityAll
-                                                  .toStringAsFixed(1)) <
+                                                  convertSliderResultAirflowAirDensityAll
+                                                      .toStringAsFixed(1)) <
                                               (Decimal.parse(
                                                   vMaxSliderConvertAirflowAirDensityAllStepper
                                                       .toStringAsFixed(1))))) {
@@ -616,8 +637,8 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                     onStep: () {
                                       setState(() {
                                         if ((Decimal.parse(
-                                            convertSliderResultAirflowAirDensityAll
-                                                .toStringAsFixed(1)) <
+                                                convertSliderResultAirflowAirDensityAll
+                                                    .toStringAsFixed(1)) <
                                             (Decimal.parse(
                                                 vMaxSliderConvertAirflowAirDensityAllStepper
                                                     .toStringAsFixed(1))))) {
@@ -654,10 +675,12 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                           textScaleFactor: textScaleFactorTc),
                                     ],
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'airflow_conv_density_0080')
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'airflow_conv_density_0080')
                                       //'Mass Airflow',
-                                     , style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -671,16 +694,19 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                         activeColor: Colors.white,
                                         onChanged: handleRadioValueChanged,
                                       ),
-                                      Text(AppLocalizations.of(context)
-                                          .translate(
-                                          'airflow_conv_density_0090') //'CFM',
-                                          ,textScaleFactor: textScaleFactorTc),
+                                      Text(
+                                          AppLocalizations.of(context).translate(
+                                              'airflow_conv_density_0090') //'CFM',
+                                          ,
+                                          textScaleFactor: textScaleFactorTc),
                                     ],
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'airflow_conv_density_0100')
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'airflow_conv_density_0100')
                                       //'Volume Airflow',
-                                      ,style: kLabelTextStyle,
+                                      ,
+                                      style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -693,14 +719,14 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                             children: <Widget>[
                               Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Container(
                                     // // color: Colors.red,
                                     //width: 200,
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           // color: Colors.red,
@@ -708,16 +734,17 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                           child: Text(
                                             AppLocalizations.of(context)
                                                 .translate(
-                                                'airflow_conv_density_0110')
+                                                    'airflow_conv_density_0110')
                                             //'Air Density',
-                                            ,style: kLabelTextStyle,
+                                            ,
+                                            style: kLabelTextStyle,
                                             textScaleFactor: textScaleFactorTc,
                                             textAlign: TextAlign.left,
                                           ),
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               width: kInputNumberWidth,
@@ -726,9 +753,9 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                                 vAirDensityAirflow
                                                     .toStringAsFixed(3),
                                                 style:
-                                                kResultNumberStyleWhite18_600,
+                                                    kResultNumberStyleWhite18_600,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                             Container(
@@ -739,7 +766,7 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                                 textAlign: TextAlign.center,
                                                 style: kUnitTextStyleAirflow,
                                                 textScaleFactor:
-                                                textScaleFactorTc,
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ],
@@ -759,27 +786,27 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                                 timer = Timer.periodic(
                                                     Duration(
                                                         milliseconds: tapTime),
-                                                        (t) {
-                                                      setState(() {
-                                                        if ((Decimal.parse(
+                                                    (t) {
+                                                  setState(() {
+                                                    if ((Decimal.parse(
                                                             vAirDensityAirflow
                                                                 .toStringAsFixed(
-                                                                2)) >
-                                                            (Decimal.parse(
-                                                                kMinAirDensityAirflow
-                                                                    .toStringAsFixed(
+                                                                    2)) >
+                                                        (Decimal.parse(
+                                                            kMinAirDensityAirflow
+                                                                .toStringAsFixed(
                                                                     2))))) {
-                                                          vAirDensityAirflow =
-                                                              vAirDensityAirflow -
-                                                                  stepAirDensityAirflow;
+                                                      vAirDensityAirflow =
+                                                          vAirDensityAirflow -
+                                                              stepAirDensityAirflow;
 
-                                                          calculateAirflowAirDensity(
-                                                              convertSliderResultAirflowAirDensityAll,
-                                                              vAirDensityAirflow,
-                                                              radioValue);
-                                                        }
-                                                      });
-                                                    });
+                                                      calculateAirflowAirDensity(
+                                                          convertSliderResultAirflowAirDensityAll,
+                                                          vAirDensityAirflow,
+                                                          radioValue);
+                                                    }
+                                                  });
+                                                });
                                               },
                                               onPressEnd: () {
                                                 timer.cancel();
@@ -787,13 +814,13 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                               onStep: () {
                                                 setState(() {
                                                   if ((Decimal.parse(
-                                                      vAirDensityAirflow
-                                                          .toStringAsFixed(
-                                                          2)) >
+                                                          vAirDensityAirflow
+                                                              .toStringAsFixed(
+                                                                  2)) >
                                                       (Decimal.parse(
                                                           kMinAirDensityAirflow
                                                               .toStringAsFixed(
-                                                              2))))) {
+                                                                  2))))) {
                                                     vAirDensityAirflow =
                                                         vAirDensityAirflow -
                                                             stepAirDensityAirflow;
@@ -812,27 +839,27 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                                 timer = Timer.periodic(
                                                     Duration(
                                                         milliseconds: tapTime),
-                                                        (t) {
-                                                      setState(() {
-                                                        if ((Decimal.parse(
+                                                    (t) {
+                                                  setState(() {
+                                                    if ((Decimal.parse(
                                                             vAirDensityAirflow
                                                                 .toStringAsFixed(
-                                                                2)) <
-                                                            (Decimal.parse(
-                                                                kMaxAirDensityAirflow
-                                                                    .toStringAsFixed(
+                                                                    2)) <
+                                                        (Decimal.parse(
+                                                            kMaxAirDensityAirflow
+                                                                .toStringAsFixed(
                                                                     2))))) {
-                                                          vAirDensityAirflow =
-                                                              vAirDensityAirflow +
-                                                                  stepAirDensityAirflow;
+                                                      vAirDensityAirflow =
+                                                          vAirDensityAirflow +
+                                                              stepAirDensityAirflow;
 
-                                                          calculateAirflowAirDensity(
-                                                              convertSliderResultAirflowAirDensityAll,
-                                                              vAirDensityAirflow,
-                                                              radioValue);
-                                                        }
-                                                      });
-                                                    });
+                                                      calculateAirflowAirDensity(
+                                                          convertSliderResultAirflowAirDensityAll,
+                                                          vAirDensityAirflow,
+                                                          radioValue);
+                                                    }
+                                                  });
+                                                });
                                               },
                                               onPressEnd: () {
                                                 timer.cancel();
@@ -840,13 +867,13 @@ class _AirflowSimpleState extends State<AirflowSimple> {
                                               onStep: () {
                                                 setState(() {
                                                   if ((Decimal.parse(
-                                                      vAirDensityAirflow
-                                                          .toStringAsFixed(
-                                                          2)) <
+                                                          vAirDensityAirflow
+                                                              .toStringAsFixed(
+                                                                  2)) <
                                                       (Decimal.parse(
                                                           kMaxAirDensityAirflow
                                                               .toStringAsFixed(
-                                                              2))))) {
+                                                                  2))))) {
                                                     vAirDensityAirflow =
                                                         vAirDensityAirflow +
                                                             stepAirDensityAirflow;
@@ -928,9 +955,9 @@ class _AirflowSimpleState extends State<AirflowSimple> {
 
   int radioValue = 0;
 
-  void handleRadioValueChanged(int value) {
+  void handleRadioValueChanged(int? value) {
     setState(() {
-      radioValue = value;
+      radioValue = value ?? 0;
       resetValues();
 
       switch (radioValue) {
@@ -943,7 +970,7 @@ class _AirflowSimpleState extends State<AirflowSimple> {
           vAirflowResultDecimals = 2;
 
           convertSliderHeaderAirflowAirDensityTextAll =
-          'Pound per Minute - lbs/min';
+              'Pound per Minute - lbs/min';
           unitSliderConvertAirflowAirDensityAll = 'lbs/min';
           convertSliderResultAirflowAirDensityAll =
               kResetValueAirflowAirDensityPoundPerMinute;
@@ -1006,7 +1033,7 @@ class _AirflowSimpleState extends State<AirflowSimple> {
           vAirflowResultDecimals = 1;
 
           convertSliderHeaderAirflowAirDensityTextAll =
-          'Cubic Feet per Inch - CFM';
+              'Cubic Feet per Inch - CFM';
           unitSliderConvertAirflowAirDensityAll = 'cfm';
           convertSliderResultAirflowAirDensityAll =
               kResetValueAirFlowAirDensityCFM;

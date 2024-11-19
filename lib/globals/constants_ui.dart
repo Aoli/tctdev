@@ -1,6 +1,5 @@
-import 'package:Turbocharger/globals/constant.dart';
+import 'package:tct/globals/constant.dart';
 import 'package:flutter/material.dart';
-
 
 //const kActiveCardColour = Color(0xFF1D1E33);
 //const kInactiveCardColour = Color(0xFF111328);
@@ -18,7 +17,6 @@ const kSelectedTurboFlipCardColor = Color(0xFF183D95);
 //const PrimaryColor = const Color(0xFF151026);
 
 const kActiveCardColourInput = Color(0xFF121641);
-
 
 const kLabelTextStyle = TextStyle(
     fontSize: 12.0,
@@ -39,9 +37,7 @@ const kLabelTextStyleBlackBold = TextStyle(
     fontWeight: FontWeight.bold);
 
 const kSnackBarTextStyle = TextStyle(
-    color: Color(0xFF000000),
-    fontSize: 14,
-    fontWeight: FontWeight.normal);
+    color: Color(0xFF000000), fontSize: 14, fontWeight: FontWeight.normal);
 
 const kLabelTextStyleLarge = TextStyle(
     fontSize: 16.0,
@@ -73,7 +69,6 @@ const kLabelTextStyleInActive = TextStyle(
     letterSpacing: 0.5,
     fontWeight: FontWeight.normal);
 
-
 const kWarningTextStyle = TextStyle(
     fontSize: 12.0,
     color: Colors.red,
@@ -104,11 +99,6 @@ const kUnitTextStyleAirflowActive = TextStyle(
     letterSpacing: 0.9,
     fontWeight: FontWeight.w800);
 
-
-
-
-
-
 const kInputTextStyle = TextStyle(
   fontSize: 13.0,
   fontWeight: FontWeight.w900,
@@ -125,23 +115,11 @@ const kSecondSubjectTextStyleInActive = TextStyle(
   color: Colors.white30,
 );
 
-const kSecondSubjectTextStyleActive = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w800,
-    color: Colors.white
-);
+const kSecondSubjectTextStyleActive =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white);
 
-const kSecondSubjectTextStyleActiveBlack = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w800,
-    color: Colors.black87
-);
-
-
-
-
-
-
+const kSecondSubjectTextStyleActiveBlack =
+    TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.black87);
 
 const kCompressorMapTextStyle = TextStyle(
   color: Colors.black,
@@ -149,12 +127,10 @@ const kCompressorMapTextStyle = TextStyle(
   fontWeight: FontWeight.w800,
 );
 
-
 const kAppBarTextStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.w500,
 );
-
 
 const kThirdSubjectTextStyle = TextStyle(
   fontSize: 18,
@@ -233,16 +209,12 @@ const kResultFocusNumberStyle = TextStyle(
   letterSpacing: 1.05,
 );
 
-
 //const kInputNumberStyleKey = TextStyle(
 //  fontSize: 18.0,
 //  fontWeight: FontWeight.w900,
 //  color: Colors.white,
 //  letterSpacing: 1.0,
 //);
-
-
-
 
 const kBodyTextStyle = TextStyle(
   fontSize: 18.0,

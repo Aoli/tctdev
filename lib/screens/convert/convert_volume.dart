@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class VolumePage extends StatefulWidget {
   @override
@@ -32,8 +31,7 @@ class _VolumePageState extends State<VolumePage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState
-                .showSnackBar(snackBar);
+            _scaffoldKey.currentState.showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Volume'};
@@ -45,8 +43,7 @@ class _VolumePageState extends State<VolumePage> {
     return null;
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-  new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final snackBar = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -67,7 +64,8 @@ class _VolumePageState extends State<VolumePage> {
           ),
           Text(
             kSnackBarDevelopmentInfo,
-            style: kSnackBarTextStyle, textScaleFactor: textScaleFactorTc,
+            style: kSnackBarTextStyle,
+            textScaleFactor: textScaleFactorTc,
           ),
         ],
       ),
@@ -128,9 +126,11 @@ class _VolumePageState extends State<VolumePage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate('convert_volume_0000')
+            Text(
+              AppLocalizations.of(context).translate('convert_volume_0000')
               //'VOLUME Conversion',
-             , style: kAppBarTextStyle,
+              ,
+              style: kAppBarTextStyle,
               textScaleFactor: textScaleFactorTc,
             ),
             Container(width: 30.0, child: submitRatingButton),
@@ -144,7 +144,6 @@ class _VolumePageState extends State<VolumePage> {
               // ETA
               ReusableCard(
                 colour: kActiveCardColourOutput,
-
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
                   child: Column(
@@ -153,9 +152,10 @@ class _VolumePageState extends State<VolumePage> {
                       Column(
                         children: <Widget>[
                           Text(
-                            AppLocalizations.of(context).translate(
-                                'convert_volume_0010') //'Volume',
-                            , style: kSecondSubjectTextStyle,
+                            AppLocalizations.of(context)
+                                .translate('convert_volume_0010') //'Volume',
+                            ,
+                            style: kSecondSubjectTextStyle,
                             textScaleFactor: textScaleFactorTc,
                           ),
                           Center(
@@ -172,26 +172,23 @@ class _VolumePageState extends State<VolumePage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
+                                        '',
+                                        style: kLabelTextStyleActive,
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
+                                      DataColumn(
+                                          numeric: true,
+                                          label: Text(
                                             '',
                                             style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           )),
                                       DataColumn(
                                           numeric: true,
                                           label: Text(
                                             '',
                                             style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
-                                          )),
-                                      DataColumn(
-                                          numeric: true,
-                                          label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc,
+                                            textScaleFactor: textScaleFactorTc,
                                           )),
                                     ],
                                     rows: [
@@ -200,14 +197,16 @@ class _VolumePageState extends State<VolumePage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_volume_0020')
                                           // 'US Gallon',
-                                          , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultVolumeUsLiquidGallon
                                                 .toStringAsFixed(2),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -224,14 +223,16 @@ class _VolumePageState extends State<VolumePage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_volume_0030')
                                           // 'Liter',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultVolumeLitre
                                                 .toStringAsFixed(2),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -248,14 +249,16 @@ class _VolumePageState extends State<VolumePage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_volume_0040')
                                           //  'Cubic Centemeter',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultVolumeCubicCentimeter
                                                 .toStringAsFixed(0),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -272,14 +275,16 @@ class _VolumePageState extends State<VolumePage> {
                                           AppLocalizations.of(context)
                                               .translate('convert_volume_0050')
                                           // 'Cubic Inch',
-                                          ,style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             convertResultVolumeCubicInch
                                                 .toStringAsFixed(0),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -295,8 +300,6 @@ class _VolumePageState extends State<VolumePage> {
                               ),
                             ),
                           ),
-
-
                         ],
                       ),
                     ],
@@ -397,8 +400,8 @@ class _VolumePageState extends State<VolumePage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if (Decimal.parse(
-                                              convertSliderResultVolumeAll
-                                                  .toStringAsFixed(1)) >
+                                                  convertSliderResultVolumeAll
+                                                      .toStringAsFixed(1)) >
                                               Decimal.parse(
                                                   vMinSliderConvertVolumeAllStepper
                                                       .toStringAsFixed(1))) {
@@ -420,8 +423,8 @@ class _VolumePageState extends State<VolumePage> {
                                     onStep: () {
                                       setState(() {
                                         if (Decimal.parse(
-                                            convertSliderResultVolumeAll
-                                                .toStringAsFixed(1)) >
+                                                convertSliderResultVolumeAll
+                                                    .toStringAsFixed(1)) >
                                             Decimal.parse(
                                                 vMinSliderConvertVolumeAllStepper
                                                     .toStringAsFixed(1))) {
@@ -460,8 +463,8 @@ class _VolumePageState extends State<VolumePage> {
                                           Duration(milliseconds: tapTime), (t) {
                                         setState(() {
                                           if ((Decimal.parse(
-                                              convertSliderResultVolumeAll
-                                                  .toStringAsFixed(1)) <
+                                                  convertSliderResultVolumeAll
+                                                      .toStringAsFixed(1)) <
                                               (Decimal.parse(
                                                   vMaxSliderConvertVolumeAllStepper
                                                       .toStringAsFixed(1))))) {
@@ -483,8 +486,8 @@ class _VolumePageState extends State<VolumePage> {
                                     onStep: () {
                                       setState(() {
                                         if ((Decimal.parse(
-                                            convertSliderResultVolumeAll
-                                                .toStringAsFixed(1)) <
+                                                convertSliderResultVolumeAll
+                                                    .toStringAsFixed(1)) <
                                             (Decimal.parse(
                                                 vMaxSliderConvertVolumeAllStepper
                                                     .toStringAsFixed(1))))) {
@@ -514,9 +517,11 @@ class _VolumePageState extends State<VolumePage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_volume_0060') //'US Gal',
-                                      ,style: kUnitTextStyles,
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_volume_0060') //'US Gal',
+                                      ,
+                                      style: kUnitTextStyles,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -528,9 +533,11 @@ class _VolumePageState extends State<VolumePage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_volume_0070') //'Liter',
-                                      ,style: kUnitTextStyles,
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_volume_0070') //'Liter',
+                                      ,
+                                      style: kUnitTextStyles,
                                       textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
@@ -542,9 +549,12 @@ class _VolumePageState extends State<VolumePage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_volume_0080') //'CC',
-                                      ,style: kUnitTextStyles,textScaleFactor: textScaleFactorTc),
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_volume_0080') //'CC',
+                                      ,
+                                      style: kUnitTextStyles,
+                                      textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
                               Column(
@@ -555,9 +565,12 @@ class _VolumePageState extends State<VolumePage> {
                                     activeColor: Colors.white,
                                     onChanged: handleRadioValueChanged,
                                   ),
-                                  Text(AppLocalizations.of(context).translate(
-                                      'convert_volume_0090') //'Cid',
-                                      ,style: kUnitTextStyles,textScaleFactor: textScaleFactorTc),
+                                  Text(
+                                      AppLocalizations.of(context).translate(
+                                          'convert_volume_0090') //'Cid',
+                                      ,
+                                      style: kUnitTextStyles,
+                                      textScaleFactor: textScaleFactorTc),
                                 ],
                               ),
                             ],

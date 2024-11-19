@@ -1,25 +1,29 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:Turbocharger/components/stepbutton_close.dart';
+import 'package:tct/components/stepbutton_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/reusable_card.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
+import 'package:tct/globals/global_variables.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/constants_ui.dart';
 
 class MeasureHelpPage extends StatefulWidget {
   final bool metricUnit;
 
-  MeasureHelpPage({Key key, @required this.metricUnit, RouteSettings settings})
+  MeasureHelpPage(
+      {required Key key,
+      required this.metricUnit,
+      required RouteSettings settings})
       : super(key: key);
 
   @override
   _MeasureHelpPageState createState() => _MeasureHelpPageState(metricUnit);
 }
+
+// Removed redundant openGallery function
 
 class _MeasureHelpPageState extends State<MeasureHelpPage> {
   bool metricUnit;
@@ -38,22 +42,67 @@ class _MeasureHelpPageState extends State<MeasureHelpPage> {
   double kMaxArrowUpDown = 30.0;
   double stepArrowUpDown = 1.0;
 
-  File imageFile;
+  XFile? imageFile;
 
-  _openGallery(BuildContext context) async {
-    var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
-    this.setState(() {
+  void _openCamera(BuildContext context) async {
+    final picker = ImagePicker();
+    var picture = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
       imageFile = picture;
     });
     Navigator.of(context).pop();
   }
 
-  _openCamera(BuildContext context) async {
-    var picture = await ImagePicker.pickImage(source: ImageSource.camera);
-    this.setState(() {
+  void openGallery(BuildContext context) async {
+    final picker = ImagePicker();
+    var picture = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
       imageFile = picture;
     });
     Navigator.of(context).pop();
+  }
+
+  Future<void> _showChoiceDialogDuplicate(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Choose option'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                GestureDetector(
+                  child: Text('Gallery'),
+                  onTap: () {
+                    openGallery(context);
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                GestureDetector(
+                  child: Text('Camera'),
+                  onTap: () {
+                    _openCamera(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _decideImageView() {
+    if (imageFile == null) {
+      return Text('No image file');
+    } else {
+      return Image.file(
+        File(imageFile!.path),
+        height: picWidth,
+      );
+    }
   }
 
   void resetAll() {
@@ -67,44 +116,34 @@ class _MeasureHelpPageState extends State<MeasureHelpPage> {
 
   Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Make a Chocie!'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  GestureDetector(
-                    child: Text('Gallery'),
-                    onTap: () {
-                      _openGallery(context);
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  GestureDetector(
-                    child: Text('Camera'),
-                    onTap: () {
-                      _openCamera(context);
-                    },
-                  ),
-                ],
-              ),
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Choose option'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                GestureDetector(
+                  child: Text('Gallery'),
+                  onTap: () {
+                    openGallery(context);
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                ),
+                GestureDetector(
+                  child: Text('Camera'),
+                  onTap: () {
+                    _openCamera(context);
+                  },
+                ),
+              ],
             ),
-          );
-        });
-  }
-
-  Widget _decideImageView() {
-    if (imageFile == null) {
-      return Text('No image file');
-    } else {
-      return Image.file(
-        imageFile,
-        height: picWidth,
-      );
-    }
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -149,7 +188,7 @@ class _MeasureHelpPageState extends State<MeasureHelpPage> {
                     child: Column(
                       children: <Widget>[
                         _decideImageView(),
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () {
                             _showChoiceDialog(context);
                             resetAll();
@@ -169,6 +208,7 @@ class _MeasureHelpPageState extends State<MeasureHelpPage> {
                 ],
               ),
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourOutput,
                 cardChild: Column(
                   children: <Widget>[
@@ -379,7 +419,7 @@ double redY = 0.0;
 class DragBoxState extends State<DragBox> {
   Offset position = Offset(blueX, blueY);
 
-  Size preferredSize;
+  late Size preferredSize;
 
   @override
   void setState(fn) {

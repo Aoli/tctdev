@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:Turbocharger/components/analytics_event.dart';
-import 'package:Turbocharger/data_models/analytics_event_type.dart';
-import 'package:Turbocharger/components/stepbutton_close.dart';
-import 'package:Turbocharger/globals/app_localizations.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/stepbutton_close.dart';
+import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +13,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
-import 'package:Turbocharger/globals/global_variables.dart';
-import 'package:Turbocharger/globals/constants_ui.dart';
-
+import 'package:tct/globals/global_variables.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class EngineSizePage extends StatefulWidget {
   bool metricUnit;
@@ -56,7 +55,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
-  new GlobalKey<ScaffoldState>();
+      new GlobalKey<ScaffoldState>();
   final snackBarCompressor = SnackBar(
     content: SingleChildScrollView(
       child: Column(
@@ -194,9 +193,12 @@ class _EngineSizePageState extends State<EngineSizePage> {
                       fit: BoxFit.fill,
                       image: AssetImage('images/turbo_appbar_logo.png'),
                     ))),
-            Text(AppLocalizations.of(context).translate(
-                'tuning_engine_size_0000') //'ENGINE SIZE',
-                , style: kAppBarTextStyle, textScaleFactor: textScaleFactorTc),
+            Text(
+                AppLocalizations.of(context)
+                    .translate('tuning_engine_size_0000') //'ENGINE SIZE',
+                ,
+                style: kAppBarTextStyle,
+                textScaleFactor: textScaleFactorTc),
             Container(width: 30.0, child: submitRatingButton),
           ],
         ),
@@ -214,10 +216,12 @@ class _EngineSizePageState extends State<EngineSizePage> {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text(AppLocalizations.of(context).translate(
-                              'tuning_engine_size_0010')
+                          Text(
+                              AppLocalizations.of(context)
+                                  .translate('tuning_engine_size_0010')
                               //'Engine Displacement',
-                              , style: kSecondSubjectTextStyle,
+                              ,
+                              style: kSecondSubjectTextStyle,
                               textScaleFactor: textScaleFactorTc),
                           SizedBox(height: 10),
                           Center(
@@ -234,11 +238,17 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                     columns: [
                                       DataColumn(
                                           label: Text(
+                                        '',
+                                        style: TextStyle(color: Colors.white),
+                                        textScaleFactor: textScaleFactorTc,
+                                      )),
+                                      DataColumn(
+                                          numeric: true,
+                                          label: Text(
                                             '',
-                                            style: TextStyle(
-                                                color: Colors.white),
+                                            style: kLabelTextStyleActive,
                                             textScaleFactor:
-                                            textScaleFactorTc,
+                                                textScaleFactorTc * 1.3,
                                           )),
                                       DataColumn(
                                           numeric: true,
@@ -246,15 +256,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                             '',
                                             style: kLabelTextStyleActive,
                                             textScaleFactor:
-                                            textScaleFactorTc * 1.3,
-                                          )),
-                                      DataColumn(
-                                          numeric: true,
-                                          label: Text(
-                                            '',
-                                            style: kLabelTextStyleActive,
-                                            textScaleFactor:
-                                            textScaleFactorTc * 1.3,
+                                                textScaleFactorTc * 1.3,
                                           )),
                                     ],
                                     rows: [
@@ -262,15 +264,17 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'tuning_engine_size_0020')
+                                                  'tuning_engine_size_0020')
                                           //'Cubic Inch',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             resultEngineCid.toStringAsFixed(3),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -286,16 +290,18 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'tuning_engine_size_0030')
+                                                  'tuning_engine_size_0030')
                                           //'Liter/Litre',
-                                         , style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
-                                            resultEngineLiter.toStringAsFixed(
-                                                3),
-                                            style: kResultNumberStyleWhite18_600,
+                                            resultEngineLiter
+                                                .toStringAsFixed(3),
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -311,16 +317,18 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         DataCell(Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'tuning_engine_size_0040')
+                                                  'tuning_engine_size_0040')
                                           // 'Cubic Centimeter',
-                                        ,  style: kLabelTextStyleLarge,
+                                          ,
+                                          style: kLabelTextStyleLarge,
                                           textScaleFactor: textScaleFactorTc,
                                         )),
                                         DataCell(
                                           Text(
                                             resultEngineCubicCentimeter
                                                 .toStringAsFixed(0),
-                                            style: kResultNumberStyleWhite18_600,
+                                            style:
+                                                kResultNumberStyleWhite18_600,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
                                         ),
@@ -336,7 +344,6 @@ class _EngineSizePageState extends State<EngineSizePage> {
                               ),
                             ),
                           ),
-
                           Divider(
                             color: Colors.white70,
                           ),
@@ -346,10 +353,11 @@ class _EngineSizePageState extends State<EngineSizePage> {
 
                             children: <Widget>[
                               Text(
-                                AppLocalizations.of(context).translate(
-                                    'tuning_engine_size_0050')
+                                AppLocalizations.of(context)
+                                    .translate('tuning_engine_size_0050')
                                 //'Bore and Stroke Ratio',
-                               , style: kSecondSubjectTextStyle,
+                                ,
+                                style: kSecondSubjectTextStyle,
                                 textScaleFactor: textScaleFactorTc,
                               ),
                               SizedBox(height: 10),
@@ -367,11 +375,19 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         columns: [
                                           DataColumn(
                                               label: Text(
-                                                '',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                                textScaleFactor:
+                                            '',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                            textScaleFactor:
                                                 textScaleFactorTc * 1.3,
+                                          )),
+                                          DataColumn(
+                                              numeric: true,
+                                              label: Text(
+                                                '',
+                                                style: kLabelTextStyleActive,
+                                                textScaleFactor:
+                                                    textScaleFactorTc * 1.3,
                                               )),
                                           DataColumn(
                                               numeric: true,
@@ -379,15 +395,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                                 '',
                                                 style: kLabelTextStyleActive,
                                                 textScaleFactor:
-                                                textScaleFactorTc * 1.3,
-                                              )),
-                                          DataColumn(
-                                              numeric: true,
-                                              label: Text(
-                                                '',
-                                                style: kLabelTextStyleActive,
-                                                textScaleFactor:
-                                                textScaleFactorTc * 1.3,
+                                                    textScaleFactorTc * 1.3,
                                               )),
                                         ],
                                         rows: [
@@ -395,10 +403,12 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                             DataCell(Text(
                                               AppLocalizations.of(context)
                                                   .translate(
-                                                  'tuning_engine_size_0060')
+                                                      'tuning_engine_size_0060')
                                               // 'Bore/Stroke',
-                                              ,style: kLabelTextStyleLarge,
-                                              textScaleFactor: textScaleFactorTc,
+                                              ,
+                                              style: kLabelTextStyleLarge,
+                                              textScaleFactor:
+                                                  textScaleFactorTc,
                                             )),
                                             DataCell(
                                               Row(
@@ -408,17 +418,19 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                                     // color: Colors.blue,
                                                     child: Text(
                                                         boreStrokeRatioDisplay,
-                                                        style: kResultNumberStyleWhite18_600,
+                                                        style:
+                                                            kResultNumberStyleWhite18_600,
                                                         textScaleFactor:
-                                                        textScaleFactorTc),
+                                                            textScaleFactorTc),
                                                   ),
                                                   Container(
 //                                                        alignment: Alignment.centerLeft,
                                                     // color: Colors.green,
                                                     child: Text(':1',
-                                                        style: kResultNumberStyleWhite18_600,
+                                                        style:
+                                                            kResultNumberStyleWhite18_600,
                                                         textScaleFactor:
-                                                        textScaleFactorTc),
+                                                            textScaleFactorTc),
                                                   ),
                                                 ],
                                               ),
@@ -427,15 +439,15 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                               Text(
                                                 AppLocalizations.of(context)
                                                     .translate(
-                                                    'tuning_engine_size_0070')
+                                                        'tuning_engine_size_0070')
                                                 // 'B/S',
-                                               , style: kLabelTextStyle,
-                                                textScaleFactor: textScaleFactorTc,
+                                                ,
+                                                style: kLabelTextStyle,
+                                                textScaleFactor:
+                                                    textScaleFactorTc,
                                               ),
                                             ),
                                           ]),
-
-
                                         ]),
                                   ),
                                 ),
@@ -443,8 +455,6 @@ class _EngineSizePageState extends State<EngineSizePage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-
-
                                   Text(
                                     boreStrokeRatioSquareDisplay,
                                     style: kUnitTextStyleAirflow,
@@ -481,7 +491,8 @@ class _EngineSizePageState extends State<EngineSizePage> {
                               child: Text(
                                   AppLocalizations.of(context).translate(
                                       'tuning_engine_size_0080') //'Bore',
-                                ,  style: kLabelTextStyleLarge,
+                                  ,
+                                  style: kLabelTextStyleLarge,
                                   textScaleFactor: textScaleFactorTc),
                             ),
 
@@ -542,25 +553,23 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         setState(() {
                                           timer = Timer.periodic(
                                               Duration(milliseconds: tapTime),
-                                                  (t) {
-                                                print('- press');
+                                              (t) {
+                                            print('- press');
 
-                                                if ((Decimal.parse(boreInput
+                                            if ((Decimal.parse(boreInput
                                                     .toStringAsFixed(0)) >
-                                                    (Decimal.parse(
-                                                        (vMinBoreInput)
-                                                            .toStringAsFixed(
-                                                            0))))) {
-                                                  boreInput =
-                                                      boreInput - stepBoreInput;
+                                                (Decimal.parse((vMinBoreInput)
+                                                    .toStringAsFixed(0))))) {
+                                              boreInput =
+                                                  boreInput - stepBoreInput;
 
-                                                  calcEngineSize(
-                                                      boreInput,
-                                                      strokeInput,
-                                                      cylinderInput,
-                                                      metricUnit);
-                                                }
-                                              });
+                                              calcEngineSize(
+                                                  boreInput,
+                                                  strokeInput,
+                                                  cylinderInput,
+                                                  metricUnit);
+                                            }
+                                          });
                                         });
                                       },
                                       onPressEnd: () {
@@ -569,7 +578,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                       onStep: () {
                                         setState(() {
                                           if ((Decimal.parse(boreInput
-                                              .toStringAsFixed(0)) >
+                                                  .toStringAsFixed(0)) >
                                               (Decimal.parse((vMinBoreInput)
                                                   .toStringAsFixed(0))))) {
                                             boreInput =
@@ -590,27 +599,25 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         setState(() {
                                           timer = Timer.periodic(
                                               Duration(milliseconds: tapTime),
-                                                  (t) {
-                                                print('+ press');
-                                                print('boreInput $boreInput');
-                                                print(
-                                                    'kMaxBoreInput $vMaxBoreInput');
-                                                if ((Decimal.parse(boreInput
+                                              (t) {
+                                            print('+ press');
+                                            print('boreInput $boreInput');
+                                            print(
+                                                'kMaxBoreInput $vMaxBoreInput');
+                                            if ((Decimal.parse(boreInput
                                                     .toStringAsFixed(3)) <
-                                                    (Decimal.parse(
-                                                        (vMaxBoreInput)
-                                                            .toStringAsFixed(
-                                                            3))))) {
-                                                  boreInput =
-                                                      boreInput + stepBoreInput;
+                                                (Decimal.parse((vMaxBoreInput)
+                                                    .toStringAsFixed(3))))) {
+                                              boreInput =
+                                                  boreInput + stepBoreInput;
 
-                                                  calcEngineSize(
-                                                      boreInput,
-                                                      strokeInput,
-                                                      cylinderInput,
-                                                      metricUnit);
-                                                }
-                                              });
+                                              calcEngineSize(
+                                                  boreInput,
+                                                  strokeInput,
+                                                  cylinderInput,
+                                                  metricUnit);
+                                            }
+                                          });
                                         });
                                       },
                                       onPressEnd: () {
@@ -619,7 +626,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                       onStep: () {
                                         setState(() {
                                           if ((Decimal.parse(boreInput
-                                              .toStringAsFixed(3)) <
+                                                  .toStringAsFixed(3)) <
                                               (Decimal.parse((vMaxBoreInput)
                                                   .toStringAsFixed(3))))) {
                                             boreInput =
@@ -651,7 +658,8 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                   child: Text(
                                       AppLocalizations.of(context).translate(
                                           'tuning_engine_size_0090') //'Stroke',
-                                     , style: kLabelTextStyleLarge,
+                                      ,
+                                      style: kLabelTextStyleLarge,
                                       textScaleFactor: textScaleFactorTc),
                                 ),
 
@@ -661,11 +669,11 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                     thumbColor: kTurbineInducerSliderNob,
                                     overlayColor: kTurbineSliderOverlayColor,
                                     valueIndicatorColor:
-                                    kTurbineInducerSliderNob,
+                                        kTurbineInducerSliderNob,
                                     inactiveTrackColor: kInactiveSlideColour,
                                     thumbShape: RoundSliderThumbShape(
                                         enabledThumbRadius:
-                                        kNobThumbShapeLarge),
+                                            kNobThumbShapeLarge),
                                     overlayShape: RoundSliderOverlayShape(
                                         overlayRadius: kNobOverlayShapeLarge),
                                   ),
@@ -687,7 +695,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Container(
                                       alignment: Alignment.center,
@@ -712,7 +720,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                       children: <Widget>[
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                              MainAxisAlignment.end,
                                           children: <Widget>[
                                             StepButtonClose(
                                               icon: FontAwesomeIcons.minus,
@@ -721,17 +729,17 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     print('- press');
 
                                                     if ((Decimal.parse(
-                                                        strokeInput
-                                                            .toStringAsFixed(
-                                                            0)) >
+                                                            strokeInput
+                                                                .toStringAsFixed(
+                                                                    0)) >
                                                         (Decimal.parse(
                                                             vMinStrokeInput
                                                                 .toStringAsFixed(
-                                                                0))))) {
+                                                                    0))))) {
                                                       strokeInput =
                                                           strokeInput -
                                                               stepStrokeInput;
@@ -751,11 +759,11 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                               onStep: () {
                                                 setState(() {
                                                   if ((Decimal.parse(strokeInput
-                                                      .toStringAsFixed(0)) >
+                                                          .toStringAsFixed(0)) >
                                                       (Decimal.parse(
                                                           vMinStrokeInput
                                                               .toStringAsFixed(
-                                                              0))))) {
+                                                                  0))))) {
                                                     strokeInput = strokeInput -
                                                         stepStrokeInput;
 
@@ -775,20 +783,20 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                                   timer = Timer.periodic(
                                                       Duration(
                                                           milliseconds:
-                                                          tapTime), (t) {
+                                                              tapTime), (t) {
                                                     print('+ press');
                                                     print(
                                                         'strokeInput $strokeInput');
                                                     print(
                                                         'kMaxStrokeInput $vMaxStrokeInput');
                                                     if ((Decimal.parse(
-                                                        strokeInput
-                                                            .toStringAsFixed(
-                                                            0)) <
+                                                            strokeInput
+                                                                .toStringAsFixed(
+                                                                    0)) <
                                                         (Decimal.parse(
                                                             vMaxStrokeInput
                                                                 .toStringAsFixed(
-                                                                0))))) {
+                                                                    0))))) {
                                                       strokeInput =
                                                           strokeInput +
                                                               stepStrokeInput;
@@ -808,11 +816,11 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                               onStep: () {
                                                 setState(() {
                                                   if ((Decimal.parse(strokeInput
-                                                      .toStringAsFixed(0)) <
+                                                          .toStringAsFixed(0)) <
                                                       (Decimal.parse(
                                                           vMaxStrokeInput
                                                               .toStringAsFixed(
-                                                              0))))) {
+                                                                  0))))) {
                                                     strokeInput = strokeInput +
                                                         stepStrokeInput;
 
@@ -838,15 +846,16 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                      AppLocalizations.of(context).translate(
-                                          'tuning_engine_size_0100')
+                                      AppLocalizations.of(context)
+                                          .translate('tuning_engine_size_0100')
                                       //'Cylinders',
-                                     , style: kLabelTextStyleLarge,
+                                      ,
+                                      style: kLabelTextStyleLarge,
                                       textScaleFactor: textScaleFactorTc),
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Container(
                                       alignment: Alignment.center,
@@ -873,26 +882,25 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                               timer = Timer.periodic(
                                                   Duration(
                                                       milliseconds: tapTime),
-                                                      (t) {
-                                                    print('- press');
+                                                  (t) {
+                                                print('- press');
 
-                                                    if ((Decimal.parse(
-                                                        cylinderInput
-                                                            .toString()) >
-                                                        (Decimal.parse(
-                                                            kMinNrCylinder
-                                                                .toString())))) {
-                                                      cylinderInput =
-                                                          cylinderInput -
-                                                              stepNrCylinder;
+                                                if ((Decimal.parse(cylinderInput
+                                                        .toString()) >
+                                                    (Decimal.parse(
+                                                        kMinNrCylinder
+                                                            .toString())))) {
+                                                  cylinderInput =
+                                                      cylinderInput -
+                                                          stepNrCylinder;
 
-                                                      calcEngineSize(
-                                                          boreInput,
-                                                          strokeInput,
-                                                          cylinderInput,
-                                                          metricUnit);
-                                                    }
-                                                  });
+                                                  calcEngineSize(
+                                                      boreInput,
+                                                      strokeInput,
+                                                      cylinderInput,
+                                                      metricUnit);
+                                                }
+                                              });
                                             });
                                           },
                                           onPressEnd: () {
@@ -901,7 +909,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(cylinderInput
-                                                  .toStringAsFixed(3)) >
+                                                      .toStringAsFixed(3)) >
                                                   (Decimal.parse(kMinNrCylinder
                                                       .toStringAsFixed(3))))) {
                                                 cylinderInput = cylinderInput -
@@ -923,29 +931,28 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                               timer = Timer.periodic(
                                                   Duration(
                                                       milliseconds: tapTime),
-                                                      (t) {
-                                                    print('+ press');
-                                                    print(
-                                                        'cylinderInput $cylinderInput');
-                                                    print(
-                                                        'kMaxNrCylinder $kMaxNrCylinder');
-                                                    if ((Decimal.parse(
-                                                        cylinderInput
-                                                            .toString()) <
-                                                        (Decimal.parse(
-                                                            kMaxNrCylinder
-                                                                .toString())))) {
-                                                      cylinderInput =
-                                                          cylinderInput +
-                                                              stepNrCylinder;
+                                                  (t) {
+                                                print('+ press');
+                                                print(
+                                                    'cylinderInput $cylinderInput');
+                                                print(
+                                                    'kMaxNrCylinder $kMaxNrCylinder');
+                                                if ((Decimal.parse(cylinderInput
+                                                        .toString()) <
+                                                    (Decimal.parse(
+                                                        kMaxNrCylinder
+                                                            .toString())))) {
+                                                  cylinderInput =
+                                                      cylinderInput +
+                                                          stepNrCylinder;
 
-                                                      calcEngineSize(
-                                                          boreInput,
-                                                          strokeInput,
-                                                          cylinderInput,
-                                                          metricUnit);
-                                                    }
-                                                  });
+                                                  calcEngineSize(
+                                                      boreInput,
+                                                      strokeInput,
+                                                      cylinderInput,
+                                                      metricUnit);
+                                                }
+                                              });
                                             });
                                           },
                                           onPressEnd: () {
@@ -954,7 +961,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                           onStep: () {
                                             setState(() {
                                               if ((Decimal.parse(cylinderInput
-                                                  .toStringAsFixed(3)) <
+                                                      .toStringAsFixed(3)) <
                                                   (Decimal.parse(kMaxNrCylinder
                                                       .toStringAsFixed(3))))) {
                                                 cylinderInput = cylinderInput +
@@ -988,9 +995,10 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'tuning_engine_size_0110')
+                                                  'tuning_engine_size_0110')
                                           //'Inch',
-                                         , style: kLabelTextStyle,
+                                          ,
+                                          style: kLabelTextStyle,
                                           textScaleFactor: textScaleFactorTc,
                                         ),
                                         SizedBox(width: 6),
@@ -998,13 +1006,13 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                           child: Switch.adaptive(
                                             value: metricUnit,
                                             activeColor:
-                                            vEngineSizeSwitchActiveColor,
+                                                vEngineSizeSwitchActiveColor,
                                             activeTrackColor:
-                                            vEngineSizeSwitchInActiveThumbColor,
+                                                vEngineSizeSwitchInActiveThumbColor,
                                             inactiveTrackColor:
-                                            vEngineSizeSwitchActiveTrackColor,
+                                                vEngineSizeSwitchActiveTrackColor,
                                             inactiveThumbColor:
-                                            vEngineSizeSwitchInActiveTrackColor,
+                                                vEngineSizeSwitchInActiveTrackColor,
 
                                             //secondary: Icon(Icons.linear_scale),
                                             onChanged: _onChangedUnitSwitch,
@@ -1041,11 +1049,12 @@ class _EngineSizePageState extends State<EngineSizePage> {
                                         Text(
                                           AppLocalizations.of(context)
                                               .translate(
-                                              'tuning_engine_size_0120')
+                                                  'tuning_engine_size_0120')
                                           //'(Switch will reset the values to default)',
-                                         , style: kBodyItalicTextStyle,
+                                          ,
+                                          style: kBodyItalicTextStyle,
                                           textScaleFactor:
-                                          textScaleFactorTc * 0.8,
+                                              textScaleFactorTc * 0.8,
                                         ),
                                       ],
                                     ),
