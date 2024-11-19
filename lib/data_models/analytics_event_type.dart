@@ -1,0 +1,25 @@
+enum AnalyticsEventType {
+  unit_type,
+  snack_bar,
+  turbo_reg_horsepower,
+  compressor_map,
+  turbo_details,
+  turbo_add_analytics,
+  turbo_error_analytics,
+  turbo_reg_brand,
+  turbo_reg_series,
+  turbo_reg_exact_turbo,
+  turbo_tab,
+  turbo_comp_ind_size_nr,
+  turbo_hp_max_nr,
+  turbo_comp_ind_size_txt,
+  turbo_hp_max_txt,
+  mobile_system,
+  mobile_system_width,
+  system_width_nr,
+  system_width_txt,
+  mobile_os_version,
+  mobile_brand,
+  mobile_brand_model
+  // add event names to Enum
+}
