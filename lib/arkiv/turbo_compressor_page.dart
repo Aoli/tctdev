@@ -28,9 +28,7 @@ class CompressorPage extends StatefulWidget {
 class _CompressorPageState extends State<CompressorPage> {
   bool metricUnit;
 
-  _CompressorPageState(this.metricUnit) {
-    petrolTurboCalc = 0.0;
-  }
+  _CompressorPageState(this.metricUnit) : petrolTurboCalc = 0.0;
 
   //bool metricUnit = false;
   bool snackbarEnable = true;
@@ -138,7 +136,7 @@ class _CompressorPageState extends State<CompressorPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.red.shade900,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            _scaffoldKey.currentState?.showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Airflow HP RPM'};

@@ -15,7 +15,7 @@ class BasicCompressorPage extends StatefulWidget {
   final bool metricUnit;
 
   BasicCompressorPage(
-      {Key key, @required this.metricUnit, RouteSettings settings})
+      {Key? key, required this.metricUnit, RouteSettings? settings})
       : super(key: key);
 
   @override
@@ -401,7 +401,7 @@ class _BasicCompressorPageState extends State<BasicCompressorPage> {
                                 // _scaffoldKey.currentState
                                 //     .removeCurrentSnackBar();
                                 _scaffoldKey.currentState
-                                    .showSnackBar(snackBar);
+                                    ?.showSnackBar(snackBar);
                               } else if (inducerCompressorMetric <=
                                   exducerCompressor) {
                                 snackbarEnable = false;
