@@ -6,7 +6,6 @@ import 'package:tct/globals/app_localizations.dart';
 import 'package:tct/globals/constant.dart';
 import 'package:tct/globals/global_variables.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -342,14 +341,16 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                             Column(
                               children: <Widget>[
                                 Container(
-                                  child: RaisedButton(
-                                    color: kActiveCardColourOutput,
-                                    splashColor: Colors.blue,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(8.0),
-                                      side: BorderSide(color: Colors.blue),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.blue,
+                                      backgroundColor: kActiveCardColourOutput,
+                                      elevation: 0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(8.0),
+                                        side: BorderSide(color: Colors.blue),
+                                      ),
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -378,7 +379,7 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                                         print(
                                             'compressorMapBrandModel $compressorMapBrandModel');
 
-                                        cardKey.currentState.toggleCard();
+                                        cardKey.currentState?.toggleCard();
                                       });
                                     },
                                     child: Container(
@@ -1074,13 +1075,15 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                             ),
                       Column(
                         children: <Widget>[
-                          RaisedButton(
-                            color: kActiveCardColourOutput,
-                            splashColor: Colors.blue,
-                            elevation: 8,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(8.0),
-                              side: BorderSide(color: Colors.blue),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.blue,
+                              backgroundColor: kActiveCardColourOutput,
+                              elevation: 8,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(8.0),
+                                side: BorderSide(color: Colors.blue),
+                              ),
                             ),
                             onPressed: () {
                               String turboAddAnalytics = settings
@@ -1129,13 +1132,15 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
                       ),
                       Column(
                         children: <Widget>[
-                          RaisedButton(
-                            color: kActiveCardColourOutput,
-                            splashColor: Colors.blue,
-                            elevation: 8,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(8.0),
-                              side: BorderSide(color: Colors.blue),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.blue,
+                              backgroundColor: kActiveCardColourOutput,
+                              elevation: 8,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(8.0),
+                                side: BorderSide(color: Colors.blue),
+                              ),
                             ),
                             onPressed: () {
 //                              Navigator.of(context)
@@ -1257,15 +1262,17 @@ class _TurboInfoPageState extends State<TurboInfoPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: Container(
-                  child: RaisedButton(
-                    color: kActiveCardColourOutput,
-                    splashColor: Colors.blue,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8.0),
-                      side: BorderSide(color: Colors.blue),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.blue,
+                      backgroundColor: kActiveCardColourOutput,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(8.0),
+                        side: BorderSide(color: Colors.blue),
+                      ),
                     ),
-                    onPressed: () => cardKey.currentState.toggleCard(),
+                    onPressed: () => cardKey.currentState?.toggleCard(),
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

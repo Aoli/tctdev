@@ -6,7 +6,6 @@ import 'package:tct/data_models/analytics_event_type.dart';
 import 'package:tct/components/stepbutton_close.dart';
 import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +18,8 @@ import 'package:tct/globals/constants_ui.dart';
 class EngineSizePage extends StatefulWidget {
   bool metricUnit;
 
-  EngineSizePage({Key key, @required this.metricUnit}) : super(key: key);
+  EngineSizePage({required Key key, required this.metricUnit})
+      : super(key: key);
 
   @override
   _EngineSizePageState createState() => _EngineSizePageState(metricUnit);
@@ -41,8 +41,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldCompressorKey.currentState
-                .showSnackBar(snackBarCompressor);
+            ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'EngineSize'};
@@ -51,7 +50,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
@@ -93,7 +92,12 @@ class _EngineSizePageState extends State<EngineSizePage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   void _onChangedUnitSwitch(bool value) {
     setState(() {
@@ -208,6 +212,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
           child: Column(
             children: <Widget>[
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -474,6 +479,7 @@ class _EngineSizePageState extends State<EngineSizePage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourInput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),

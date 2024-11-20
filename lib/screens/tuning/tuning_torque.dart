@@ -4,9 +4,7 @@ import 'package:tct/data_models/analytics_event_type.dart';
 import 'package:tct/components/stepbutton_close.dart';
 import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
@@ -17,7 +15,7 @@ import 'package:tct/globals/constants_ui.dart';
 class TorquePage extends StatefulWidget {
   bool metricUnit;
 
-  TorquePage({Key key, @required this.metricUnit}) : super(key: key);
+  TorquePage({required Key key, required this.metricUnit}) : super(key: key);
 
   @override
   _TorquePageState createState() => _TorquePageState(metricUnit);
@@ -41,7 +39,7 @@ class _TorquePageState extends State<TorquePage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Torque'};
@@ -50,7 +48,7 @@ class _TorquePageState extends State<TorquePage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -91,7 +89,12 @@ class _TorquePageState extends State<TorquePage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -137,6 +140,11 @@ class _TorquePageState extends State<TorquePage> {
           child: Column(
             children: <Widget>[
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    resetAll();
+                  });
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -267,6 +275,7 @@ class _TorquePageState extends State<TorquePage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourInput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),

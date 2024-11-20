@@ -128,6 +128,7 @@ class _CreditsPageState extends State<CreditsPage> {
           child: Column(
             children: <Widget>[
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   child: Column(

@@ -17,7 +17,8 @@ import 'package:tct/globals/constants_ui.dart';
 class HpBasedOnTorquePage extends StatefulWidget {
   bool metricUnit;
 
-  HpBasedOnTorquePage({Key key, @required this.metricUnit}) : super(key: key);
+  HpBasedOnTorquePage({required Key key, required this.metricUnit})
+      : super(key: key);
 
   @override
   _HpBasedOnTorquePageState createState() =>
@@ -27,9 +28,11 @@ class HpBasedOnTorquePage extends StatefulWidget {
 class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
   bool metricUnit;
 
-  double resultTorque;
+  late double resultTorque;
 
-  _HpBasedOnTorquePageState(this.metricUnit);
+  _HpBasedOnTorquePageState(this.metricUnit) {
+    resultTorque = 0.0; // Initialize resultTorque
+  }
 
   //************ END Airflow *******************************************
 
@@ -42,8 +45,7 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldCompressorKey.currentState
-                .showSnackBar(snackBarCompressor);
+            ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'HP-Torque'};
@@ -52,7 +54,7 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
@@ -94,7 +96,12 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -140,6 +147,11 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
           child: Column(
             children: <Widget>[
               ReusableCard(
+                onPress: () {
+                  setState(() {
+                    resetAll();
+                  });
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -266,6 +278,7 @@ class _HpBasedOnTorquePageState extends State<HpBasedOnTorquePage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourInput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),

@@ -1,11 +1,11 @@
-import 'package:tct//globals/constant.dart';
-import 'package:tct//globals/global_variables.dart';
+import 'package:tct/globals/constant.dart';
+import 'package:tct/globals/global_variables.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/settings_provider.dart';
 import '../../data_models/turbo_db.dart';
-import 'package:tct//globals/constants_ui.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class TurboPageMapsPage extends StatelessWidget {
   @override

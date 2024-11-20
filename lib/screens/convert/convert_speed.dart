@@ -1,12 +1,11 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
+
 import 'package:tct/components/analytics_event.dart';
 import 'package:tct/data_models/analytics_event_type.dart';
 import 'package:tct/components/stepbutton.dart';
 import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../globals/calculator_brain.dart';
 import '../../components/reusable_card.dart';
@@ -143,6 +142,7 @@ class _SpeedPageState extends State<SpeedPage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -338,6 +338,7 @@ class _SpeedPageState extends State<SpeedPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {},
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -598,9 +599,9 @@ class _SpeedPageState extends State<SpeedPage> {
 
   int radioValue = 0;
 
-  void handleRadioValueChanged(int value) {
+  void handleRadioValueChanged(int? value) {
     setState(() {
-      radioValue = value;
+      radioValue = value ?? 0;
       resetValues();
 
       switch (radioValue) {

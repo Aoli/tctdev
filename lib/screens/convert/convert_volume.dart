@@ -25,13 +25,13 @@ class _VolumePageState extends State<VolumePage> {
   //bool metricUnit = false;
   bool snackbarEnable = true;
 
-  Widget get submitRatingButton {
+  Widget? get submitRatingButton {
     if (snackbarEnable) {
       return IconButton(
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Volume'};
@@ -81,7 +81,12 @@ class _VolumePageState extends State<VolumePage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -143,6 +148,7 @@ class _VolumePageState extends State<VolumePage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {},
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -307,6 +313,7 @@ class _VolumePageState extends State<VolumePage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {},
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -598,9 +605,9 @@ class _VolumePageState extends State<VolumePage> {
 
   int radioValue = 0;
 
-  void handleRadioValueChanged(int value) {
+  void handleRadioValueChanged(int? value) {
     setState(() {
-      radioValue = value;
+      radioValue = value!;
       resetValues();
 
       switch (radioValue) {

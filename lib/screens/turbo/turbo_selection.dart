@@ -1,20 +1,21 @@
-import 'package:tct//components/analytics_event.dart';
-import 'package:tct//data_models/analytics_event_type.dart';
-import 'package:tct//components/reusable_card.dart';
-import 'package:tct//components/turbocharger_icons_icons.dart';
-import 'package:tct//globals/app_localizations.dart';
-import 'package:tct//globals/constant.dart';
-import 'package:tct//globals/global_variables.dart';
+import 'package:tct/components/analytics_event.dart';
+import 'package:tct/data_models/analytics_event_type.dart';
+import 'package:tct/components/reusable_card.dart';
+import 'package:tct/components/turbocharger_icons_icons.dart';
+import 'package:tct/globals/app_localizations.dart';
+import 'package:tct/globals/constant.dart';
+import 'package:tct/globals/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../provider/settings_provider.dart';
 import '../../data_models/turbo_db.dart';
-import 'package:tct//globals/constants_ui.dart';
+import 'package:tct/globals/constants_ui.dart';
 
 class TurboSelection extends StatefulWidget {
   bool routeSetting;
 
-  TurboSelection({Key key, @required this.routeSetting}) : super(key: key);
+  TurboSelection({required Key key, required this.routeSetting})
+      : super(key: key);
 
   @override
   _TurboSelectionState createState() => _TurboSelectionState(routeSetting);
@@ -25,7 +26,7 @@ class _TurboSelectionState extends State<TurboSelection> {
 
   _TurboSelectionState(this.routeSetting);
 
-  ScrollController _controller;
+  late ScrollController _controller;
 
   var list = true;
   var nrTurbo;
@@ -96,30 +97,22 @@ class _TurboSelectionState extends State<TurboSelection> {
                           scrollDirection: Axis.vertical,
                           //  itemExtent: 115.0,
 
-                          itemCount: reports?.length == null
-                              ? Container()
-                              : reports?.length,
-//                          controller: _controller,
+                          itemCount: reports.length,
                           itemBuilder: (context, index) {
-//                            Report report = reports[index];
                             reports = Provider.of<List<TurboDb>>(context)
                                 .where((report) => settingsProvider
                                     .brandNameList
                                     .contains(report.aaBrandName))
-                                // .where((report) => settingsProvider.aaDataStatus == 'Published')
                                 .toList();
 
-                            //   print('index $index');
-                            //   print('itemCount' + (reports?.length).toString());
-
-                            nrTurbo = reports?.length;
+                            nrTurbo = reports.length;
 
                             return Column(
                               children: <Widget>[
                                 index == 0
                                     ? Column(
                                         children: <Widget>[
-                                          reports?.length != 0
+                                          reports.length != 0
                                               ? Container()
                                               : Column(
 //
@@ -205,22 +198,25 @@ class _TurboSelectionState extends State<TurboSelection> {
                                                                           5),
                                                               child: Column(
                                                                 children: <Widget>[
-                                                                  RaisedButton(
-                                                                    color:
-                                                                        kActiveCardColourOutput,
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .blue,
-                                                                    elevation:
-                                                                        8,
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius: new BorderRadius
-                                                                          .circular(
-                                                                          8.0),
-                                                                      side: BorderSide(
-                                                                          color:
-                                                                              Colors.blue),
+                                                                  ElevatedButton(
+                                                                    style: ElevatedButton
+                                                                        .styleFrom(
+                                                                      foregroundColor:
+                                                                          Colors
+                                                                              .blue,
+                                                                      backgroundColor:
+                                                                          kActiveCardColourOutput,
+                                                                      elevation:
+                                                                          8,
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius: new BorderRadius
+                                                                            .circular(
+                                                                            8.0),
+                                                                        side: BorderSide(
+                                                                            color:
+                                                                                Colors.blue),
+                                                                      ),
                                                                     ),
                                                                     onPressed:
                                                                         () {
@@ -316,7 +312,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                                       )
                                     : Container(),
                                 Container(
-                                    child: index >= reports?.length
+                                    child: index >= reports.length
                                         ? Container()
                                         : _listItem(settingsProvider, index,
                                             reports, context)),
@@ -435,7 +431,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                                     reports[index]?.hpMin == 0
                                         ? Container()
                                         : Text(
-                                            reports[index]?.hpMin?.toString(),
+                                            reports[index].hpMin.toString(),
                                             style: kLabelTextStyle,
                                             textScaleFactor: textScaleFactorTc,
                                           ),
@@ -448,7 +444,7 @@ class _TurboSelectionState extends State<TurboSelection> {
                                           ),
                                     Text(
                                       // ignore: null_aware_before_operator
-                                      reports[index]?.hpMax?.toString() + ' Hp',
+                                      reports[index].hpMax.toString() + ' Hp',
                                       style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,
                                     ),
@@ -481,8 +477,8 @@ class _TurboSelectionState extends State<TurboSelection> {
                                       textScaleFactor: textScaleFactorTc)
                                   : Text(
                                       // ignore: null_aware_before_operator
-                                      (reports[index]?.compressorInducer / 100)
-                                              ?.toString() +
+                                      (reports[index]?.compressorInducer / 100)!
+                                              .toString() +
                                           ' mm',
                                       style: kLabelTextStyle,
                                       textScaleFactor: textScaleFactorTc,

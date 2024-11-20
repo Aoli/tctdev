@@ -32,7 +32,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldKey.currentState.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'Conv Temperature'};
@@ -41,7 +41,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -82,7 +82,12 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
 
   // delete double petrolTurboCalc;
 
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   @override
   void initState() {
@@ -133,6 +138,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () => {},
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -299,10 +305,11 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: FlatButton(
-                          // color: Colors.blueGrey,
-                          splashColor: Color(0xFF4c8c4a),
-                          textColor: Colors.white38,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.white38,
+                            splashFactory: InkRipple.splashFactory,
+                          ),
                           child: Text(
                               AppLocalizations.of(context).translate(
                                   'convert_temperature_0060'), //'Reset',
@@ -321,6 +328,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () => {},
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -515,6 +523,7 @@ class _CelsiusToFahrenheitPageState extends State<CelsiusToFahrenheitPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () => {},
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(

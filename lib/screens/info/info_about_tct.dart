@@ -5,10 +5,8 @@ import 'package:tct/data_models/Map_iphone_models.dart';
 import 'package:tct/globals/app_localizations.dart';
 import 'package:tct/globals/global_variables.dart';
 import 'package:tct/components/turbocharger_icons_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../../components/reusable_card.dart';
 import '../../globals/constant.dart';
 import 'package:tct/globals/constants_ui.dart';
@@ -16,7 +14,8 @@ import 'package:tct/globals/constants_ui.dart';
 class AppInformationPage extends StatefulWidget {
   final bool metricUnit;
 
-  AppInformationPage({Key key, @required this.metricUnit}) : super(key: key);
+  AppInformationPage({required Key key, required this.metricUnit})
+      : super(key: key);
 
   @override
   _AppInformationPageState createState() =>
@@ -35,6 +34,7 @@ class _AppInformationPageState extends State<AppInformationPage> {
 
   Future<void> deviceInfo() async {
     PackageInfo info = await PackageInfo.fromPlatform();
+    print('App version: ${info.version}');
   }
 
   Widget get submitRatingButton {
@@ -43,8 +43,7 @@ class _AppInformationPageState extends State<AppInformationPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldCompressorKey.currentState
-                .showSnackBar(snackBarCompressor);
+            ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'About TCT'};
@@ -53,7 +52,7 @@ class _AppInformationPageState extends State<AppInformationPage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
@@ -138,6 +137,7 @@ class _AppInformationPageState extends State<AppInformationPage> {
           child: Column(
             children: <Widget>[
               ReusableCard(
+                onPress: () => {},
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   child: Column(

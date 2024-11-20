@@ -8,7 +8,7 @@ import 'package:tct/globals/constants_ui.dart';
 class TurboSelectorFeedback extends StatefulWidget {
   final String feedbackLink;
 
-  TurboSelectorFeedback({Key key, @required this.feedbackLink})
+  TurboSelectorFeedback({required Key key, required this.feedbackLink})
       : super(key: key);
 
   @override

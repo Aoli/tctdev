@@ -2,15 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-
 import 'package:tct/globals/global_variables.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
-// #docregion platform_imports
-// Import for Android features.
-import 'package:webview_flutter_android/webview_flutter_android.dart';
-// Import for iOS/macOS features.
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:tct/globals/constants_ui.dart';
 
 class TcWebSitePage extends StatefulWidget {
@@ -34,7 +28,7 @@ class _TcWebSitePageState extends State<TcWebSitePage> {
   void initState() {
     super.initState();
     if (Platform.isAndroid) {
-      WebViewPlatform.instance = SurfaceAndroidWebView();
+      WebViewPlatform.instance = SurfaceAndroidWebView() as WebViewPlatform?;
     }
   }
 

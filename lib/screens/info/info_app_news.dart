@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:tct/globals/global_variables.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:tct/globals/constants_ui.dart';
@@ -8,7 +7,8 @@ import 'package:tct/globals/constants_ui.dart';
 class TctAppNewsPage extends StatefulWidget {
   final bool metricUnit;
 
-  TctAppNewsPage({Key key, @required this.metricUnit}) : super(key: key);
+  TctAppNewsPage({required Key key, required this.metricUnit})
+      : super(key: key);
 
   @override
   _TctAppNewsPageState createState() => _TctAppNewsPageState(metricUnit);
@@ -46,7 +46,7 @@ class _TctAppNewsPageState extends State<TctAppNewsPage> {
         ),
         body: WebView(
           initialUrl: "https://www.turbochargertuning.com/app-news",
-          javascriptMode: JavascriptMode.unrestricted,
+          //  javascriptMode: JavaScriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
           },

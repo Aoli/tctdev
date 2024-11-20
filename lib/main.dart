@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart'; // Import the Material package
-import 'package:flutter/services.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
-import 'globals/app_localizations.dart';
-import 'globals/route_generator.dart';
-import 'provider/settings_provider.dart';
-import 'services/firestore_service.dart';
+import 'package:flutter/services.dart'; // Import the Services package
+import 'package:firebase_analytics/firebase_analytics.dart'; // Import the Firebase Analytics package
+import 'package:flutter_localizations/flutter_localizations.dart'; // Import the Flutter Localizations package
+import 'package:provider/provider.dart'; // Import the Provider package
+import 'globals/app_localizations.dart'; // Import the AppLocalizations class
+import 'globals/route_generator.dart'; // Import the RouteGenerator class
+import 'provider/settings_provider.dart'; // Import the Provider package
+import 'services/firestore_service.dart'; // Import the Provider package
 
 void main() {
 //  FlutterError.onError = (FlutterErrorDetails details) {

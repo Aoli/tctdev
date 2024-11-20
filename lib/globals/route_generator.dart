@@ -60,7 +60,10 @@ class RouteGenerator {
         print('metricUnit $metricUnit');
 
         return MaterialPageRoute(
-          builder: (_) => TurboSelection(routeSetting: metricUnit),
+          builder: (_) => TurboSelection(
+            key: UniqueKey(),
+            routeSetting: metricUnit,
+          ),
           settings: const RouteSettings(name: 'Turbo Register'),
         );
 
@@ -80,7 +83,10 @@ class RouteGenerator {
         print('metricUnit $metricUnit');
 
         return MaterialPageRoute(
-          builder: (_) => TurboSelectorFeedback(feedbackLink: feedBackLink),
+          builder: (_) => TurboSelectorFeedback(
+            key: UniqueKey(),
+            feedbackLink: feedBackLink,
+          ),
           settings: const RouteSettings(name: 'Turbo Reg Feedback'),
         );
 
@@ -90,7 +96,8 @@ class RouteGenerator {
         print('metricUnit $metricUnit');
 
         return MaterialPageRoute(
-          builder: (_) => TurboSelectorFeedback(feedbackLink: addTurbos),
+          builder: (_) =>
+              TurboSelectorFeedback(key: UniqueKey(), feedbackLink: addTurbos),
           settings: const RouteSettings(name: 'Turbo Reg Add'),
         );
 
@@ -113,6 +120,8 @@ class RouteGenerator {
 
         return MaterialPageRoute(
           builder: (_) => CompressorTurbinePage(
+            key: UniqueKey(),
+            settings: settings,
             metricUnit: metricUnit,
           ),
           settings: const RouteSettings(name: 'Compressor Turbine'),
@@ -219,6 +228,7 @@ class RouteGenerator {
         print(settings);
         return MaterialPageRoute(
           builder: (_) => EngineSizePage(
+            key: UniqueKey(),
             metricUnit: metricUnit,
           ),
           settings: const RouteSettings(name: 'Engine size'),
@@ -229,6 +239,7 @@ class RouteGenerator {
         print(settings);
         return MaterialPageRoute(
           builder: (_) => TorquePage(
+            key: UniqueKey(),
             metricUnit: metricUnit,
           ),
           settings: const RouteSettings(name: 'Torque'),
@@ -239,6 +250,7 @@ class RouteGenerator {
         print(settings);
         return MaterialPageRoute(
           builder: (_) => HpBasedOnTorquePage(
+            key: UniqueKey(),
             metricUnit: metricUnit,
           ),
           settings: const RouteSettings(name: 'HP Torque'),
@@ -338,6 +350,7 @@ class RouteGenerator {
         print(settings);
         return MaterialPageRoute(
           builder: (_) => AppInformationPage(
+            key: UniqueKey(),
             metricUnit: metricUnit,
           ),
           settings: const RouteSettings(name: 'App Info'),
@@ -370,6 +383,7 @@ class RouteGenerator {
         print(settings);
         return MaterialPageRoute(
           builder: (_) => TctAppNewsPage(
+            key: UniqueKey(),
             metricUnit: metricUnit,
           ),
           settings: const RouteSettings(name: 'TCT App News'),

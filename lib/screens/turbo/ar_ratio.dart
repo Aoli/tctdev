@@ -5,9 +5,7 @@ import 'package:tct/components/stepbutton_close.dart';
 import 'package:tct/data_models/MapSave_ArRatio.dart';
 import 'package:tct/globals/app_localizations.dart';
 import 'package:decimal/decimal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../globals/calculator_brain.dart';
@@ -33,12 +31,17 @@ class ArRatioPage extends StatefulWidget {
 class _ArRatioPageState extends State<ArRatioPage> {
   bool metricUnit;
 
-  String MapArResult_Ratio_Inch;
+  late String MapArResult_Ratio_Inch;
 
   _ArRatioPageState(this.metricUnit);
 
   bool snackbarEnable = true;
-  CalculatorBrain calculate = CalculatorBrain();
+  CalculatorBrain calculate = CalculatorBrain(
+    compressorInducerSize: 0.0,
+    compressorExducerSize: 0.0,
+    turbineInducerSize: 0.0,
+    turbineExducerSize: 0.0,
+  );
 
   // get saveArRatioMap => _ArRatioPageState;
 
@@ -74,8 +77,7 @@ class _ArRatioPageState extends State<ArRatioPage> {
           icon: Icon(Icons.info_outline),
           color: Colors.white,
           onPressed: () {
-            _scaffoldCompressorKey.currentState
-                .showSnackBar(snackBarCompressor);
+            ScaffoldMessenger.of(context).showSnackBar(snackBarCompressor);
 
             // parameters
             var _analyticsParameter = {'Snackbar': 'AR-ratio'};
@@ -84,7 +86,7 @@ class _ArRatioPageState extends State<ArRatioPage> {
                 AnalyticsEventType.snack_bar, _analyticsParameter);
           });
     }
-    return null;
+    return Container();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldCompressorKey =
@@ -218,6 +220,9 @@ class _ArRatioPageState extends State<ArRatioPage> {
             children: <Widget>[
               // ETA
               ReusableCard(
+                onPress: () {
+                  // Navigator.pushNamed(context, '/ar_ratio');
+                },
                 colour: kActiveCardColourOutput,
                 cardChild: Container(
                   margin: EdgeInsets.only(left: 5),
@@ -310,6 +315,9 @@ class _ArRatioPageState extends State<ArRatioPage> {
               ),
 
               ReusableCard(
+                onPress: () {
+                  // Navigator.pushNamed(context, '/ar_ratio');
+                },
                 //Compressor side Inducer *****************************
                 colour: kActiveCardColourInput,
                 cardChild: Column(
@@ -706,6 +714,9 @@ class _ArRatioPageState extends State<ArRatioPage> {
                 ),
               ),
               ReusableCard(
+                onPress: () {
+                  // Navigator.pushNamed(context, '/ar_ratio');
+                },
                 colour: kActiveCardColourInput,
                 cardChild: (Container(
                   child: Row(
@@ -848,9 +859,9 @@ class _ArRatioPageState extends State<ArRatioPage> {
         kMaxRadiusArCalculation = kMaxRadiusArCalculationMillimeter;
         stepValueRadiusArCalculation = stepValueRadiusArCalculationMillimeter;
 
-        areaArCalculationDisplay = areaArCalculation?.toStringAsFixed(2);
-        radiusArCalculationDisplay = radiusArCalculation?.toStringAsFixed(2);
-        arRatioResultDisplay = arRatioCalculation?.toStringAsFixed(2);
+        areaArCalculationDisplay = areaArCalculation.toStringAsFixed(2);
+        radiusArCalculationDisplay = radiusArCalculation.toStringAsFixed(2);
+        arRatioResultDisplay = arRatioCalculation.toStringAsFixed(2);
       } else {
         // calcArRatio(areaArCalculation,radiusArCalculation, metricUnit);
 //        arRatioCalculation = saveArRatioMap['mapArResultRatioInch'];
@@ -952,17 +963,17 @@ class _ArRatioPageState extends State<ArRatioPage> {
 //    Map saveArRatioMap = prefs.get('saveArRatioMap');
     if (metricUnit == true) {
       print('Try loading ... mm');
-      arRatioCalculation = prefs.getDouble('mapArResultRatioMm');
+      arRatioCalculation = prefs.getDouble('mapArResultRatioMm') ?? 0.0;
       print('GET arRatioCalculation $arRatioCalculation');
-      areaArCalculation = prefs.getDouble('mapArInputAreaMm');
+      areaArCalculation = prefs.getDouble('mapArInputAreaMm') ?? 0.0;
       print('GET areaArCalculation $areaArCalculation');
-      radiusArCalculation = prefs.getDouble('mapArInputRadiusMm');
+      radiusArCalculation = prefs.getDouble('mapArInputRadiusMm') ?? 0.0;
       print('GET radiusArCalculation $radiusArCalculation');
     } else {
       print('Try loading ... inch');
-      arRatioCalculation = prefs.getDouble('mapArResultRatioInch');
-      areaArCalculation = prefs.getDouble('mapArInputAreaInch');
-      radiusArCalculation = prefs.getDouble('mapArInputRadiusInch');
+      arRatioCalculation = prefs.getDouble('mapArResultRatioInch') ?? 0.0;
+      areaArCalculation = prefs.getDouble('mapArInputAreaInch') ?? 0.0;
+      radiusArCalculation = prefs.getDouble('mapArInputRadiusInch') ?? 0.0;
     }
 
 //    if (saveArRatioMap == null) {
